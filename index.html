@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="江西省前60所高校信息查询平台 - 为准大一新生提供军训、宿舍、食堂等实用信息">
+  <meta name="keywords" content="江西高校,大学排名,军训,宿舍,新生,大一,江西大学">
+  <meta name="author" content="江西高校信息站">
+  <meta name="theme-color" content="#1a73e8">
+
+  <!-- 安全策略 -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'none';
+    script-src 'self';
+    style-src 'self';
+    img-src 'self' data: https:;
+    font-src 'self';
+    connect-src 'self';
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    frame-ancestors 'none';
+  ">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()">
+
+  <title>江西高校信息查询 - 准大一新生专属</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+</head>
+<body>
+  <!-- ========== 弹窗 ========== -->
+  <dialog id="welcomeModal" aria-labelledby="modal-title" aria-describedby="modal-desc">
+    <div class="modal-content">
+      <button class="modal-close-btn" aria-label="关闭弹窗" autofocus>×</button>
+      <div class="modal-icon">🎓</div>
+      <h2 id="modal-title">欢迎来到江西高校信息站</h2>
+      <p id="modal-desc" class="modal-text">
+        想了解更多的资讯，想要交到更多的朋友<br>
+        请加入 <strong>QQ群</strong>，学长学姐在线解答！
+      </p>
+      <div class="modal-qq-group">
+        <span class="qq-icon">🐧</span>
+        <span class="qq-number" id="qqNumber">340865393</span>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-copy" id="btnCopyQQ" title="点击复制QQ群号">
+          📋 一键复制群号
+        </button>
+        <a href="tencent://groupwpa/?subcmd=all&param=7b2267726f757055696e223a3334303836353339337d"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="btn-join"
+           title="打开QQ直接加群（需安装QQ）">
+          🚀 一键加群
+        </a>
+      </div>
+      <p class="modal-tip">关闭此弹窗即可开始浏览高校信息 ↓</p>
+    </div>
+  </dialog>
+
+  <!-- ========== 头部 ========== -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-content">
+        <div class="header-brand">
+          <span class="brand-icon">🎓</span>
+          <h1 class="brand-title">江西高校信息查询</h1>
+        </div>
+        <p class="brand-subtitle">准大一新生专属 · 60所高校全掌握</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== 搜索和筛选区域 ========== -->
+  <section class="search-section">
+    <div class="container">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          id="searchInput"
+          class="search-input"
+          placeholder="输入学校名称、城市、专业..."
+          aria-label="搜索高校"
+          autocomplete="off"
+          maxlength="100"
+        >
+        <button id="clearSearch" class="search-clear" aria-label="清除搜索" style="display:none;">×</button>
+      </div>
+      <div class="filter-bar">
+        <span class="filter-label">筛选：</span>
+        <div class="filter-tags" id="cityFilters">
+          <button class="filter-tag active" data-filter="all">全部</button>
+          <button class="filter-tag" data-filter="南昌">南昌</button>
+          <button class="filter-tag" data-filter="赣州">赣州</button>
+          <button class="filter-tag" data-filter="九江">九江</button>
+          <button class="filter-tag" data-filter="景德镇">景德镇</button>
+          <button class="filter-tag" data-filter="吉安">吉安</button>
+          <button class="filter-tag" data-filter="宜春">宜春</button>
+          <button class="filter-tag" data-filter="上饶">上饶</button>
+          <button class="filter-tag" data-filter="抚州">抚州</button>
+          <button class="filter-tag" data-filter="新余">新余</button>
+          <button class="filter-tag" data-filter="萍乡">萍乡</button>
+        </div>
+      </div>
+      <div class="filter-bar">
+        <span class="filter-label">层次：</span>
+        <div class="filter-tags" id="levelFilters">
+          <button class="filter-tag active" data-filter="all">全部</button>
+          <button class="filter-tag" data-filter="211">211/双一流</button>
+          <button class="filter-tag" data-filter="省重点">省重点</button>
+          <button class="filter-tag" data-filter="省属">省属公办</button>
+          <button class="filter-tag" data-filter="独立学院">独立学院</button>
+          <button class="filter-tag" data-filter="民办">民办本科</button>
+          <button class="filter-tag" data-filter="职业本科">职业本科</button>
+          <button class="filter-tag" data-filter="公办高职">公办高职</button>
+        </div>
+      </div>
+      <div class="results-info">
+        <span id="resultCount">共 60 所高校</span>
+        <span id="searchQuery" style="display:none;"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 高校卡片列表 ========== -->
+  <main class="main-content">
+    <div class="container">
+      <div class="university-grid" id="universityGrid">
+        <!-- JS动态渲染 -->
+      </div>
+      <div class="no-results" id="noResults" style="display:none;">
+        <span class="no-results-icon">😕</span>
+        <p>没有找到匹配的高校，试试其他关键词吧</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- ========== 页脚 ========== -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">
+        数据来源：各高校官方网站、教育部阳光高考平台
+      </p>
+      <p class="footer-text">
+        信息仅供参考，具体以学校官方最新通知为准
+      </p>
+      <p class="footer-warning">
+        ⚠️ 谨防诈骗！所有信息请以学校官方渠道为准，不要轻信非官方QQ群/微信群的收费信息
+      </p>
+      <p class="footer-copy">
+        © 2026 江西高校信息站 · 为准大一新生而生
+      </p>
+    </div>
+  </footer>
+
+  <!-- ========== 回到顶部按钮 ========== -->
+  <button id="backToTop" class="back-to-top" aria-label="回到顶部" title="回到顶部">↑</button>
+
+  <!-- ========== JavaScript ========== -->
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
