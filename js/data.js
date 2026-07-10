@@ -217,7 +217,12 @@ const universities = [
     transportation: "地铁1号线瑶湖西站附近",
     genderRatio: "男:女 ≈ 3:1",
     clubs: "50+社团",
-    description: "水利电力特色鲜明，原水利部直属院校"
+    description: "水利电力特色鲜明，原水利部直属院校",
+    resources: {
+      photos: true,
+      transfer: true,
+      url: "江西水利电力大学/"
+    }
   },
   {
     id: 13,

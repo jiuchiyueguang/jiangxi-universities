@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="江西水利电力大学校园实拍照片与转专业信息汇总">
+  <meta name="theme-color" content="#1a73e8">
+  <title>江西水利电力大学 · 校园实拍 & 转专业</title>
+
+  <!-- 复用主站样式 -->
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    /* ====== 子页面专属样式（覆盖/扩展主站CSS） ====== */
+
+    /* 头部微调：子页面 header 不加 sticky，避免遮挡内容 */
+    .site-header {
+      position: relative;
+      padding: 32px 0 24px;
+    }
+
+    /* 返回链接 */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.88rem;
+      margin-bottom: 12px;
+      transition: color var(--transition);
+      font-weight: 500;
+    }
+    .back-link:hover { color: #fff; }
+
+    .page-subtitle {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin-top: 6px;
+      font-weight: 400;
+    }
+
+    /* 内容区 */
+    .resource-main {
+      flex: 1;
+      padding: 28px 0 40px;
+    }
+
+    .resource-main .container {
+      max-width: 860px;
+    }
+
+    /* 分区标题 - 复用主站配色 */
+    .section {
+      margin-bottom: 36px;
+    }
+    .section-heading {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    .section-desc strong {
+      color: var(--accent);
+    }
+
+    /* ====== 照片卡片（复用主站 .university-card 风格） ====== */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 16px;
+    }
+    .photo-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .photo-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), #4fc3f7);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+    .photo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: transparent;
+    }
+    .photo-card:hover::before { opacity: 1; }
+    .photo-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-card .photo-label {
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* ====== 学院卡片（复用主站卡片风格） ====== */
+    .college-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      transition: all 0.25s ease;
+    }
+    .college-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary-light);
+    }
+    .college-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .college-name .dept-icon {
+      color: var(--primary);
+    }
+
+    /* 文件标签 - 复用主站 .filter-tag 风格 */
+    .file-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .file-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      background: #fff;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+    .file-tag:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+    .file-tag .tag-icon { font-size: 0.9rem; }
+    .file-tag .tag-ext {
+      font-size: 0.65rem;
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 1px 6px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    /* ====== 灯箱（保留，匹配主站调性） ====== */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 75vh;
+      border-radius: 10px;
+      object-fit: contain;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+    .lightbox .lb-close {
+      position: absolute;
+      top: 20px;
+      right: 28px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: #fff;
+      font-size: 1.8rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 44px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-close:hover { background: rgba(255,255,255,0.3); }
+    .lightbox .lb-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 2.2rem;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 48px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-nav:hover { background: rgba(255,255,255,0.28); }
+    .lightbox .lb-prev { left: 20px; }
+    .lightbox .lb-next { right: 20px; }
+    .lightbox .lb-counter {
+      color: rgba(255,255,255,0.65);
+      margin-top: 14px;
+      font-size: 0.85rem;
+    }
+
+    /* ====== 响应式 ====== */
+    @media (max-width: 768px) {
+      .photo-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      .photo-card img { height: 140px; }
+      .college-card { padding: 14px 16px; }
+      .file-tags { gap: 6px; }
+      .file-tag { padding: 4px 10px; font-size: 0.75rem; }
+    }
+    @media (max-width: 400px) {
+      .photo-grid { grid-template-columns: 1fr 1fr; }
+      .photo-card img { height: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ====== 头部（复用主站 .site-header） ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="back-link">← 返回高校列表</a>
+      <div class="header-content">
+        <div class="header-brand">
+          <span class="brand-icon">🏫</span>
+          <h1 class="brand-title">江西水利电力大学</h1>
+        </div>
+        <p class="page-subtitle">校园实拍 · 转专业信息汇总</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== 灯箱 ====== -->
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" onclick="closeLightbox()" aria-label="关闭">×</button>
+    <button class="lb-nav lb-prev" onclick="prevPhoto()" aria-label="上一张">‹</button>
+    <img id="lightboxImg" src="" alt="宿舍照片大图">
+    <button class="lb-nav lb-next" onclick="nextPhoto()" aria-label="下一张">›</button>
+    <span class="lb-counter" id="imgCounter"></span>
+  </div>
+
+  <!-- ====== 主体内容 ====== -->
+  <main class="resource-main">
+    <div class="container">
+
+      <!-- 宿舍照片 -->
+      <section class="section">
+        <h2 class="section-heading">🏠 宿舍实拍</h2>
+        <p class="section-desc">瑶湖校区宿舍实拍，点击图片可放大查看</p>
+        <div class="photo-grid" id="photoGrid"></div>
+      </section>
+
+      <!-- 转专业信息 -->
+      <section class="section">
+        <h2 class="section-heading">📋 转专业信息 <span style="font-size:0.8rem;color:var(--text-muted);font-weight:400;">（11个学院）</span></h2>
+        <p class="section-desc">
+          以下为各学院官方发布的转专业实施方案、考核方案及录取公示。<br>
+          <strong>⚠️ 所有文件均来源于学校官网，仅供参考，具体以学校最新通知为准。</strong>
+        </p>
+        <div id="collegeList"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ====== 页脚（复用主站 .site-footer） ====== -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">数据来源：江西水利电力大学各学院官网</p>
+      <p class="footer-warning">⚠️ 谨防诈骗！所有信息请以学校官方渠道为准</p>
+      <p class="footer-copy">
+        <a href="../index.html" style="color:var(--primary);text-decoration:none;">江西高校信息站</a> · 为准大一新生而生
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      // ====== 照片数据 ======
+      var photos = [
+        { src: '宿舍照片/微信图片_20260710181650_396_11.jpg', label: '宿舍实拍 ①' },
+        { src: '宿舍照片/微信图片_20260710181651_397_11.jpg', label: '宿舍实拍 ②' },
+        { src: '宿舍照片/微信图片_20260710181934_398_11.jpg', label: '宿舍实拍 ③' },
+        { src: '宿舍照片/微信图片_20260710181935_399_11.jpg', label: '宿舍实拍 ④' }
+      ];
+
+      // ====== 转专业数据 ======
+      var colleges = [
+        {
+          name: '水利工程学院',
+          files: [
+            { name: '转专业工作方案', href: '转专业/水利工程学院/转专业工作方案.png', ext: '图片' },
+            { name: '录取结果汇总表', href: '转专业/水利工程学院/水利附件2：江西水利电力大学本科学生转专业录取结果汇总表.xlsx', ext: 'Excel' },
+            { name: '江西水建班人才培养方案', href: '转专业/水利工程学院/江西水建班人才培养方案.docx', ext: 'Word' }
+          ]
+        },
+        {
+          name: '电气工程学院',
+          files: [
+            { name: '转专业工作方案', href: '转专业/电气工程学院/电气工程学院2024、2025级本科学生转专业工作方案4.20.docx', ext: 'Word' },
+            { name: '电路A考试大纲', href: '转专业/电气工程学院/电路A考试大纲-转专业.pdf', ext: 'PDF' }
+          ]
+        },
+        {
+          name: '信息工程学院',
+          files: [
+            { name: '转专业工作实施方案', href: '转专业/信息工程学院/附件1：信息工程学院2024、2025级本科生转专业工作实施方案.pdf', ext: 'PDF' },
+            { name: '公示名单', href: '转专业/信息工程学院/公示名单.png', ext: '图片' }
+          ]
+        },
+        {
+          name: '机械工程学院',
+          files: [
+            { name: '转专业工作方案', href: '转专业/机械工程学院/转专业工作方案.png', ext: '图片' },
+            { name: '面试成绩汇总（公示）', href: '转专业/机械工程学院/附件：2025-2026-2本科生转专业面试成绩汇总（公示）.xlsx', ext: 'Excel' },
+            { name: '电气学院拟录取名单', href: '转专业/机械工程学院/2026年电气工程学院转专业拟录取名单.xlsx', ext: 'Excel' }
+          ]
+        },
+        {
+          name: '工商管理学院',
+          files: [
+            { name: '转专业实施方案', href: '转专业/工商管理学院/转专业实施方案.png', ext: '图片' },
+            { name: '拟录取结果', href: '转专业/工商管理学院/拟录取结果.png', ext: '图片' },
+            { name: '顺丰远航班', href: '转专业/工商管理学院/顺丰远航班.png', ext: '图片' },
+            { name: '供应链管理25级顺丰远航班拟录取名单', href: '转专业/工商管理学院/！！供应链管理专业25级顺丰远航班拟录取名单2026.6.3.xlsx', ext: 'Excel' }
+          ]
+        },
+        {
+          name: '经济贸易学院',
+          files: [
+            { name: '转专业实施方案', href: '转专业/经济贸易学院/转专业实施方案.png', ext: '图片' },
+            { name: '预录取名单', href: '转专业/经济贸易学院/预录取名单.png', ext: '图片' }
+          ]
+        },
+        {
+          name: '人文与艺术学院',
+          files: [
+            { name: '转专业实施方案', href: '转专业/人文与艺术学院/转专业实施方案.png', ext: '图片' },
+            { name: '新闻学大类转入考核方案', href: '转专业/人文与艺术学院/新闻学大类转入考核方案.png', ext: '图片' },
+            { name: '拟录取公示', href: '转专业/人文与艺术学院/拟录取公示.png', ext: '图片' }
+          ]
+        },
+        {
+          name: '外国语学院',
+          files: [
+            { name: '转专业实施方案', href: '转专业/外国语学院/转专业实施方案.png', ext: '图片' },
+            { name: '拟转入名单公示', href: '转专业/外国语学院/拟转入名单公示.png', ext: '图片' },
+            { name: '拟转出名单', href: '转专业/外国语学院/拟转出名单.png', ext: '图片' }
+          ]
+        },
+        {
+          name: '国际教育学院',
+          files: [
+            { name: '转专业结果公示', href: '转专业/国际教育学院/转专业结果公示.png', ext: '图片' },
+            { name: '资格审核结果', href: '转专业/国际教育学院/附件：国际教育学院2026年转专业资格审核结果5.13.xls', ext: 'Excel' }
+          ]
+        },
+        {
+          name: '水土保持学院',
+          files: [
+            { name: '工作方案', href: '转专业/水土保持学院/工作方案.png', ext: '图片' },
+            { name: '公示名单', href: '转专业/水土保持学院/公示名单.png', ext: '图片' }
+          ]
+        },
+        {
+          name: '瑶湖学院',
+          files: [
+            { name: '专业分流工作方案', href: '转专业/瑶湖学院/专业分流工作方案.png', ext: '图片' }
+          ]
+        }
+      ];
+
+      var iconMap = { '图片': '🖼️', 'PDF': '📄', 'Excel': '📊', 'Word': '📝' };
+
+      // ====== 渲染照片卡片 ======
+      var photoGrid = document.getElementById('photoGrid');
+      photos.forEach(function (photo, index) {
+        var card = document.createElement('div');
+        card.className = 'photo-card';
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', photo.label + '，点击放大');
+        card.addEventListener('click', function () { openLightbox(index); });
+
+        var img = document.createElement('img');
+        img.src = encodeURI(photo.src);
+        img.alt = photo.label;
+        img.loading = 'lazy';
+
+        var label = document.createElement('div');
+        label.className = 'photo-label';
+        label.textContent = photo.label;
+
+        card.appendChild(img);
+        card.appendChild(label);
+        photoGrid.appendChild(card);
+      });
+
+      // ====== 渲染学院列表 ======
+      var collegeList = document.getElementById('collegeList');
+      colleges.forEach(function (college) {
+        var card = document.createElement('div');
+        card.className = 'college-card';
+
+        var nameEl = document.createElement('div');
+        nameEl.className = 'college-name';
+        nameEl.innerHTML = '<span class="dept-icon">🏛️</span> ' + college.name;
+
+        var tags = document.createElement('div');
+        tags.className = 'file-tags';
+
+        college.files.forEach(function (file) {
+          var link = document.createElement('a');
+          link.className = 'file-tag';
+          link.href = encodeURI(file.href);
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.innerHTML = '<span class="tag-icon">' + (iconMap[file.ext] || '📎') + '</span> ' +
+                           file.name +
+                           ' <span class="tag-ext">' + file.ext + '</span>';
+          tags.appendChild(link);
+        });
+
+        card.appendChild(nameEl);
+        card.appendChild(tags);
+        collegeList.appendChild(card);
+      });
+
+      // ====== 灯箱逻辑 ======
+      var currentPhotoIndex = 0;
+      var lightbox = document.getElementById('lightbox');
+      var lightboxImg = document.getElementById('lightboxImg');
+      var imgCounter = document.getElementById('imgCounter');
+
+      function openLightbox(index) {
+        currentPhotoIndex = index;
+        lightboxImg.src = encodeURI(photos[index].src);
+        imgCounter.textContent = (index + 1) + ' / ' + photos.length;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      window.closeLightbox = function () {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+
+      window.prevPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      window.nextPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      // 键盘 & 点击背景
+      document.addEventListener('keydown', function (e) {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') prevPhoto();
+        if (e.key === 'ArrowRight') nextPhoto();
+      });
+
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+    })();
+  </script>
+
+</body>
+</html>

@@ -508,6 +508,25 @@
       linkWrap.appendChild(link);
     }
 
+    // 校园实拍 & 转专业 入口
+    if (uni.resources && uni.resources.url) {
+      var resLink = document.createElement('a');
+      resLink.href = uni.resources.url;
+      resLink.style.cssText = [
+        'display: inline-block; padding: 10px 24px; margin-top: 10px;',
+        'background: #34a853; color: #fff; text-decoration: none;',
+        'border-radius: 25px; font-weight: 600; font-size: 0.9rem;',
+        'transition: background 0.2s;'
+      ].join('');
+
+      var resLabels = [];
+      if (uni.resources.photos) resLabels.push('📷 宿舍实拍');
+      if (uni.resources.transfer) resLabels.push('📋 转专业信息');
+      resLink.textContent = resLabels.join(' & ');
+
+      linkWrap.appendChild(resLink);
+    }
+
     content.appendChild(closeBtn);
     content.appendChild(title);
     content.appendChild(meta);
