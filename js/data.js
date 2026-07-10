@@ -206,7 +206,7 @@ const universities = [
     name: "江西水利电力大学",
     level: "省属",
     city: "南昌",
-    website: "https://www.nit.edu.cn",
+    website: "https://www.juwp.edu.cn",
     logo: "",
     militaryTraining: "9月中旬，约14天",
     dormitory: "瑶湖校区，4人间为主，有空调、独卫",
