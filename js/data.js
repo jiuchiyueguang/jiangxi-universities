@@ -59,7 +59,7 @@ const universities = [
     resources: {
       photos: true,
       transfer: true,
-      url: "江西师范大学/"
+      url: "江西师范大学/index.html"
     }
   },
   {
@@ -82,7 +82,7 @@ const universities = [
     resources: {
       photos: true,
       transfer: true,
-      url: "江西理工大学/"
+      url: "江西理工大学/index.html"
     }
   },
   {
@@ -123,7 +123,7 @@ const universities = [
     resources: {
       photos: true,
       transfer: true,
-      url: "江西农业大学/"
+      url: "江西农业大学/index.html"
     }
   },
   {
@@ -236,7 +236,7 @@ const universities = [
     resources: {
       photos: true,
       transfer: true,
-      url: "江西水利电力大学/"
+      url: "江西水利电力大学/index.html"
     }
   },
   {
