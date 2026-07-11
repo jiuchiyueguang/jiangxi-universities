@@ -93,15 +93,20 @@ const universities = [
     website: "https://www.ecut.edu.cn",
     logo: "",
     militaryTraining: "9月中旬，约14天",
-    dormitory: "广兰校区（南昌）/羊城校区（抚州），4人间为主，有空调",
+    dormitory: "广兰4人间上床下桌（公共卫浴），枫林4人间（部分独卫），抚州4-6人间（玉茗独卫），均配空调，详见子页面",
     cafeteria: "各校区有多家食堂，价格适中",
-    campusArea: "约2500亩",
-    majors: "核科学与技术、地质资源、测绘科学、化学工程",
+    campusArea: "约2500亩（南昌+抚州共4校区）",
+    majors: "核工程与核技术（国家级特色）、资源勘查工程、勘查技术与工程、水文与水资源工程、环境工程",
     tuition: "4270-4940元/年",
     transportation: "南昌校区交通便利，抚州校区近火车站",
     genderRatio: "男:女 ≈ 3:2",
     clubs: "60+社团",
-    description: "中国核工业人才的摇篮，核科学与技术为特色学科"
+    description: "中国核工业第一所高等学府，四方共建，核科学+地学双核心，5个ESI前1%学科，被誉为'中国核地学人才摇篮'",
+    resources: {
+      photos: true,
+      transfer: false,
+      url: "东华理工大学/index.html"
+    }
   },
   {
     id: 6,

@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="东华理工大学校园实拍、学校定位、王牌专业、校区概况、宿舍条件、就业情况">
+  <meta name="theme-color" content="#1a73e8">
+  <title>东华理工大学 · 校园实拍 & 全方位信息</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    .site-header {
+      position: relative;
+      padding: 32px 0 24px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.88rem;
+      margin-bottom: 12px;
+      transition: color var(--transition);
+      font-weight: 500;
+    }
+    .back-link:hover { color: #fff; }
+    .page-subtitle {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin-top: 6px;
+      font-weight: 400;
+    }
+
+    .resource-main {
+      flex: 1;
+      padding: 28px 0 40px;
+    }
+    .resource-main .container {
+      max-width: 860px;
+    }
+
+    .section {
+      margin-bottom: 36px;
+    }
+    .section-heading {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    .section-desc strong {
+      color: var(--accent);
+    }
+
+    /* 照片卡片 */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 16px;
+    }
+    .photo-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .photo-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), #4fc3f7);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+    .photo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: transparent;
+    }
+    .photo-card:hover::before { opacity: 1; }
+    .photo-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-card .photo-label {
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* 高亮定位卡片 */
+    .highlight-card {
+      background: linear-gradient(135deg, var(--primary-light), #e8f5e9);
+      border: 1.5px solid var(--primary);
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+    }
+    .highlight-card p {
+      margin: 0 0 10px;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .highlight-card p:last-child { margin-bottom: 0; }
+    .highlight-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .highlight-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: #fff;
+      border: 1.5px solid var(--primary);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* 信息卡片 */
+    .info-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+      transition: all 0.25s ease;
+      line-height: 1.7;
+      font-size: 0.88rem;
+    }
+    .info-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary-light);
+    }
+    .info-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .info-card h3 .icon { color: var(--primary); }
+    .info-card ul, .info-card ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .info-card li {
+      margin-bottom: 6px;
+      color: var(--text-secondary);
+    }
+    .info-card li strong { color: var(--text); }
+
+    /* 专业标签 */
+    .major-group {
+      margin-bottom: 12px;
+    }
+    .major-group .mg-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .major-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .major-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: var(--primary-light);
+      border: 1.5px solid #c5d9f0;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .major-tag.star {
+      border-color: #f9a825;
+      background: #fffde7;
+      color: #e65100;
+      font-weight: 700;
+    }
+
+    /* 统计数字 */
+    .stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .stat-item {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+      padding: 12px 10px;
+      background: var(--primary-light);
+      border-radius: 10px;
+    }
+    .stat-item .stat-num {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .stat-item .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* 灯箱 */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 75vh;
+      border-radius: 10px;
+      object-fit: contain;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+    .lightbox .lb-close {
+      position: absolute;
+      top: 20px; right: 28px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: #fff;
+      font-size: 1.8rem;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 44px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-close:hover { background: rgba(255,255,255,0.3); }
+    .lightbox .lb-nav {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 2.2rem;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 48px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-nav:hover { background: rgba(255,255,255,0.28); }
+    .lightbox .lb-prev { left: 20px; }
+    .lightbox .lb-next { right: 20px; }
+    .lightbox .lb-counter {
+      color: rgba(255,255,255,0.65);
+      margin-top: 14px;
+      font-size: 0.85rem;
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .photo-card img { height: 140px; }
+      .info-card { padding: 14px 16px; }
+      .stat-item { min-width: 100px; padding: 10px 8px; }
+    }
+    @media (max-width: 400px) {
+      .photo-grid { grid-template-columns: 1fr 1fr; }
+      .photo-card img { height: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="back-link">← 返回高校列表</a>
+      <div class="header-content">
+        <div class="header-brand">
+          <span class="brand-icon">🏫</span>
+          <h1 class="brand-title">东华理工大学</h1>
+        </div>
+        <p class="page-subtitle">校园实拍 · 学校定位 · 王牌专业 · 校区概况 · 宿舍条件 · 就业情况</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- 灯箱 -->
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" onclick="closeLightbox()" aria-label="关闭">×</button>
+    <button class="lb-nav lb-prev" onclick="prevPhoto()" aria-label="上一张">‹</button>
+    <img id="lightboxImg" src="" alt="照片大图">
+    <button class="lb-nav lb-next" onclick="nextPhoto()" aria-label="下一张">›</button>
+    <span class="lb-counter" id="imgCounter"></span>
+  </div>
+
+  <main class="resource-main">
+    <div class="container">
+
+      <!-- 校园实拍 -->
+      <section class="section">
+        <h2 class="section-heading">📷 校园实拍</h2>
+        <p class="section-desc">东华理工大学校园实拍，点击图片可放大查看</p>
+        <div class="photo-grid" id="photoGrid"></div>
+      </section>
+
+      <!-- 学校定位 -->
+      <section class="section">
+        <h2 class="section-heading">🎯 学校定位</h2>
+        <div class="highlight-card">
+          <p>东华理工大学（原华东地质学院）创办于 <strong>1956 年</strong>，是<strong>中国核工业第一所高等学府</strong>，由江西省人民政府、国家国防科工局、自然资源部、中核集团<strong>四方共建</strong>。入选中西部高校基础能力建设工程、"111 计划"、卓越工程师教育培养计划。</p>
+          <p>学校以<strong>核科学 + 地学为双核心</strong>，"为核成立、因核成名、以核成势"，被誉为<strong>"中国核地学人才摇篮"</strong>。拥有学士—硕士—博士—<strong>博士后</strong>完整培养体系，化学、工程学、地球科学、环境与生态学、材料科学 <strong>5 个学科进入 ESI 全球前 1%</strong>。</p>
+          <div class="highlight-tags">
+            <span class="highlight-tag">四方共建</span>
+            <span class="highlight-tag">中西部基础能力工程</span>
+            <span class="highlight-tag">111 计划</span>
+            <span class="highlight-tag">本-硕-博-博士后完整体系</span>
+            <span class="highlight-tag">中国核地学人才摇篮</span>
+            <span class="highlight-tag">5个ESI前1%</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 王牌与优势专业 -->
+      <section class="section">
+        <h2 class="section-heading">⭐ 王牌与优势专业</h2>
+
+        <div class="info-card">
+          <div class="major-group">
+            <div class="mg-title">🏅 国家级特色专业（传统王牌）</div>
+            <div class="major-tags">
+              <span class="major-tag star">资源勘查工程</span>
+              <span class="major-tag star">勘查技术与工程</span>
+              <span class="major-tag star">水文与水资源工程</span>
+              <span class="major-tag star">核工程与核技术</span>
+              <span class="major-tag star">环境工程</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">📋 国家一流本科专业 · 核地类</div>
+            <div class="major-tags">
+              <span class="major-tag">核工程与核技术</span>
+              <span class="major-tag">资源勘查工程</span>
+              <span class="major-tag">勘查技术与工程</span>
+              <span class="major-tag">地球物理学</span>
+              <span class="major-tag">地球化学</span>
+              <span class="major-tag">测绘工程</span>
+              <span class="major-tag">水文与水资源工程</span>
+              <span class="major-tag">应用化学</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">📋 国家一流本科专业 · 热门工科</div>
+            <div class="major-tags">
+              <span class="major-tag">计算机科学与技术</span>
+              <span class="major-tag">软件工程</span>
+              <span class="major-tag">机械工程</span>
+              <span class="major-tag">通信工程</span>
+              <span class="major-tag">材料科学与工程</span>
+              <span class="major-tag">环境工程</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">🌍 ESI 全球前 1% 学科（5个）</div>
+            <div class="major-tags">
+              <span class="major-tag">化学</span>
+              <span class="major-tag">工程学</span>
+              <span class="major-tag">地球科学</span>
+              <span class="major-tag">环境与生态学</span>
+              <span class="major-tag">材料科学</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 校区概况 -->
+      <section class="section">
+        <h2 class="section-heading">📍 校区概况</h2>
+        <p class="section-desc">学校现有南昌、抚州两地共四个校区，广兰校区为主校区</p>
+
+        <div class="info-card">
+          <h3><span class="icon">🏫</span> 南昌广兰校区（主校区）</h3>
+          <ul>
+            <li><strong>地址：</strong>南昌市经济技术开发区广兰大道 418 号</li>
+            <li><strong>定位：</strong>校本部，大部分学院和本科生在此就读</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🏢</span> 南昌枫林校区</h3>
+          <ul>
+            <li><strong>地址：</strong>南昌市经济技术开发区枫林大道</li>
+            <li><strong>特点：</strong>生活配套便利，靠近紫荆夜市</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🏛️</span> 抚州学府校区</h3>
+          <ul>
+            <li><strong>地址：</strong>抚州市学府路 56 号</li>
+            <li><strong>特点：</strong>历史校区，部分学院在此</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🏘️</span> 抚州玉茗校区</h3>
+          <ul>
+            <li><strong>地址：</strong>抚州市</li>
+            <li><strong>特点：</strong>住宿条件较好，基本配独立卫浴和阳台</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 宿舍条件 -->
+      <section class="section">
+        <h2 class="section-heading">🏠 宿舍条件</h2>
+
+        <div class="info-card">
+          <h3><span class="icon">🛏️</span> 基本条件</h3>
+          <ul>
+            <li><strong>分配方式：</strong>按学院、专业、班级统一分配，新生一般不能自选（抚州校区部分年份支持线上抢房）</li>
+            <li><strong>床位：</strong>先到先选或按学号排列，床铺尺寸 0.9×1.9 米</li>
+            <li><strong>电器：</strong>禁用大功率电器（>800W），校园网支持联通/移动/电信宽带</li>
+            <li><strong>费用：</strong>约 1000 元/年</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🏫</span> 南昌广兰校区（主校区）</h3>
+          <ul>
+            <li>绝大多数为 <strong>4 人间，上床下桌</strong>，配空调和风扇，有独立阳台</li>
+            <li>一般<strong>无独立卫生间</strong>，每层楼设公共浴室（有隔间）、公共卫生间、开水机和洗衣机（扫码使用）</li>
+            <li>部分较新楼栋（如 7–9 栋）有电梯，热水多分时段供应（中午和傍晚）</li>
+            <li>夜间不断电但有关门禁（约 23:00）</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🏢</span> 南昌枫林校区</h3>
+          <ul>
+            <li>以 <strong>4 人间上床下桌</strong>为主，少数为 3 人间</li>
+            <li>配空调，部分楼栋带<strong>独立卫浴和阳台</strong></li>
+            <li>每层有自习室、洗衣房和开水机，生活配套比广兰更便利</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🏛️</span> 抚州学府校区</h3>
+          <ul>
+            <li>4 人间（上床下桌）和 6 人间（上下铺）混搭</li>
+            <li>部分楼栋已改造为独立卫浴，未改造的使用公共卫浴</li>
+            <li>空调全覆盖，每层有洗衣房和开水机</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🏘️</span> 抚州玉茗校区</h3>
+          <ul>
+            <li>多为 <strong>4 人间上床下桌</strong>，少数为 6 人间</li>
+            <li>基本都配<strong>独立卫浴、阳台和空调</strong>，住宿体验相对较好</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 就业情况 -->
+      <section class="section">
+        <h2 class="section-heading">💼 就业情况</h2>
+
+        <div class="stat-row" style="margin-bottom:14px;">
+          <div class="stat-item">
+            <div class="stat-num">85.5%</div>
+            <div class="stat-label">本科去向落实率</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">90%~98%</div>
+            <div class="stat-label">王牌核地测专业落实率</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">23%</div>
+            <div class="stat-label">整体升学率</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">6500</div>
+            <div class="stat-label">平均起薪（元/月）</div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">⚛️</span> 核工业 / 电力系统就业</h3>
+          <p style="margin:0;color:var(--text-secondary);">依托原核工业部背景，大量毕业生进入核工业系统：<strong>中核集团</strong>（秦山、福清、田湾等核电基地）、<strong>中广核、国家电投</strong>等。核工程与核技术等王牌专业入职央企起薪常达 <strong>7000~9000 元/月</strong>（年薪约 10~12 万），部分核电技术岗更高。</p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🗺️</span> 地勘 / 测绘单位</h3>
+          <p style="margin:0;color:var(--text-secondary);">中国地质调查局各中心、各省地质局/队、各省测绘地理信息院、中铁/中建测绘岗等，资源勘查工程、测绘工程等专业主要去向。</p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">💻</span> 其他就业方向</h3>
+          <p style="margin:0;color:var(--text-secondary);">部分进入环保局（辐射监测）、IT 企业（计算机/软件类去往珠三角）、银行、选调生/公务员等。</p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🧭</span> 就业地域流向</h3>
+          <p style="margin:0;color:var(--text-secondary);">
+            江西省内约 <strong>30%~40%</strong>（南昌、抚州）<br>
+            省外主要流向：<strong>珠三角、长三角</strong>（广东深圳/广州、上海、浙江、江苏占比较高）<br>
+            核工业系统随核电基地分布：浙江海盐、福建福清、江苏连云港等
+          </p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🎓</span> 升学深造</h3>
+          <p style="margin:0;color:var(--text-secondary);">整体国内升学率约 <strong>23%</strong>，地学类学院考研率可达 <strong>30%~50%</strong>，部分专业如地球化学超 50%。</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">数据来源：东华理工大学官方信息及在校生反馈</p>
+      <p class="footer-warning">⚠️ 谨防诈骗！所有信息请以学校官方渠道为准</p>
+      <p class="footer-copy">
+        <a href="../index.html" style="color:var(--primary);text-decoration:none;">江西高校信息站</a> · 为准大一新生而生
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var photos = [
+        { src: '微信图片_2026-07-11_210444_541.jpg', label: '校园实拍 ①' },
+        { src: '微信图片_2026-07-11_210508_556.jpg', label: '校园实拍 ②' },
+        { src: '微信图片_2026-07-11_210513_686.jpg', label: '校园实拍 ③' },
+        { src: '微信图片_2026-07-11_210518_041.jpg', label: '校园实拍 ④' }
+      ];
+
+      var photoGrid = document.getElementById('photoGrid');
+      photos.forEach(function (photo, index) {
+        var card = document.createElement('div');
+        card.className = 'photo-card';
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', photo.label + '，点击放大');
+        card.addEventListener('click', function () { openLightbox(index); });
+
+        var img = document.createElement('img');
+        img.src = encodeURI(photo.src);
+        img.alt = photo.label;
+        img.loading = 'lazy';
+
+        var label = document.createElement('div');
+        label.className = 'photo-label';
+        label.textContent = photo.label;
+
+        card.appendChild(img);
+        card.appendChild(label);
+        photoGrid.appendChild(card);
+      });
+
+      var currentPhotoIndex = 0;
+      var lightbox = document.getElementById('lightbox');
+      var lightboxImg = document.getElementById('lightboxImg');
+      var imgCounter = document.getElementById('imgCounter');
+
+      function openLightbox(index) {
+        currentPhotoIndex = index;
+        lightboxImg.src = encodeURI(photos[index].src);
+        imgCounter.textContent = (index + 1) + ' / ' + photos.length;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      window.closeLightbox = function () {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+
+      window.prevPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      window.nextPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      document.addEventListener('keydown', function (e) {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') prevPhoto();
+        if (e.key === 'ArrowRight') nextPhoto();
+      });
+
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+    })();
+  </script>
+
+</body>
+</html>
