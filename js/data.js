@@ -61,19 +61,24 @@ const universities = [
     id: 4,
     name: "江西理工大学",
     level: "省重点",
-    city: "赣州",
+    city: "赣州/南昌",
     website: "https://www.jxust.edu.cn",
     logo: "",
     militaryTraining: "9月中下旬，约14天",
-    dormitory: "红旗校区/黄金校区，4-6人间，有空调、独卫",
-    cafeteria: "两个校区各有多家食堂，赣南特色美食",
-    campusArea: "约2500亩",
-    majors: "冶金工程、矿业工程、材料科学、稀土工程",
+    dormitory: "三江校区4人间（上床下桌，独卫+空调+热水器），红旗校区4-6人间（部分无独卫，每层公共淋浴房），南昌校区4人间（独卫+空调），详见子页面",
+    cafeteria: "四个校区各有多家食堂，赣南特色美食",
+    campusArea: "四大校区共约5000亩（三江校区65万m²）",
+    majors: "冶金工程、矿业工程、材料科学、稀土工程、虚拟现实技术",
     tuition: "4270-4940元/年",
-    transportation: "赣州站公交直达，市内交通便利",
+    transportation: "赣州站公交直达，南昌校区近地铁1号线双港站",
     genderRatio: "男:女 ≈ 3:1",
     clubs: "70+社团",
-    description: "冶金和稀土领域特色鲜明，被誉为'有色冶金人才摇篮'"
+    description: "冶金和稀土领域特色鲜明，被誉为'有色冶金人才摇篮'",
+    resources: {
+      photos: true,
+      transfer: true,
+      url: "江西理工大学/"
+    }
   },
   {
     id: 5,

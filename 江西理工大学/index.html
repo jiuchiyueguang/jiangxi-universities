@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="江西理工大学校园实拍照片、校区概况、宿舍条件与转专业政策汇总">
+  <meta name="theme-color" content="#1a73e8">
+  <title>江西理工大学 · 校园实拍 & 转专业</title>
+
+  <!-- 复用主站样式 -->
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    /* ====== 子页面专属样式（覆盖/扩展主站CSS） ====== */
+
+    /* 头部微调：子页面 header 不加 sticky */
+    .site-header {
+      position: relative;
+      padding: 32px 0 24px;
+    }
+
+    /* 返回链接 */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.88rem;
+      margin-bottom: 12px;
+      transition: color var(--transition);
+      font-weight: 500;
+    }
+    .back-link:hover { color: #fff; }
+
+    .page-subtitle {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin-top: 6px;
+      font-weight: 400;
+    }
+
+    /* 内容区 */
+    .resource-main {
+      flex: 1;
+      padding: 28px 0 40px;
+    }
+
+    .resource-main .container {
+      max-width: 860px;
+    }
+
+    /* 分区标题 */
+    .section {
+      margin-bottom: 36px;
+    }
+    .section-heading {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+
+    /* ====== 照片卡片（复用主站 .university-card 风格） ====== */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 16px;
+    }
+    .photo-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .photo-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), #4fc3f7);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+    .photo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: transparent;
+    }
+    .photo-card:hover::before { opacity: 1; }
+    .photo-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-card .photo-label {
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* ====== 信息卡片 ====== */
+    .info-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      padding: 18px 20px;
+      margin-bottom: 12px;
+      transition: all 0.25s ease;
+    }
+    .info-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary-light);
+    }
+    .info-card h3 {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .info-card h3 .info-icon {
+      color: var(--primary);
+    }
+    .info-card p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin: 0 0 4px;
+    }
+    .info-card .info-highlight {
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    /* 政策列表 */
+    .policy-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .policy-list li {
+      padding: 8px 0 8px 24px;
+      position: relative;
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .policy-list li::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 14px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+    .policy-list li.good::before {
+      background: #34a853;
+    }
+    .policy-list li.bad::before {
+      background: #ea4335;
+    }
+
+    .policy-subtitle {
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--text);
+      margin: 12px 0 6px;
+      padding-left: 4px;
+    }
+
+    /* ====== 灯箱 ====== */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 75vh;
+      border-radius: 10px;
+      object-fit: contain;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+    .lightbox .lb-close {
+      position: absolute;
+      top: 20px;
+      right: 28px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: #fff;
+      font-size: 1.8rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 44px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-close:hover { background: rgba(255,255,255,0.3); }
+    .lightbox .lb-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 2.2rem;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 48px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-nav:hover { background: rgba(255,255,255,0.28); }
+    .lightbox .lb-prev { left: 20px; }
+    .lightbox .lb-next { right: 20px; }
+    .lightbox .lb-counter {
+      color: rgba(255,255,255,0.65);
+      margin-top: 14px;
+      font-size: 0.85rem;
+    }
+
+    /* ====== 响应式 ====== */
+    @media (max-width: 768px) {
+      .photo-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      .photo-card img { height: 140px; }
+      .info-card { padding: 14px 16px; }
+    }
+    @media (max-width: 400px) {
+      .photo-grid { grid-template-columns: 1fr 1fr; }
+      .photo-card img { height: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ====== 头部 ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="back-link">← 返回高校列表</a>
+      <div class="header-content">
+        <div class="header-brand">
+          <span class="brand-icon">🏫</span>
+          <h1 class="brand-title">江西理工大学</h1>
+        </div>
+        <p class="page-subtitle">校园实拍 · 校区概况 · 宿舍条件 · 转专业政策</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== 灯箱 ====== -->
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" onclick="closeLightbox()" aria-label="关闭">×</button>
+    <button class="lb-nav lb-prev" onclick="prevPhoto()" aria-label="上一张">‹</button>
+    <img id="lightboxImg" src="" alt="宿舍照片大图">
+    <button class="lb-nav lb-next" onclick="nextPhoto()" aria-label="下一张">›</button>
+    <span class="lb-counter" id="imgCounter"></span>
+  </div>
+
+  <!-- ====== 主体内容 ====== -->
+  <main class="resource-main">
+    <div class="container">
+
+      <!-- 校园实拍 -->
+      <section class="section">
+        <h2 class="section-heading">📷 校园实拍</h2>
+        <p class="section-desc">赣州三江校区、红旗校区及南昌校区实拍，点击图片可放大查看</p>
+        <div class="photo-grid" id="photoGrid"></div>
+      </section>
+
+      <!-- 四大校区概况 -->
+      <section class="section">
+        <h2 class="section-heading">🏫 四大校区概况</h2>
+        <p class="section-desc">江西理工大学拥有赣州（红旗、三江、黄金）和南昌共四个校区</p>
+
+        <div class="info-card">
+          <h3><span class="info-icon">🔴</span> 红旗校区（校本部）</h3>
+          <p>📍 赣州市章贡区红旗大道86号</p>
+          <p>校园面积较小，设施齐全。主要设施：龙飞主教楼、图书馆、文化广场、体育馆（含2个室内羽毛球场）。</p>
+          <p>入驻学院：机电工程、电气工程与自动化、信息工程、理学院（大二至大四），法学院、经济管理学院、外国语学院、建筑与设计学院、应急管理学院、稀土学院等。</p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="info-icon">🟡</span> 三江校区</h3>
+          <p>📍 赣州市南康区客家大道1958号</p>
+          <p>四大校区中规模最大，总建筑面积65万平方米。设施包括游泳馆、独立羽毛球馆、独立篮球馆等各类体育场所。</p>
+          <p>以工科院系为主：机电工程、材料科学与工程、电气工程与自动化、冶金与化学工程、资源与环境工程、信息工程、理学院等。</p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="info-icon">🟠</span> 黄金校区</h3>
+          <p>📍 赣州市章贡区客家大道156号（与赣南科技学院同址）</p>
+          <p>校园面积适中，环境优美。主要设施：逸夫楼、主教楼、稀土大楼、图书馆、食堂等。</p>
+          <p>部分资源与环境工程学院、材料冶金化学学部学生（大二至大四，以2024级之前为主）在此就读。</p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="info-icon">🟢</span> 南昌校区</h3>
+          <p>📍 南昌市昌北开发区双港东大街1180号</p>
+          <p>占地最小但地理位置最好，课余生活最丰富，建筑面积16万平方米。设能源与机械工程学院、软件工程学院、商学院等。</p>
+          <p>开设专业：财务管理、人力资源管理、虚拟现实技术、工程管理、能源与动力工程、材料成型及控制工程等14个全日制专业（方向）。</p>
+        </div>
+      </section>
+
+      <!-- 宿舍条件 -->
+      <section class="section">
+        <h2 class="section-heading">🏠 宿舍条件详解</h2>
+        <p class="section-desc">宿舍由学校根据学院统一分配，新生无法自行选择。各校区条件如下：</p>
+
+        <div class="info-card">
+          <h3><span class="info-icon">🛏️</span> 三江校区（赣州）</h3>
+          <p>✅ 全部为4人间，上床下桌布局，床铺尺寸0.9×1.9米</p>
+          <p>✅ 每间配有独立阳台、独立卫生间、空调和电热水器</p>
+          <p>✅ 每层楼设有公共洗衣房</p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="info-icon">🛏️</span> 红旗校区（赣州）</h3>
+          <p>有4人间和6人间两种，床铺分为上床下桌或上下铺两种样式。</p>
+          <p>⚠️ 部分宿舍没有独立卫浴，但每层都有公共淋浴房</p>
+          <p>✅ 所有宿舍均配备空调和电风扇</p>
+          <p>✅ 网络24小时不断，晚上11点需自行熄灯</p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="info-icon">🛏️</span> 南昌校区</h3>
+          <p>多数为4人间，少数为6人间</p>
+          <p>✅ 房间内有独立阳台和卫生间</p>
+          <p>✅ 配备空调、风扇和电热水器</p>
+        </div>
+      </section>
+
+      <!-- 转专业政策 -->
+      <section class="section">
+        <h2 class="section-heading">📋 转专业政策</h2>
+        <p class="section-desc">以下为江西理工大学转专业相关规定，仅供参考，具体以学校最新通知为准。</p>
+
+        <div class="info-card">
+          <h3><span class="info-icon">✅</span> 可申请的基本条件</h3>
+          <ul class="policy-list">
+            <li class="good"><strong>大一学生：</strong>加权成绩（平均分）达到70分及以上</li>
+            <li class="good"><strong>大二及以上学生：</strong>对目标专业有浓厚兴趣，且转入该专业更有利于个人发展</li>
+            <li class="good"><strong>身体原因：</strong>经学校指定医院检查证明，因疾病或生理缺陷不宜在原专业学习，但可在其他专业学习</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="info-icon">🚫</span> 不得申请转专业的情况</h3>
+          <ul class="policy-list">
+            <li class="bad">从外校转学到江西理工大学的学生</li>
+            <li class="bad">正在休学、保留学籍或保留入学资格期间的学生</li>
+            <li class="bad">特殊招生形式录取的学生（保送生、高水平运动员、艺术团、中外合作办学、各类专项计划如苏区专项、高校专项等）</li>
+            <li class="bad">企业定向录取的学生</li>
+            <li class="bad">在校期间受到记过或留校察看处分，且处分期尚未解除的学生</li>
+          </ul>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ====== 页脚 ====== -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">数据来源：江西理工大学官网及新生群收集整理</p>
+      <p class="footer-warning">⚠️ 谨防诈骗！所有信息请以学校官方渠道为准</p>
+      <p class="footer-copy">
+        <a href="../index.html" style="color:var(--primary);text-decoration:none;">江西高校信息站</a> · 为准大一新生而生
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      // ====== 照片数据 ======
+      var photos = [
+        { src: '微信图片_2026-07-11_172654_656.jpg', label: '校园实拍 ①' },
+        { src: '微信图片_2026-07-11_172708_476.jpg', label: '校园实拍 ②' },
+        { src: '微信图片_2026-07-11_172714_544.jpg', label: '校园实拍 ③' },
+        { src: '微信图片_2026-07-11_172719_746.jpg', label: '校园实拍 ④' },
+        { src: '微信图片_2026-07-11_172723_995.jpg', label: '校园实拍 ⑤' }
+      ];
+
+      // ====== 渲染照片卡片 ======
+      var photoGrid = document.getElementById('photoGrid');
+      photos.forEach(function (photo, index) {
+        var card = document.createElement('div');
+        card.className = 'photo-card';
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', photo.label + '，点击放大');
+        card.addEventListener('click', function () { openLightbox(index); });
+
+        var img = document.createElement('img');
+        img.src = encodeURI(photo.src);
+        img.alt = photo.label;
+        img.loading = 'lazy';
+
+        var label = document.createElement('div');
+        label.className = 'photo-label';
+        label.textContent = photo.label;
+
+        card.appendChild(img);
+        card.appendChild(label);
+        photoGrid.appendChild(card);
+      });
+
+      // ====== 灯箱逻辑 ======
+      var currentPhotoIndex = 0;
+      var lightbox = document.getElementById('lightbox');
+      var lightboxImg = document.getElementById('lightboxImg');
+      var imgCounter = document.getElementById('imgCounter');
+
+      function openLightbox(index) {
+        currentPhotoIndex = index;
+        lightboxImg.src = encodeURI(photos[index].src);
+        imgCounter.textContent = (index + 1) + ' / ' + photos.length;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      window.closeLightbox = function () {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+
+      window.prevPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      window.nextPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      // 键盘 & 点击背景
+      document.addEventListener('keydown', function (e) {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') prevPhoto();
+        if (e.key === 'ArrowRight') nextPhoto();
+      });
+
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+    })();
+  </script>
+
+</body>
+</html>
