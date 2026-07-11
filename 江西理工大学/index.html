@@ -3,23 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="江西理工大学校园实拍照片、校区概况、宿舍条件与转专业政策汇总">
+  <meta name="description" content="江西理工大学校园实拍、学校定位、王牌专业、校区概况、宿舍条件、就业情况与转专业政策汇总">
   <meta name="theme-color" content="#1a73e8">
-  <title>江西理工大学 · 校园实拍 & 转专业</title>
+  <title>江西理工大学 · 校园实拍 & 全方位指南</title>
 
   <!-- 复用主站样式 -->
   <link rel="stylesheet" href="../css/style.css">
 
   <style>
-    /* ====== 子页面专属样式（覆盖/扩展主站CSS） ====== */
+    /* ====== 子页面专属样式 ====== */
 
-    /* 头部微调：子页面 header 不加 sticky */
     .site-header {
       position: relative;
       padding: 32px 0 24px;
     }
 
-    /* 返回链接 */
     .back-link {
       display: inline-flex;
       align-items: center;
@@ -45,12 +43,10 @@
       flex: 1;
       padding: 28px 0 40px;
     }
-
     .resource-main .container {
       max-width: 860px;
     }
 
-    /* 分区标题 */
     .section {
       margin-bottom: 36px;
     }
@@ -70,7 +66,7 @@
       line-height: 1.6;
     }
 
-    /* ====== 照片卡片（复用主站 .university-card 风格） ====== */
+    /* ====== 照片卡片 ====== */
     .photo-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
@@ -139,23 +135,103 @@
       align-items: center;
       gap: 6px;
     }
-    .info-card h3 .info-icon {
-      color: var(--primary);
-    }
+    .info-card h3 .info-icon { color: var(--primary); }
     .info-card p {
       font-size: 0.85rem;
       color: var(--text-secondary);
       line-height: 1.7;
       margin: 0 0 4px;
     }
-    .info-card .info-highlight {
-      padding: 3px 10px;
-      border-radius: 4px;
-      font-weight: 600;
+
+    /* ====== 学校定位高亮卡片 ====== */
+    .highlight-card {
+      background: linear-gradient(135deg, var(--primary-light), #e3f2fd);
+      border: 1.5px solid var(--primary);
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      margin-bottom: 12px;
+    }
+    .highlight-card p {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.8;
+      margin: 0;
+    }
+    .highlight-card .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .highlight-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: #fff;
+      border: 1.5px solid var(--primary);
+      border-radius: 20px;
       font-size: 0.8rem;
+      color: var(--primary);
+      font-weight: 600;
     }
 
-    /* 政策列表 */
+    /* ====== 专业标签组 ====== */
+    .major-group {
+      margin-bottom: 10px;
+    }
+    .major-group .major-label {
+      font-weight: 700;
+      font-size: 0.82rem;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+    .major-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .major-tag {
+      display: inline-block;
+      padding: 3px 12px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+    .major-tag.star {
+      border-color: #f9a825;
+      background: #fffde7;
+      color: #e65100;
+    }
+
+    /* ====== 就业统计条 ====== */
+    .stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .stat-item {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+      padding: 12px 10px;
+      background: var(--primary-light);
+      border-radius: 10px;
+    }
+    .stat-item .stat-num {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .stat-item .stat-label {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    /* ====== 政策列表 ====== */
     .policy-list {
       list-style: none;
       padding: 0;
@@ -178,20 +254,8 @@
       border-radius: 50%;
       background: var(--primary);
     }
-    .policy-list li.good::before {
-      background: #34a853;
-    }
-    .policy-list li.bad::before {
-      background: #ea4335;
-    }
-
-    .policy-subtitle {
-      font-weight: 700;
-      font-size: 0.88rem;
-      color: var(--text);
-      margin: 12px 0 6px;
-      padding-left: 4px;
-    }
+    .policy-list li.good::before { background: #34a853; }
+    .policy-list li.bad::before { background: #ea4335; }
 
     /* ====== 灯箱 ====== */
     .lightbox {
@@ -214,14 +278,12 @@
     }
     .lightbox .lb-close {
       position: absolute;
-      top: 20px;
-      right: 28px;
+      top: 20px; right: 28px;
       background: rgba(255,255,255,0.15);
       border: none;
       color: #fff;
       font-size: 1.8rem;
-      width: 44px;
-      height: 44px;
+      width: 44px; height: 44px;
       border-radius: 50%;
       cursor: pointer;
       line-height: 44px;
@@ -237,8 +299,7 @@
       border: none;
       color: #fff;
       font-size: 2.2rem;
-      width: 48px;
-      height: 48px;
+      width: 48px; height: 48px;
       border-radius: 50%;
       cursor: pointer;
       line-height: 48px;
@@ -262,6 +323,9 @@
       }
       .photo-card img { height: 140px; }
       .info-card { padding: 14px 16px; }
+      .stat-row { gap: 8px; }
+      .stat-item { min-width: 80px; padding: 10px 6px; }
+      .stat-item .stat-num { font-size: 1rem; }
     }
     @media (max-width: 400px) {
       .photo-grid { grid-template-columns: 1fr 1fr; }
@@ -280,7 +344,7 @@
           <span class="brand-icon">🏫</span>
           <h1 class="brand-title">江西理工大学</h1>
         </div>
-        <p class="page-subtitle">校园实拍 · 校区概况 · 宿舍条件 · 转专业政策</p>
+        <p class="page-subtitle">校园实拍 · 王牌专业 · 校区概况 · 宿舍条件 · 就业去向 · 转专业政策</p>
       </div>
     </div>
   </header>
@@ -289,7 +353,7 @@
   <div class="lightbox" id="lightbox">
     <button class="lb-close" onclick="closeLightbox()" aria-label="关闭">×</button>
     <button class="lb-nav lb-prev" onclick="prevPhoto()" aria-label="上一张">‹</button>
-    <img id="lightboxImg" src="" alt="宿舍照片大图">
+    <img id="lightboxImg" src="" alt="校园照片大图">
     <button class="lb-nav lb-next" onclick="nextPhoto()" aria-label="下一张">›</button>
     <span class="lb-counter" id="imgCounter"></span>
   </div>
@@ -305,6 +369,71 @@
         <div class="photo-grid" id="photoGrid"></div>
       </section>
 
+      <!-- 学校定位 -->
+      <section class="section">
+        <h2 class="section-heading">🎯 学校定位</h2>
+        <div class="highlight-card">
+          <p>江西理工大学是<strong>江西省人民政府、工信部、教育部共建高校</strong>，原冶金工业部直属，入选中西部高校基础能力建设工程。学校以工学为主，拥有<strong>本-硕-博完整学位授予权</strong>，在有色金属（钨、铜、稀土、锂电）领域行业认可度极高。</p>
+          <div class="tag-row">
+            <span class="highlight-tag">🏅 有色冶金人才摇篮</span>
+            <span class="highlight-tag">🔬 稀土科教黄埔</span>
+            <span class="highlight-tag">🎓 本-硕-博完整授权</span>
+            <span class="highlight-tag">🏛️ 省部共建</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 王牌与优势专业 -->
+      <section class="section">
+        <h2 class="section-heading">⭐ 王牌与优势专业</h2>
+        <p class="section-desc">江西理工大学在有色金属和工科领域拥有深厚积淀，以下是各层次优势专业汇总：</p>
+
+        <div class="info-card">
+          <div class="major-group">
+            <div class="major-label">🏅 国家级特色专业（传统王牌）</div>
+            <div class="major-tags">
+              <span class="major-tag star">冶金工程</span>
+              <span class="major-tag star">采矿工程</span>
+              <span class="major-tag star">机械工程</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="major-label">🏆 江西省一流建设学科</div>
+            <div class="major-tags">
+              <span class="major-tag star">冶金工程</span>
+              <span class="major-tag star">矿业工程</span>
+              <span class="major-tag star">材料科学与工程</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="major-label">🔧 国家一流本科专业建设点（工科类）</div>
+            <div class="major-tags">
+              <span class="major-tag">冶金工程</span>
+              <span class="major-tag">采矿工程</span>
+              <span class="major-tag">矿物加工工程</span>
+              <span class="major-tag">金属材料工程</span>
+              <span class="major-tag">材料科学与工程</span>
+              <span class="major-tag">机械工程</span>
+              <span class="major-tag">机械电子工程</span>
+              <span class="major-tag">自动化</span>
+              <span class="major-tag">电气工程及其自动化</span>
+              <span class="major-tag">计算机科学与技术</span>
+              <span class="major-tag">测绘工程</span>
+              <span class="major-tag">化学工程与工艺</span>
+              <span class="major-tag">应用化学</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="major-label">📊 国家一流本科专业建设点（经管类）</div>
+            <div class="major-tags">
+              <span class="major-tag">会计学</span>
+              <span class="major-tag">工程造价</span>
+              <span class="major-tag">工商管理</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- 四大校区概况 -->
       <section class="section">
         <h2 class="section-heading">🏫 四大校区概况</h2>
@@ -318,7 +447,7 @@
         </div>
 
         <div class="info-card">
-          <h3><span class="info-icon">🟡</span> 三江校区</h3>
+          <h3><span class="info-icon">🟡</span> 三江校区（规模最大）</h3>
           <p>📍 赣州市南康区客家大道1958号</p>
           <p>四大校区中规模最大，总建筑面积65万平方米。设施包括游泳馆、独立羽毛球馆、独立篮球馆等各类体育场所。</p>
           <p>以工科院系为主：机电工程、材料科学与工程、电气工程与自动化、冶金与化学工程、资源与环境工程、信息工程、理学院等。</p>
@@ -328,13 +457,13 @@
           <h3><span class="info-icon">🟠</span> 黄金校区</h3>
           <p>📍 赣州市章贡区客家大道156号（与赣南科技学院同址）</p>
           <p>校园面积适中，环境优美。主要设施：逸夫楼、主教楼、稀土大楼、图书馆、食堂等。</p>
-          <p>部分资源与环境工程学院、材料冶金化学学部学生（大二至大四，以2024级之前为主）在此就读。</p>
+          <p>部分资源与环境工程学院、材料冶金化学学部学生（大二至大四，以2024级之前为主）在此就读，应用科学学院也在该校区。</p>
         </div>
 
         <div class="info-card">
           <h3><span class="info-icon">🟢</span> 南昌校区</h3>
           <p>📍 南昌市昌北开发区双港东大街1180号</p>
-          <p>占地最小但地理位置最好，课余生活最丰富，建筑面积16万平方米。设能源与机械工程学院、软件工程学院、商学院等。</p>
+          <p>占地最小但地理位置最好、课余生活最丰富，建筑面积16万平方米。设能源与机械工程学院、软件工程学院、商学院、基础课教学部等。</p>
           <p>开设专业：财务管理、人力资源管理、虚拟现实技术、工程管理、能源与动力工程、材料成型及控制工程等14个全日制专业（方向）。</p>
         </div>
       </section>
@@ -364,6 +493,50 @@
           <p>多数为4人间，少数为6人间</p>
           <p>✅ 房间内有独立阳台和卫生间</p>
           <p>✅ 配备空调、风扇和电热水器</p>
+        </div>
+      </section>
+
+      <!-- 就业情况 -->
+      <section class="section">
+        <h2 class="section-heading">💼 就业情况</h2>
+        <p class="section-desc">依托原冶金部背景，江西理工大学在有色、冶金、新能源、电力及工程建设领域就业优势显著。</p>
+
+        <div class="info-card">
+          <h3><span class="info-icon">📊</span> 整体数据</h3>
+          <div class="stat-row">
+            <div class="stat-item">
+              <div class="stat-num">84%~85%</div>
+              <div class="stat-label">本科去向落实率</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">90%~95%</div>
+              <div class="stat-label">王牌工科落实率</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">≈27%</div>
+              <div class="stat-label">考研升学率</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">5800~6500元</div>
+              <div class="stat-label">本科平均起薪/月</div>
+            </div>
+          </div>
+          <p style="margin-top:10px;">🏅 冶金、稀土、材料类王牌专业起薪常达<strong>7000~10000元/月</strong>，部分紧缺岗位更高。不少毕业生进入中南大学、北京科技大学、中科院等深造。</p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="info-icon">🏢</span> 主要就业单位</h3>
+          <p><strong>有色/冶金/稀土：</strong>江西铜业、中国铝业、中国稀土集团、宝武钢铁、紫金矿业、中国黄金、五矿集团</p>
+          <p><strong>新能源/材料：</strong>宁德时代、比亚迪、赣锋锂业、华友钴业、格林美</p>
+          <p><strong>电力/基建：</strong>国家电网、国家电投、中铁、中建、中冶</p>
+          <p><strong>其他：</strong>部分进入银行系统、选调生/公务员，计算机与软件类多去往珠三角电子信息企业</p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="info-icon">🗺️</span> 就业地域流向</h3>
+          <p>📍 <strong>江西省内</strong>约40%~45%（赣州、南昌、九江为主）</p>
+          <p>📍 <strong>珠三角（广东）</strong>约15%~20%，以深圳、广州居多，校友网络强，在华南制造业和IT业较受欢迎</p>
+          <p>📍 <strong>长三角（上海、浙江、江苏）</strong>约10%~15%</p>
         </div>
       </section>
 
@@ -411,7 +584,6 @@
     (function () {
       'use strict';
 
-      // ====== 照片数据 ======
       var photos = [
         { src: '微信图片_2026-07-11_172654_656.jpg', label: '校园实拍 ①' },
         { src: '微信图片_2026-07-11_172708_476.jpg', label: '校园实拍 ②' },
@@ -420,7 +592,6 @@
         { src: '微信图片_2026-07-11_172723_995.jpg', label: '校园实拍 ⑤' }
       ];
 
-      // ====== 渲染照片卡片 ======
       var photoGrid = document.getElementById('photoGrid');
       photos.forEach(function (photo, index) {
         var card = document.createElement('div');
@@ -444,7 +615,6 @@
         photoGrid.appendChild(card);
       });
 
-      // ====== 灯箱逻辑 ======
       var currentPhotoIndex = 0;
       var lightbox = document.getElementById('lightbox');
       var lightboxImg = document.getElementById('lightboxImg');
@@ -475,7 +645,6 @@
         imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
       };
 
-      // 键盘 & 点击背景
       document.addEventListener('keydown', function (e) {
         if (!lightbox.classList.contains('active')) return;
         if (e.key === 'Escape') closeLightbox();
