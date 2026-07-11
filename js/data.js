@@ -134,20 +134,25 @@ const universities = [
   {
     id: 7,
     name: "南昌航空大学",
-    level: "省重点",
+    level: "省重点 / 省部共建",
     city: "南昌",
     website: "https://www.nchu.edu.cn",
     logo: "",
     militaryTraining: "9月中旬，约14天",
-    dormitory: "前湖校区，4人间为主，有空调、独卫、热水器",
+    dormitory: "前湖校区全部4人间上床下桌，7-28栋独卫+阳台+热水，1-6栋公共卫浴，均配空调，详见子页面",
     cafeteria: "有3个主要食堂，航空航天主题餐厅有特色",
-    campusArea: "约3000亩",
-    majors: "航空宇航科学、材料科学、测控技术、飞行器设计",
+    campusArea: "约3000亩（前湖主校区）",
+    majors: "金属材料工程、测控技术与仪器、电子信息工程、材料成型及控制工程、软件工程（均为国家级特色）",
     tuition: "4270-4530元/年",
     transportation: "地铁2号线可达，前湖大道快速路旁",
     genderRatio: "男:女 ≈ 7:3",
     clubs: "80+社团，航模社团全国知名",
-    description: "航空特色鲜明，与中航工业集团合作紧密"
+    description: "新中国最早六所航空院校之一，省部共建，3个一级学科博士点，航空国防特色鲜明，35%+毕业生进入军工航空系统",
+    resources: {
+      photos: true,
+      transfer: true,
+      url: "南昌航空大学/index.html"
+    }
   },
   {
     id: 8,

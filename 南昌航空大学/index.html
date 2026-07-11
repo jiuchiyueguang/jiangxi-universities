@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="南昌航空大学校园实拍、学校定位、王牌专业、校区概况、宿舍条件、就业情况、转专业政策">
+  <meta name="theme-color" content="#1a73e8">
+  <title>南昌航空大学 · 校园实拍 & 全方位信息</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    .site-header {
+      position: relative;
+      padding: 32px 0 24px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.88rem;
+      margin-bottom: 12px;
+      transition: color var(--transition);
+      font-weight: 500;
+    }
+    .back-link:hover { color: #fff; }
+    .page-subtitle {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin-top: 6px;
+      font-weight: 400;
+    }
+
+    .resource-main {
+      flex: 1;
+      padding: 28px 0 40px;
+    }
+    .resource-main .container {
+      max-width: 860px;
+    }
+
+    .section {
+      margin-bottom: 36px;
+    }
+    .section-heading {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    .section-desc strong {
+      color: var(--accent);
+    }
+
+    /* 照片卡片 */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 16px;
+    }
+    .photo-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .photo-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), #4fc3f7);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+    .photo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: transparent;
+    }
+    .photo-card:hover::before { opacity: 1; }
+    .photo-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-card .photo-label {
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* 高亮定位卡片 */
+    .highlight-card {
+      background: linear-gradient(135deg, var(--primary-light), #e8f5e9);
+      border: 1.5px solid var(--primary);
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+    }
+    .highlight-card p {
+      margin: 0 0 10px;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .highlight-card p:last-child { margin-bottom: 0; }
+    .highlight-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .highlight-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: #fff;
+      border: 1.5px solid var(--primary);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* 信息卡片 */
+    .info-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+      transition: all 0.25s ease;
+      line-height: 1.7;
+      font-size: 0.88rem;
+    }
+    .info-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary-light);
+    }
+    .info-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .info-card h3 .icon { color: var(--primary); }
+    .info-card ul, .info-card ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .info-card li {
+      margin-bottom: 6px;
+      color: var(--text-secondary);
+    }
+    .info-card li strong { color: var(--text); }
+
+    /* 专业标签 */
+    .major-group {
+      margin-bottom: 12px;
+    }
+    .major-group .mg-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .major-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .major-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: var(--primary-light);
+      border: 1.5px solid #c5d9f0;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .major-tag.star {
+      border-color: #f9a825;
+      background: #fffde7;
+      color: #e65100;
+      font-weight: 700;
+    }
+
+    /* 统计数字 */
+    .stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .stat-item {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+      padding: 12px 10px;
+      background: var(--primary-light);
+      border-radius: 10px;
+    }
+    .stat-item .stat-num {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .stat-item .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* 灯箱 */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 75vh;
+      border-radius: 10px;
+      object-fit: contain;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+    .lightbox .lb-close {
+      position: absolute;
+      top: 20px; right: 28px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: #fff;
+      font-size: 1.8rem;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 44px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-close:hover { background: rgba(255,255,255,0.3); }
+    .lightbox .lb-nav {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 2.2rem;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 48px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-nav:hover { background: rgba(255,255,255,0.28); }
+    .lightbox .lb-prev { left: 20px; }
+    .lightbox .lb-next { right: 20px; }
+    .lightbox .lb-counter {
+      color: rgba(255,255,255,0.65);
+      margin-top: 14px;
+      font-size: 0.85rem;
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .photo-card img { height: 140px; }
+      .info-card { padding: 14px 16px; }
+      .stat-item { min-width: 100px; padding: 10px 8px; }
+    }
+    @media (max-width: 400px) {
+      .photo-grid { grid-template-columns: 1fr 1fr; }
+      .photo-card img { height: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="back-link">← 返回高校列表</a>
+      <div class="header-content">
+        <div class="header-brand">
+          <span class="brand-icon">🏫</span>
+          <h1 class="brand-title">南昌航空大学</h1>
+        </div>
+        <p class="page-subtitle">校园实拍 · 学校定位 · 王牌专业 · 校区概况 · 宿舍条件 · 就业情况 · 转专业政策</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- 灯箱 -->
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" onclick="closeLightbox()" aria-label="关闭">×</button>
+    <button class="lb-nav lb-prev" onclick="prevPhoto()" aria-label="上一张">‹</button>
+    <img id="lightboxImg" src="" alt="照片大图">
+    <button class="lb-nav lb-next" onclick="nextPhoto()" aria-label="下一张">›</button>
+    <span class="lb-counter" id="imgCounter"></span>
+  </div>
+
+  <main class="resource-main">
+    <div class="container">
+
+      <!-- 校园实拍 -->
+      <section class="section">
+        <h2 class="section-heading">📷 校园实拍</h2>
+        <p class="section-desc">南昌航空大学校园实拍，点击图片可放大查看</p>
+        <div class="photo-grid" id="photoGrid"></div>
+      </section>
+
+      <!-- 学校定位 -->
+      <section class="section">
+        <h2 class="section-heading">🎯 学校定位</h2>
+        <div class="highlight-card">
+          <p>南昌航空大学（简称"昌航"）创办于 <strong>1952 年</strong>，是<strong>新中国最早成立的六所航空院校之一</strong>，由江西省人民政府与国家国防科技工业局<strong>省部共建</strong>。入选江西省一流学科建设高校、教育部卓越工程师教育培养计划。</p>
+          <p>学校拥有<strong>学士—硕士—博士</strong>完整培养体系，3 个一级学科博士点（航空宇航科学与技术、仪器科学与技术、环境科学与工程）。航空类本科专业占比约 <strong>77%</strong>，每年约 <strong>35% 以上毕业生进入航空、航天、航发、商飞、军工及民航系统</strong>，在航空制造（热加工、无损检测）领域行业认可度极高。是<strong>省内工科强校</strong>，软科排名全国约 180 名。</p>
+          <div class="highlight-tags">
+            <span class="highlight-tag">省部共建</span>
+            <span class="highlight-tag">六所航空院校之一</span>
+            <span class="highlight-tag">本-硕-博完整体系</span>
+            <span class="highlight-tag">3个一级学科博士点</span>
+            <span class="highlight-tag">航空国防特色</span>
+            <span class="highlight-tag">卓越工程师计划</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 王牌与优势专业 -->
+      <section class="section">
+        <h2 class="section-heading">⭐ 王牌与优势专业</h2>
+
+        <div class="info-card">
+          <div class="major-group">
+            <div class="mg-title">🏅 国家级特色专业（5 个，核心王牌）</div>
+            <div class="major-tags">
+              <span class="major-tag star">金属材料工程</span>
+              <span class="major-tag star">测控技术与仪器</span>
+              <span class="major-tag star">电子信息工程</span>
+              <span class="major-tag star">材料成型及控制工程</span>
+              <span class="major-tag star">软件工程</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">✈️ 国家一流本科专业 · 航空类</div>
+            <div class="major-tags">
+              <span class="major-tag">飞行器设计与工程</span>
+              <span class="major-tag">飞行器制造工程</span>
+              <span class="major-tag">飞行器动力工程</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">🔧 国家一流本科专业 · 材料/机械类</div>
+            <div class="major-tags">
+              <span class="major-tag">金属材料工程</span>
+              <span class="major-tag">材料成型及控制工程</span>
+              <span class="major-tag">焊接技术与工程</span>
+              <span class="major-tag">机械设计制造及其自动化</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">📡 国家一流本科专业 · 仪器/电子/信息类</div>
+            <div class="major-tags">
+              <span class="major-tag">测控技术与仪器</span>
+              <span class="major-tag">电子信息工程</span>
+              <span class="major-tag">光电信息科学与工程</span>
+              <span class="major-tag">电子科学与技术</span>
+              <span class="major-tag">自动化</span>
+              <span class="major-tag">计算机科学与技术</span>
+              <span class="major-tag">软件工程</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">📋 其他国家级/省级一流专业</div>
+            <div class="major-tags">
+              <span class="major-tag">环境工程</span>
+              <span class="major-tag">应用化学</span>
+              <span class="major-tag">材料化学</span>
+              <span class="major-tag">土木工程</span>
+              <span class="major-tag">工业工程</span>
+              <span class="major-tag">英语</span>
+              <span class="major-tag">电子商务</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 校区概况 -->
+      <section class="section">
+        <h2 class="section-heading">📍 校区概况</h2>
+        <p class="section-desc">学校现有前湖校区（主校区）和上海路校区两个校区</p>
+
+        <div class="info-card">
+          <h3><span class="icon">🏫</span> 前湖校区（主校区）</h3>
+          <ul>
+            <li><strong>地址：</strong>南昌市红谷滩区前湖大道（南昌航空城附近）</li>
+            <li><strong>定位：</strong>校本部，绝大多数本科生在此就读</li>
+            <li><strong>特点：</strong>校园面积大，航空文化氛围浓厚，有飞机陈列展示</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🏢</span> 上海路校区</h3>
+          <ul>
+            <li><strong>地址：</strong>南昌市青山湖区上海路</li>
+            <li><strong>特点：</strong>少量专业/部分年级在此，位于市区，生活便利</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 宿舍条件 -->
+      <section class="section">
+        <h2 class="section-heading">🏠 宿舍条件</h2>
+
+        <div class="info-card">
+          <h3><span class="icon">🛏️</span> 基本条件</h3>
+          <ul>
+            <li><strong>分配方式：</strong>按学院、专业、班级集中安排，新生一般不能自选楼栋，床位按学号排序或先到先选</li>
+            <li><strong>床铺尺寸：</strong>约 0.9×2.0 米</li>
+            <li><strong>电器：</strong>禁用大功率电器，进出需刷脸/门禁</li>
+            <li><strong>熄灯：</strong>周日至周四 23:00 熄灯（空调不断电），周五周六延至 24:00，门禁 23:00</li>
+            <li><strong>费用：</strong>1000 元/年，少数老楼 800 元/年</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🏫</span> 前湖校区（主校区）</h3>
+          <ul>
+            <li>全部为 <strong>4 人间、上床下桌</strong>，配空调、衣柜和书桌</li>
+            <li><strong>7–28 栋：</strong>带<strong>独立卫生间 + 阳台 + 热水</strong>（刷卡使用）</li>
+            <li><strong>1–6 栋：</strong>公共卫浴（也是上床下桌）</li>
+            <li>每栋楼有自助洗衣房、直饮水机、微波炉</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🏢</span> 上海路校区</h3>
+          <ul>
+            <li>以 <strong>4 人间</strong>为主，部分为上下铺，均配<strong>空调</strong></li>
+            <li>多数有独立卫浴，少数老楼用公共卫生间和淋浴间</li>
+            <li>楼内也有洗衣房等设施</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 就业情况 -->
+      <section class="section">
+        <h2 class="section-heading">💼 就业情况</h2>
+
+        <div class="stat-row" style="margin-bottom:14px;">
+          <div class="stat-item">
+            <div class="stat-num">82.95%</div>
+            <div class="stat-label">本科去向落实率</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">95%+</div>
+            <div class="stat-label">王牌航空/材料专业就业率</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">29.6%~35%</div>
+            <div class="stat-label">整体升学率</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">6000~6500</div>
+            <div class="stat-label">本科平均起薪（元/月）</div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">✈️</span> 航空/军工央企（核心就业方向）</h3>
+          <p style="margin:0;color:var(--text-secondary);">每年 <strong>30% 以上毕业生进入国防军工单位</strong>，签约国企比例约 <strong>33%</strong>。主要单位：<strong>中航工业</strong>（洪都、昌飞、成飞、西飞等）、<strong>中国商飞</strong>（C919 项目相关单位）、<strong>中国航发</strong>（南方、黎阳等）、<strong>航天科技/科工集团</strong>。飞行器设计/制造/动力工程专业进入航空系统比例超 <strong>60%</strong>，部分达 65%~70%。</p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🔬</span> 王牌专业就业亮点</h3>
+          <ul>
+            <li><strong>测控技术与仪器（无损检测方向）：</strong>全国航空主机厂 80% 无损检测骨干出自该校，进商飞、中车、特检院比例高，部分紧缺岗年薪 <strong>15 万+</strong> 起步</li>
+            <li><strong>金属材料工程 / 焊接技术与工程（热加工）：</strong>航空材料方向，进入航空主机厂热加工及材料研究院所比例高</li>
+            <li><strong>航空类（飞制/飞设/无损检测等）：</strong>起薪常达 <strong>8000~10000 元/月</strong>（年薪 10~12 万+）</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">💻</span> 其他就业方向</h3>
+          <p style="margin:0;color:var(--text-secondary);">中车、中广核、国电投、大疆创新、海康威视、珠三角/长三角电子信息与 IT 企业，部分考公考编进入民航系统或质监部门。计科/软件/电子信息专业除 IT 企业外，也有相当比例进入航空电子、军工信息化单位。</p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🧭</span> 就业地域流向</h3>
+          <p style="margin:0;color:var(--text-secondary);">
+            江西省内约 <strong>35.94%</strong>（南昌为主，服务于本地航空城）<br>
+            东部沿海约 <strong>35.55%</strong>（广东深圳、上海、江苏、浙江最多）<br>
+            京津沪约 <strong>8.3%</strong>，其余分布于中西部航空产业基地（西安、成都、沈阳等）
+          </p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🎓</span> 升学深造</h3>
+          <p style="margin:0;color:var(--text-secondary);">整体升学率约 <strong>29.6%~35%</strong>，保研率约 <strong>4.7%~5.8%</strong>，材料、飞设等王牌专业保研率更高，多升入<strong>北航、西工大、中南大学</strong>等名校。</p>
+        </div>
+      </section>
+
+      <!-- 转专业政策 -->
+      <section class="section">
+        <h2 class="section-heading">🔄 转专业政策</h2>
+
+        <div class="info-card">
+          <h3><span class="icon">⏰</span> 申请时间与对象</h3>
+          <ul>
+            <li>一般在大一<strong>第二学期（4 月中旬前后）</strong>申请</li>
+            <li>面向大一在读普通本科生，大二及以上不再受理</li>
+            <li>在校期间<strong>只能转一次</strong></li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">📋</span> 基本申请条件</h3>
+          <ul>
+            <li>第一学期所有课程<strong>无不及格、无补考</strong>记录</li>
+            <li>在校期间无违纪处分</li>
+            <li>新高考省份选考科目须符合转入专业要求（理工科多要求<strong>物理 + 化学</strong>）</li>
+            <li>非新高考省份：理工类限转理工类，文史类限转文史类，<strong>不可跨类</strong></li>
+            <li>中外合作办学专业只能在项目内互转，不可跨出转入普通专业</li>
+            <li>艺术/体育类、定向/委培生、已转过专业的不可再申请</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">📊</span> 成绩要求与转入方式</h3>
+          <ul>
+            <li>大多数理工科学院要求第一学期专业排名在<strong>前 50%（含）以内</strong>可平级转入</li>
+            <li>排名在 50% 以后通常只能申请<strong>降级转入</strong>（跟下一级重读大一）</li>
+            <li>接收名额一般为该专业当年一年级人数的 <strong>5%~20%</strong></li>
+            <li>超额时按"学业成绩（占 50%~60%）+ 笔试/面试"择优录取</li>
+            <li>工科类常笔试《高等数学》或《大学物理》，民航学院可能考《航空航天概论》</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">⭐</span> 热门专业额外要求</h3>
+          <p style="margin:0;color:var(--text-secondary);">飞行器设计、飞行器制造、计算机科学、软件工程等热门专业，通常额外要求第一学期高数、英语成绩达标且无补考。若想转入航空类王牌专业，除排名要求外还要注意高考选科须为<strong>物理 + 化学</strong>。转出学院基本不设限制，主要看<strong>转入学院的考核和名额</strong>。</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">数据来源：南昌航空大学官方信息及在校生反馈</p>
+      <p class="footer-warning">⚠️ 谨防诈骗！所有信息请以学校官方渠道为准</p>
+      <p class="footer-copy">
+        <a href="../index.html" style="color:var(--primary);text-decoration:none;">江西高校信息站</a> · 为准大一新生而生
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var photos = [
+        { src: '微信图片_2026-07-11_213119_019.jpg', label: '校园实拍 ①' },
+        { src: '微信图片_2026-07-11_213134_324.jpg', label: '校园实拍 ②' },
+        { src: '微信图片_2026-07-11_213138_705.jpg', label: '校园实拍 ③' },
+        { src: '微信图片_2026-07-11_213142_522.jpg', label: '校园实拍 ④' },
+        { src: '微信图片_2026-07-11_213146_978.jpg', label: '校园实拍 ⑤' }
+      ];
+
+      var photoGrid = document.getElementById('photoGrid');
+      photos.forEach(function (photo, index) {
+        var card = document.createElement('div');
+        card.className = 'photo-card';
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', photo.label + '，点击放大');
+        card.addEventListener('click', function () { openLightbox(index); });
+
+        var img = document.createElement('img');
+        img.src = encodeURI(photo.src);
+        img.alt = photo.label;
+        img.loading = 'lazy';
+
+        var label = document.createElement('div');
+        label.className = 'photo-label';
+        label.textContent = photo.label;
+
+        card.appendChild(img);
+        card.appendChild(label);
+        photoGrid.appendChild(card);
+      });
+
+      var currentPhotoIndex = 0;
+      var lightbox = document.getElementById('lightbox');
+      var lightboxImg = document.getElementById('lightboxImg');
+      var imgCounter = document.getElementById('imgCounter');
+
+      function openLightbox(index) {
+        currentPhotoIndex = index;
+        lightboxImg.src = encodeURI(photos[index].src);
+        imgCounter.textContent = (index + 1) + ' / ' + photos.length;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      window.closeLightbox = function () {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+
+      window.prevPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      window.nextPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      document.addEventListener('keydown', function (e) {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') prevPhoto();
+        if (e.key === 'ArrowRight') nextPhoto();
+      });
+
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+    })();
+  </script>
+
+</body>
+</html>
