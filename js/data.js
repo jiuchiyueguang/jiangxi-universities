@@ -111,15 +111,20 @@ const universities = [
     website: "https://www.jxau.edu.cn",
     logo: "",
     militaryTraining: "9月中旬，约14天",
-    dormitory: "经开区校区，4-6人间，有空调、部分独卫，住宿环境逐步改善",
+    dormitory: "绝大多数4人间，上床下桌，配空调+衣柜，部分有独卫阳台，每栋有公共洗衣房烘干机，详见子页面",
     cafeteria: "有3个主要食堂，另有小吃街",
-    campusArea: "约16000亩（含实验田）",
-    majors: "农学、园艺、动物科学、食品科学、生物工程",
+    campusArea: "约16000亩（含实验田，全省最大）",
+    majors: "农学、林学、动物科学、农林经济管理、生物工程（均为国家级特色）",
     tuition: "4090-4530元/年",
     transportation: "地铁1号线双港站附近，公交240路等",
     genderRatio: "男:女 ≈ 1:1",
     clubs: "70+社团",
-    description: "校园面积全省最大，农业和生物学科为传统优势"
+    description: "省部共建，农业农村部+国家林草局共建，百年老校（1905年），校园面积全省最大，畜牧学冲击双一流，ESI前1%学科6个",
+    resources: {
+      photos: true,
+      transfer: true,
+      url: "江西农业大学/"
+    }
   },
   {
     id: 7,
