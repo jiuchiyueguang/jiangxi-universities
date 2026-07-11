@@ -47,7 +47,7 @@ const universities = [
     website: "https://www.jxnu.edu.cn",
     logo: "",
     militaryTraining: "9月中旬，约14天",
-    dormitory: "瑶湖校区，4人间为主，有空调、独卫、热水，住宿条件良好",
+    dormitory: "瑶湖校区4人间，上床下桌，独卫+空调+热水器，每层有洗衣机烘干机，详见子页面",
     cafeteria: "瑶湖校区有5个食堂，另有美食街",
     campusArea: "约3000亩（瑶湖校区）",
     majors: "化学、教育学、心理学、汉语言文学、马克思主义理论",
@@ -55,7 +55,12 @@ const universities = [
     transportation: "地铁1号线瑶湖西站，公交220路等",
     genderRatio: "男:女 ≈ 1:2",
     clubs: "100+社团，师范类特色社团丰富",
-    description: "江西省最好的师范类院校，化学和马克思主义理论为优势学科"
+    description: "江西省最好的师范类院校，化学和马克思主义理论为优势学科",
+    resources: {
+      photos: true,
+      transfer: true,
+      url: "江西师范大学/"
+    }
   },
   {
     id: 4,

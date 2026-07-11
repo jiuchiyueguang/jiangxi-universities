@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="江西师范大学宿舍实拍、宿舍条件详解与转专业政策汇总">
+  <meta name="theme-color" content="#1a73e8">
+  <title>江西师范大学 · 宿舍实拍 & 转专业</title>
+
+  <!-- 复用主站样式 -->
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    /* ====== 子页面专属样式（覆盖/扩展主站CSS） ====== */
+
+    /* 头部微调：子页面 header 不加 sticky，避免遮挡内容 */
+    .site-header {
+      position: relative;
+      padding: 32px 0 24px;
+    }
+
+    /* 返回链接 */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.88rem;
+      margin-bottom: 12px;
+      transition: color var(--transition);
+      font-weight: 500;
+    }
+    .back-link:hover { color: #fff; }
+
+    .page-subtitle {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin-top: 6px;
+      font-weight: 400;
+    }
+
+    /* 内容区 */
+    .resource-main {
+      flex: 1;
+      padding: 28px 0 40px;
+    }
+
+    .resource-main .container {
+      max-width: 860px;
+    }
+
+    /* 分区标题 - 复用主站配色 */
+    .section {
+      margin-bottom: 36px;
+    }
+    .section-heading {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    .section-desc strong {
+      color: var(--accent);
+    }
+
+    /* ====== 照片卡片（复用主站 .university-card 风格） ====== */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 16px;
+    }
+    .photo-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .photo-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), #4fc3f7);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+    .photo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: transparent;
+    }
+    .photo-card:hover::before { opacity: 1; }
+    .photo-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-card .photo-label {
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* ====== 信息卡片 ====== */
+    .info-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+      transition: all 0.25s ease;
+      line-height: 1.7;
+      font-size: 0.88rem;
+    }
+    .info-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary-light);
+    }
+    .info-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .info-card h3 .icon {
+      color: var(--primary);
+    }
+    .info-card ul, .info-card ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .info-card li {
+      margin-bottom: 6px;
+      color: var(--text-secondary);
+    }
+    .info-card li strong {
+      color: var(--text);
+    }
+
+    /* 宿舍亮点标签 */
+    .dorm-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .dorm-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: var(--primary-light);
+      border: 1.5px solid var(--primary);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .dorm-tag.good {
+      border-color: #34a853;
+      background: #e6f4ea;
+      color: #1e7e34;
+    }
+    .dorm-tag.warn {
+      border-color: #f9a825;
+      background: #fffde7;
+      color: #e65100;
+    }
+
+    /* 政策列表（绿色✅ / 红色🚫） */
+    .policy-list {
+      list-style: none;
+      padding-left: 0;
+    }
+    .policy-list li {
+      padding: 6px 0;
+      position: relative;
+      padding-left: 24px;
+    }
+    .policy-list li::before {
+      position: absolute;
+      left: 0;
+      font-size: 0.85rem;
+    }
+    .policy-list li.allow::before {
+      content: '✅';
+    }
+    .policy-list li.deny::before {
+      content: '🚫';
+      color: #d93025;
+    }
+
+    /* ====== 灯箱（保留，匹配主站调性） ====== */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 75vh;
+      border-radius: 10px;
+      object-fit: contain;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+    .lightbox .lb-close {
+      position: absolute;
+      top: 20px;
+      right: 28px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: #fff;
+      font-size: 1.8rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 44px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-close:hover { background: rgba(255,255,255,0.3); }
+    .lightbox .lb-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 2.2rem;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 48px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-nav:hover { background: rgba(255,255,255,0.28); }
+    .lightbox .lb-prev { left: 20px; }
+    .lightbox .lb-next { right: 20px; }
+    .lightbox .lb-counter {
+      color: rgba(255,255,255,0.65);
+      margin-top: 14px;
+      font-size: 0.85rem;
+    }
+
+    /* ====== 响应式 ====== */
+    @media (max-width: 768px) {
+      .photo-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      .photo-card img { height: 140px; }
+      .info-card { padding: 14px 16px; }
+    }
+    @media (max-width: 400px) {
+      .photo-grid { grid-template-columns: 1fr 1fr; }
+      .photo-card img { height: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ====== 头部（复用主站 .site-header） ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="back-link">← 返回高校列表</a>
+      <div class="header-content">
+        <div class="header-brand">
+          <span class="brand-icon">🏫</span>
+          <h1 class="brand-title">江西师范大学</h1>
+        </div>
+        <p class="page-subtitle">宿舍实拍 · 宿舍条件详解 · 转专业政策</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== 灯箱 ====== -->
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" onclick="closeLightbox()" aria-label="关闭">×</button>
+    <button class="lb-nav lb-prev" onclick="prevPhoto()" aria-label="上一张">‹</button>
+    <img id="lightboxImg" src="" alt="宿舍照片大图">
+    <button class="lb-nav lb-next" onclick="nextPhoto()" aria-label="下一张">›</button>
+    <span class="lb-counter" id="imgCounter"></span>
+  </div>
+
+  <!-- ====== 主体内容 ====== -->
+  <main class="resource-main">
+    <div class="container">
+
+      <!-- 宿舍实拍 -->
+      <section class="section">
+        <h2 class="section-heading">🏠 宿舍实拍</h2>
+        <p class="section-desc">瑶湖校区宿舍实拍，点击图片可放大查看</p>
+        <div class="photo-grid" id="photoGrid"></div>
+      </section>
+
+      <!-- 宿舍条件详解 -->
+      <section class="section">
+        <h2 class="section-heading">📋 宿舍条件详解</h2>
+        <p class="section-desc">
+          瑶湖校区现有 <strong>19 栋学生公寓</strong>，均为 <strong>4 人间、上床下桌</strong>布局，生均面积约 8.5m²
+        </p>
+
+        <div class="dorm-highlights">
+          <span class="dorm-tag good">4人间</span>
+          <span class="dorm-tag good">上床下桌</span>
+          <span class="dorm-tag good">独立卫浴</span>
+          <span class="dorm-tag good">空调+热水</span>
+          <span class="dorm-tag good">洗衣机+烘干机</span>
+          <span class="dorm-tag warn">个别楼栋无独卫</span>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🛏️</span> 寝室配置</h3>
+          <ul>
+            <li><strong>分配方式：</strong>各学院方式不同，由辅导员抽签决定楼栋；床位一般按学号分配，开学前在班级群公布。床位排序：进门左手边开始，顺时针为一、二、三、四床</li>
+            <li><strong>标准配置：</strong>电风扇、网络接口、钢架床（约 185×85cm，有缝隙，建议床垫买 190×90cm）、衣柜、书桌</li>
+            <li><strong>卫浴条件：</strong>每间寝室设有独立卫生间 + 空气能淋浴系统（第5栋、第6栋除外，为公共卫浴）。第16栋研究生楼为独立热水器</li>
+            <li><strong>高层公寓：</strong>第17、18、19栋为高楼层电梯公寓</li>
+            <li><strong>公共设施：</strong>每层楼设有 2 套公共洗漱间和卫生间，安装直热式开水机、洗衣机和烘干机</li>
+            <li><strong>特殊情况：</strong>全校只有个别老旧宿舍楼栋没有独立卫浴，每一届随机分配</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">💡</span> 总结</h3>
+          <p style="margin:0;color:var(--text-secondary);">整体来看基本都是四人寝，绝大多数包含独立卫浴。瑶湖校区住宿条件在省内高校中属于较好水平。</p>
+        </div>
+      </section>
+
+      <!-- 转专业政策 -->
+      <section class="section">
+        <h2 class="section-heading">📝 转专业政策</h2>
+        <p class="section-desc">
+          以下政策来源于学校官方文件，<strong>仅供参考，具体以学校最新通知为准</strong>
+        </p>
+
+        <div class="info-card">
+          <h3><span class="icon">👤</span> 适用对象</h3>
+          <p style="margin:0;color:var(--text-secondary);">在校普通全日制本科学生（涉外办学、各类单独招生学生除外）</p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🚫</span> 不得申请转专业的情况</h3>
+          <ul class="policy-list">
+            <li class="deny">招生录取时确定为定向生或委托培养</li>
+            <li class="deny">招生录取时有特殊要求或以特殊形式录取（如涉外办学、各类单独招生等）</li>
+            <li class="deny">已修公共必修课程中有 2 门及以上不及格</li>
+            <li class="deny">在校学习期间受到记过及以上纪律处分</li>
+            <li class="deny">经转学进入本校学习，或已有 1 次转专业经历</li>
+            <li class="deny">上级主管部门相关文件规定不予转专业的其他情况</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">⚠️</span> 特殊限制</h3>
+          <ul class="policy-list">
+            <li class="allow">艺术类及体育类学生只能在本专业类内部转专业，且要求高考科目相同</li>
+            <li class="allow">日语专业（非中外合办）一般可以正常转其他专业</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">📊</span> 竞争情况</h3>
+          <p style="margin:0;color:var(--text-secondary);">学校整体转专业成功率较高，但<strong>汉语言、法学</strong>这类热门专业竞争会相对激烈。</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ====== 页脚（复用主站 .site-footer） ====== -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">数据来源：江西师范大学官方信息及在校生反馈</p>
+      <p class="footer-warning">⚠️ 谨防诈骗！所有信息请以学校官方渠道为准</p>
+      <p class="footer-copy">
+        <a href="../index.html" style="color:var(--primary);text-decoration:none;">江西高校信息站</a> · 为准大一新生而生
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      // ====== 照片数据 ======
+      var photos = [
+        { src: '微信图片_2026-07-11_175721_430.jpg', label: '宿舍实拍 ①' },
+        { src: '微信图片_2026-07-11_175730_482.jpg', label: '宿舍实拍 ②' }
+      ];
+
+      // ====== 渲染照片卡片 ======
+      var photoGrid = document.getElementById('photoGrid');
+      photos.forEach(function (photo, index) {
+        var card = document.createElement('div');
+        card.className = 'photo-card';
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', photo.label + '，点击放大');
+        card.addEventListener('click', function () { openLightbox(index); });
+
+        var img = document.createElement('img');
+        img.src = encodeURI(photo.src);
+        img.alt = photo.label;
+        img.loading = 'lazy';
+
+        var label = document.createElement('div');
+        label.className = 'photo-label';
+        label.textContent = photo.label;
+
+        card.appendChild(img);
+        card.appendChild(label);
+        photoGrid.appendChild(card);
+      });
+
+      // ====== 灯箱逻辑 ======
+      var currentPhotoIndex = 0;
+      var lightbox = document.getElementById('lightbox');
+      var lightboxImg = document.getElementById('lightboxImg');
+      var imgCounter = document.getElementById('imgCounter');
+
+      function openLightbox(index) {
+        currentPhotoIndex = index;
+        lightboxImg.src = encodeURI(photos[index].src);
+        imgCounter.textContent = (index + 1) + ' / ' + photos.length;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      window.closeLightbox = function () {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+
+      window.prevPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      window.nextPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      // 键盘 & 点击背景
+      document.addEventListener('keydown', function (e) {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') prevPhoto();
+        if (e.key === 'ArrowRight') nextPhoto();
+      });
+
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+    })();
+  </script>
+
+</body>
+</html>
