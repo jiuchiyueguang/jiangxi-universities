@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="华东交通大学校园实拍、学校定位、王牌专业、校区概况、宿舍条件、就业情况、转专业政策">
+  <meta name="theme-color" content="#e65100">
+  <title>华东交通大学 · 校园实拍 & 全方位信息</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    .site-header {
+      position: relative;
+      padding: 32px 0 24px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.88rem;
+      margin-bottom: 12px;
+      transition: color var(--transition);
+      font-weight: 500;
+    }
+    .back-link:hover { color: #fff; }
+    .page-subtitle {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin-top: 6px;
+      font-weight: 400;
+    }
+
+    .resource-main {
+      flex: 1;
+      padding: 28px 0 40px;
+    }
+    .resource-main .container {
+      max-width: 860px;
+    }
+
+    .section {
+      margin-bottom: 36px;
+    }
+    .section-heading {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    .section-desc strong {
+      color: var(--accent);
+    }
+
+    /* 照片卡片 */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 16px;
+    }
+    .photo-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .photo-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #e65100, #ff9800);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+    .photo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: transparent;
+    }
+    .photo-card:hover::before { opacity: 1; }
+    .photo-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-card .photo-label {
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* 高亮定位卡片 */
+    .highlight-card {
+      background: linear-gradient(135deg, #fff3e0, #fce4ec);
+      border: 1.5px solid #e65100;
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+    }
+    .highlight-card p {
+      margin: 0 0 10px;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .highlight-card p:last-child { margin-bottom: 0; }
+    .highlight-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .highlight-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: #fff;
+      border: 1.5px solid #e65100;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #e65100;
+      font-weight: 600;
+    }
+
+    /* 信息卡片 */
+    .info-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+      transition: all 0.25s ease;
+      line-height: 1.7;
+      font-size: 0.88rem;
+    }
+    .info-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: #ffcc80;
+    }
+    .info-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .info-card h3 .icon { color: #e65100; }
+    .info-card ul, .info-card ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .info-card li {
+      margin-bottom: 6px;
+      color: var(--text-secondary);
+    }
+    .info-card li strong { color: var(--text); }
+
+    /* 专业标签 */
+    .major-group {
+      margin-bottom: 12px;
+    }
+    .major-group .mg-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .major-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .major-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: #fff3e0;
+      border: 1.5px solid #ffcc80;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .major-tag.star {
+      border-color: #f9a825;
+      background: #fffde7;
+      color: #e65100;
+      font-weight: 700;
+    }
+
+    /* 统计数字 */
+    .stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .stat-item {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+      padding: 12px 10px;
+      background: #fff3e0;
+      border-radius: 10px;
+    }
+    .stat-item .stat-num {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #e65100;
+    }
+    .stat-item .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* 灯箱 */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 75vh;
+      border-radius: 10px;
+      object-fit: contain;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+    .lightbox .lb-close {
+      position: absolute;
+      top: 20px; right: 28px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: #fff;
+      font-size: 1.8rem;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 44px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-close:hover { background: rgba(255,255,255,0.3); }
+    .lightbox .lb-nav {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 2.2rem;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 48px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-nav:hover { background: rgba(255,255,255,0.28); }
+    .lightbox .lb-prev { left: 20px; }
+    .lightbox .lb-next { right: 20px; }
+    .lightbox .lb-counter {
+      color: rgba(255,255,255,0.65);
+      margin-top: 14px;
+      font-size: 0.85rem;
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .photo-card img { height: 140px; }
+      .info-card { padding: 14px 16px; }
+      .stat-item { min-width: 100px; padding: 10px 8px; }
+    }
+    @media (max-width: 400px) {
+      .photo-grid { grid-template-columns: 1fr 1fr; }
+      .photo-card img { height: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="back-link">← 返回高校列表</a>
+      <div class="header-content">
+        <div class="header-brand">
+          <span class="brand-icon">🏫</span>
+          <h1 class="brand-title">华东交通大学</h1>
+        </div>
+        <p class="page-subtitle">校园实拍 · 学校定位 · 王牌专业 · 宿舍条件 · 就业情况 · 转专业政策</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- 灯箱 -->
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" onclick="closeLightbox()" aria-label="关闭">×</button>
+    <button class="lb-nav lb-prev" onclick="prevPhoto()" aria-label="上一张">‹</button>
+    <img id="lightboxImg" src="" alt="照片大图">
+    <button class="lb-nav lb-next" onclick="nextPhoto()" aria-label="下一张">›</button>
+    <span class="lb-counter" id="imgCounter"></span>
+  </div>
+
+  <main class="resource-main">
+    <div class="container">
+
+      <!-- 校园实拍 -->
+      <section class="section">
+        <h2 class="section-heading">📷 校园实拍</h2>
+        <p class="section-desc">华东交通大学校园实拍，点击图片可放大查看</p>
+        <div class="photo-grid" id="photoGrid"></div>
+      </section>
+
+      <!-- 学校定位 -->
+      <section class="section">
+        <h2 class="section-heading">🎯 学校定位</h2>
+        <div class="highlight-card">
+          <p>华东交通大学（简称"华东交大"）位于<strong>南昌</strong>，1971 年由原<strong>上海铁道学院迁赣组建</strong>，原隶属铁道部。现为<strong>国铁集团、国家铁路局与江西省人民政府"双共建"</strong>高校，江西省重点建设高校、中西部高校基础能力建设工程高校，具有<strong>学士—硕士—博士</strong>完整培养体系。</p>
+          <p>学校以<strong>"交通特色、轨道核心"</strong>为办学定位，在轨道交通、铁道工程、电气化铁路、载运工具等领域行业认可度高，每年大量毕业生进入各铁路局、地铁公司及中铁建工系统，是<strong>江西省工科强校</strong>之一。</p>
+          <div class="highlight-tags">
+            <span class="highlight-tag">国铁集团+国家铁路局双共建</span>
+            <span class="highlight-tag">原铁道部直属</span>
+            <span class="highlight-tag">本-硕-博完整体系</span>
+            <span class="highlight-tag">交通特色 轨道核心</span>
+            <span class="highlight-tag">中西部基础能力工程</span>
+            <span class="highlight-tag">40%+进国企</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 王牌与优势专业 -->
+      <section class="section">
+        <h2 class="section-heading">⭐ 王牌与优势专业</h2>
+
+        <div class="info-card">
+          <div class="major-group">
+            <div class="mg-title">🏅 国家级特色专业（4 个，核心王牌）</div>
+            <div class="major-tags">
+              <span class="major-tag star">土木工程（含铁道工程方向）</span>
+              <span class="major-tag star">电气工程及其自动化（铁道电气化）</span>
+              <span class="major-tag star">给排水科学与工程</span>
+              <span class="major-tag star">自动化</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">🚄 国家一流本科专业 · 轨道/交通类</div>
+            <div class="major-tags">
+              <span class="major-tag">交通运输</span>
+              <span class="major-tag">铁道工程</span>
+              <span class="major-tag">轨道交通信号与控制</span>
+              <span class="major-tag">交通工程</span>
+              <span class="major-tag">车辆工程（含铁道车辆/动车组）</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">⚡ 国家一流本科专业 · 电气/控制类</div>
+            <div class="major-tags">
+              <span class="major-tag">电气工程及其自动化</span>
+              <span class="major-tag">自动化</span>
+              <span class="major-tag">建筑电气与智能化</span>
+              <span class="major-tag">通信工程</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">🔧 国家一流本科专业 · 土木/机械类</div>
+            <div class="major-tags">
+              <span class="major-tag">土木工程</span>
+              <span class="major-tag">给排水科学与工程</span>
+              <span class="major-tag">机械设计制造及其自动化</span>
+              <span class="major-tag">材料成型及控制工程</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">💻 国家一流本科专业 · 信息/经管类</div>
+            <div class="major-tags">
+              <span class="major-tag">计算机科学与技术</span>
+              <span class="major-tag">软件工程</span>
+              <span class="major-tag">会计学</span>
+              <span class="major-tag">人力资源管理</span>
+              <span class="major-tag">工程管理</span>
+              <span class="major-tag">物流管理</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">🏆 省一流学科 / 强势方向（有博士点）</div>
+            <div class="major-tags">
+              <span class="major-tag star">交通运输工程（省高峰优势学科）</span>
+              <span class="major-tag star">控制科学与工程</span>
+              <span class="major-tag star">土木工程</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 宿舍条件 -->
+      <section class="section">
+        <h2 class="section-heading">🏠 宿舍条件</h2>
+        <p class="section-desc">本科生主要在<strong>双港校区</strong>（南昌经开区双港东大街 808 号）就读</p>
+
+        <div class="info-card">
+          <h3><span class="icon">🛏️</span> 基本条件</h3>
+          <ul>
+            <li><strong>房型布局：</strong>绝大多数为<strong>4 人间</strong>，大部分楼栋是<strong>上床下桌</strong>（北区基本全上床下桌，南区部分老楼有上下铺），床铺尺寸约 0.9×1.9 米，配衣柜和书桌</li>
+            <li><strong>空调：</strong>全校宿舍<strong>空调全覆盖</strong></li>
+            <li><strong>卫浴：</strong>部分较新楼栋（如北区 24 栋、南区部分）带<strong>独立卫生间 + 阳台 + 电热水器</strong>；无独卫的楼栋每层设公共浴室（有隔间）和公共卫生间</li>
+            <li><strong>公共设施：</strong>每栋均有<strong>开水机和扫码洗衣房</strong>，校园网端口入户</li>
+            <li><strong>水电：</strong>每月有额定免费用电量和水额度，超额均摊</li>
+            <li><strong>熄灯门禁：</strong>周日至周四 23:00 左右熄灯（空调不断电），有门禁</li>
+            <li><strong>费用：</strong>四人间上床下桌带独卫一般 <strong>1000 元/年</strong>，少数上下铺或无独卫老楼约 700~800 元/年</li>
+            <li><strong>分配方式：</strong>按学院、专业、班级集中安排，新生一般不能自选楼栋，床位通常先到先选或按学号排</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 就业情况 -->
+      <section class="section">
+        <h2 class="section-heading">💼 就业情况</h2>
+
+        <div class="stat-row" style="margin-bottom:14px;">
+          <div class="stat-item">
+            <div class="stat-num">86.4%</div>
+            <div class="stat-label">本科去向落实率</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">93%~98%</div>
+            <div class="stat-label">王牌轨道类专业就业率</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">18.66%</div>
+            <div class="stat-label">整体升学率（王牌专业可达45%）</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">6300~6500</div>
+            <div class="stat-label">本科平均起薪（元/月）</div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🚄</span> 铁路/轨道国企（核心就业方向）</h3>
+          <p style="margin:0;color:var(--text-secondary);">约 <strong>40%~45% 毕业生进入国有企业</strong>，其中近半数进入轨道交通相关国企：</p>
+          <ul style="margin-top:8px;">
+            <li><strong>铁路系统：</strong>国铁集团下属各铁路局（南昌局、广州局、上海局录用人数居全国高校前列），主要从事运输调度、供电段、信号段、车辆段、工务段等岗位</li>
+            <li><strong>城轨/地铁：</strong>南昌、深圳、广州、杭州、上海等城市地铁集团（运营、信号、供电岗）</li>
+            <li><strong>工程/制造：</strong>中国中铁、中国铁建（工程局）、中国中车（车辆厂）、中国通号</li>
+            <li><strong>其他：</strong>国家电网/南方电网（电气专业）、中建、比亚迪、部分 IT 企业（计科/软件去往珠三角）</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">⭐</span> 王牌专业就业亮点</h3>
+          <ul>
+            <li><strong>交通运输（铁道方向）/ 轨道交通信号与控制：</strong>就业率 <strong>95%~98%</strong>，约 70%~80% 进铁路局运输/电务段或地铁运营/信号部门</li>
+            <li><strong>电气工程及其自动化（铁道电气化）：</strong>就业率约 <strong>96%</strong>，部分进国家电网/南方电网，部分进铁路局供电段，<strong>双渠道就业</strong>，起薪常达 <strong>7000~9000 元/月</strong></li>
+            <li><strong>土木工程（铁道/桥梁方向）/ 铁道工程：</strong>就业率约 <strong>93%~96%</strong>，主要进中铁、铁建各工程局及部分设计院</li>
+            <li><strong>车辆工程（轨道车辆/动车组）：</strong>就业率约 <strong>92%</strong>，主要进中车各主机厂、铁路局车辆段</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🧭</span> 就业地域流向</h3>
+          <p style="margin:0;color:var(--text-secondary);">
+            江西省内约 <strong>32%~35%</strong>（南昌为主，服务于本地铁路局及地铁）<br>
+            珠三角/长三角占比高，<strong>广东（深圳、广州）、上海、浙江、江苏</strong>为主要外地去向<br>
+            随铁路系统分布，也会赴全国各铁路局所在城市
+          </p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🎓</span> 升学深造</h3>
+          <p style="margin:0;color:var(--text-secondary);">整体国内升学率约 <strong>18.66%</strong>，部分王牌专业（如交通工程、土木铁道方向）考研率可达 <strong>30%~45%</strong>；保研率约 <strong>4%</strong>，电气等强势专业保研名额稍多。</p>
+        </div>
+      </section>
+
+      <!-- 转专业政策 -->
+      <section class="section">
+        <h2 class="section-heading">🔄 转专业政策</h2>
+
+        <div class="info-card">
+          <h3><span class="icon">⏰</span> 申请时间与次数</h3>
+          <ul>
+            <li><strong>第一次：</strong>大一第二学期（大一下，通常 4–5 月）申请，大二上学期转入</li>
+            <li><strong>第二次：</strong>大二第一学期可再申请，二年级第二学期转入</li>
+            <li>在校期间<strong>只能成功转一次</strong>，获批后不得转回原专业</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">📋</span> 基本申请条件</h3>
+          <ul>
+            <li>全日制普通本科在读，已注册缴费，<strong>无纪律处分</strong></li>
+            <li>第一学年（或第一学期）所修课程<strong>全部合格，无不及格、无补考/重修</strong>记录</li>
+            <li>高考科类匹配：理工类限转理工类（新高考须含<strong>物理</strong>，部分要求含化学），文史类限转文史类</li>
+            <li>艺术/体育类限同类内互转</li>
+            <li><strong>中外合作办学</strong>专业不可转入普通类专业</li>
+            <li>软件工程、会计学（国际班）等高收费专业不可转入普通收费专业（软件各方向之间可由学院自行安排互转）</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">📊</span> 名额与转出审核</h3>
+          <ul>
+            <li>第一次转专业：各专业<strong>转出人数 ≤ 同年级该专业总人数的 30%</strong>，转入计划 ≤ 30%</li>
+            <li>第二次转专业：转出 ≤ 10%，转入 ≤ 10%</li>
+            <li>若申请转出人数超额，一般按<strong>第一学年平均学分绩点（GPA）</strong>从高到低排序，GPA 相同则依次比较《高等数学》《大学英语》成绩</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">📝</span> 转入考核方式（各学院自定）</h3>
+          <ul>
+            <li><strong>电气、信息与软件工程等热门工科：</strong>通常笔试《高等数学》（或英语+数学），加面试，按综合成绩择优录取；申请转入软件工程常要求原专业排名前 70%</li>
+            <li><strong>交通运输、土木、测绘等学院：</strong>多为面试考核（部分交通类专业含笔试），重点考察专业适应能力和综合素质</li>
+            <li>热门专业（电气、计科、软件、交运等）竞争激烈，一般要求<strong>高数 ≥ 70 分</strong>且绩点排名靠前</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🚫</span> 不予转专业情形</h3>
+          <ul>
+            <li>已有一次成功转专业经历者</li>
+            <li>特殊招生形式录取（定向、委培、高水平运动员等）</li>
+            <li>休学、保留学籍期间或受处分未解除者</li>
+          </ul>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">数据来源：华东交通大学官方信息及在校生反馈</p>
+      <p class="footer-warning">⚠️ 谨防诈骗！所有信息请以学校官方渠道为准</p>
+      <p class="footer-copy">
+        <a href="../index.html" style="color:var(--primary);text-decoration:none;">江西高校信息站</a> · 为准大一新生而生
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var photos = [
+        { src: '微信图片_2026-07-13_211742_894.jpg', label: '校园实拍 ①' },
+        { src: '微信图片_2026-07-13_211751_523.jpg', label: '校园实拍 ②' },
+        { src: '微信图片_2026-07-13_211756_828.jpg', label: '校园实拍 ③' }
+      ];
+
+      var photoGrid = document.getElementById('photoGrid');
+      photos.forEach(function (photo, index) {
+        var card = document.createElement('div');
+        card.className = 'photo-card';
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', photo.label + '，点击放大');
+        card.addEventListener('click', function () { openLightbox(index); });
+
+        var img = document.createElement('img');
+        img.src = encodeURI(photo.src);
+        img.alt = photo.label;
+        img.loading = 'lazy';
+
+        var label = document.createElement('div');
+        label.className = 'photo-label';
+        label.textContent = photo.label;
+
+        card.appendChild(img);
+        card.appendChild(label);
+        photoGrid.appendChild(card);
+      });
+
+      var currentPhotoIndex = 0;
+      var lightbox = document.getElementById('lightbox');
+      var lightboxImg = document.getElementById('lightboxImg');
+      var imgCounter = document.getElementById('imgCounter');
+
+      function openLightbox(index) {
+        currentPhotoIndex = index;
+        lightboxImg.src = encodeURI(photos[index].src);
+        imgCounter.textContent = (index + 1) + ' / ' + photos.length;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      window.closeLightbox = function () {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+
+      window.prevPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      window.nextPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      document.addEventListener('keydown', function (e) {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') prevPhoto();
+        if (e.key === 'ArrowRight') nextPhoto();
+      });
+
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+    })();
+  </script>
+
+</body>
+</html>

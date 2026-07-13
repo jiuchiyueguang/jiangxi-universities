@@ -157,20 +157,25 @@ const universities = [
   {
     id: 8,
     name: "华东交通大学",
-    level: "省重点",
+    level: "省重点 / 国铁集团+国家铁路局双共建",
     city: "南昌",
     website: "https://www.ecjtu.edu.cn",
     logo: "",
     militaryTraining: "9月中旬，约14天",
-    dormitory: "经开区校区，4人间为主，有空调、独卫、热水器",
+    dormitory: "双港校区4人间为主，大部分上床下桌，部分独卫+阳台+热水器，空调全覆盖，每栋有洗衣房，详见子页面",
     cafeteria: "有4个食堂，南北风味齐全",
-    campusArea: "约2800亩",
-    majors: "交通运输工程、土木工程、机械工程、电气工程",
+    campusArea: "约2800亩（双港校区）",
+    majors: "土木工程（铁道工程）、电气工程及其自动化（铁道电气化）、给排水科学与工程、自动化（均为国家级特色）",
     tuition: "4270-4940元/年",
     transportation: "地铁1号线双港站直达",
     genderRatio: "男:女 ≈ 3:1",
     clubs: "70+社团",
-    description: "交通领域特色高校，铁路系统就业率高，国企就业率超40%"
+    description: "原铁道部直属，国铁集团+国家铁路局双共建，交通特色轨道核心，本-硕-博完整体系，40%+毕业生进国企，铁路局录用人数全国前列",
+    resources: {
+      photos: true,
+      transfer: true,
+      url: "华东交通大学/index.html"
+    }
   },
   {
     id: 9,
