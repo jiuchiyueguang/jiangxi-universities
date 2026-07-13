@@ -352,15 +352,20 @@ const universities = [
     website: "https://www.nctc.edu.cn",
     logo: "",
     militaryTraining: "9月中旬，约14天",
-    dormitory: "昌北校区，4-6人间，有空调",
-    cafeteria: "有2个食堂",
-    campusArea: "约600亩",
-    majors: "教育学、汉语言文学、英语、数学",
+    dormitory: "女生4人间上床下桌独卫+空调+阳台，男生4-6人间全带独卫，24小时热水，每栋有洗衣机+饮水机，详见子页面",
+    cafeteria: "四个食堂，均价8~12元，品类丰富，食育楼四食堂种类最多",
+    campusArea: "约600亩（昌北+青山湖两校区）",
+    majors: "学前教育（国家一流）、汉语言文学、数学与应用数学、商务英语（均为省级一流）",
     tuition: "4010-4530元/年",
-    transportation: "地铁1号线可达",
+    transportation: "昌北校区距南昌北站11公里，距红谷滩14公里",
     genderRatio: "男:女 ≈ 1:3",
     clubs: "40+社团",
-    description: "南昌市属师范院校，培养中小学教师"
+    description: "江西省基础教育人才摇篮，15个师范专业全部免试认定教师资格证，校内奖学金全覆盖",
+    resources: {
+      photos: true,
+      transfer: false,
+      url: "南昌师范学院/index.html"
+    }
   },
   {
     id: 19,
