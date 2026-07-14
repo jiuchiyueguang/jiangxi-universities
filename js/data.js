@@ -180,20 +180,25 @@ const universities = [
   {
     id: 9,
     name: "景德镇陶瓷大学",
-    level: "省重点 / 特色名校",
+    level: "省重点 / 全国唯一陶瓷命名大学",
     city: "景德镇",
     website: "https://www.jci.edu.cn",
     logo: "",
     militaryTraining: "9月中下旬，约10-14天",
-    dormitory: "湘湖校区，4人间为主，有空调、独卫",
-    cafeteria: "有2个主要食堂，景德镇本地美食有特色",
-    campusArea: "约2000亩",
-    majors: "陶瓷艺术设计、材料科学（陶瓷方向）、美术学、设计学",
-    tuition: "9600元/年（艺术类），4270元/年（普通类）",
+    dormitory: "4-6人间上床下桌，空调+风扇，湘湖校区多数公共卫浴（有隔间），新厂校区多数独卫，24h不断电，详见子页面",
+    cafeteria: "湘湖3个食堂+新厂1个食堂，早餐6~8元，午晚餐10~15元，湘湖校门外有美食街",
+    campusArea: "近2000亩（湘湖+新厂两校区）",
+    majors: "陶瓷艺术设计、无机非金属材料工程、机械设计制造及其自动化（均为国家级特色），13个国家一流专业",
+    tuition: "9600元/年（艺术类），4270~4940元/年（普通类）",
     transportation: "景德镇站公交可达，景德镇有机场",
     genderRatio: "男:女 ≈ 2:3",
     clubs: "50+社团，陶瓷艺术社团全国独一",
-    description: "中国唯一以陶瓷命名的高校，陶瓷艺术设计全国顶尖"
+    description: "全国唯一以陶瓷命名的大学，31所独立艺术院校之一，本-硕-博+博士后完整体系，被誉为'陶瓷黄埔'，创业率全省前列",
+    resources: {
+      photos: true,
+      transfer: true,
+      url: "景德镇陶瓷大学/index.html"
+    }
   },
   {
     id: 10,
