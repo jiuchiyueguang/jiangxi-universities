@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="赣南师范大学校园实拍、学校定位、王牌专业、宿舍情况、食堂情况、就业情况、转专业政策">
+  <meta name="theme-color" content="#1565c0">
+  <title>赣南师范大学 · 校园实拍 & 全方位信息</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    .site-header {
+      position: relative;
+      padding: 32px 0 24px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.88rem;
+      margin-bottom: 12px;
+      transition: color var(--transition);
+      font-weight: 500;
+    }
+    .back-link:hover { color: #fff; }
+    .page-subtitle {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin-top: 6px;
+      font-weight: 400;
+    }
+
+    .resource-main {
+      flex: 1;
+      padding: 28px 0 40px;
+    }
+    .resource-main .container {
+      max-width: 860px;
+    }
+
+    .section {
+      margin-bottom: 36px;
+    }
+    .section-heading {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    .section-desc strong {
+      color: var(--accent);
+    }
+
+    /* 照片卡片 */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 16px;
+    }
+    .photo-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .photo-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #1565c0, #42a5f5);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+    .photo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: transparent;
+    }
+    .photo-card:hover::before { opacity: 1; }
+    .photo-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-card .photo-label {
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* 高亮定位卡片 */
+    .highlight-card {
+      background: linear-gradient(135deg, #e3f2fd, #e8eaf6);
+      border: 1.5px solid #1565c0;
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+    }
+    .highlight-card p {
+      margin: 0 0 10px;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .highlight-card p:last-child { margin-bottom: 0; }
+    .highlight-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .highlight-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: #fff;
+      border: 1.5px solid #1565c0;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #0d47a1;
+      font-weight: 600;
+    }
+
+    /* 信息卡片 */
+    .info-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+      transition: all 0.25s ease;
+      line-height: 1.7;
+      font-size: 0.88rem;
+    }
+    .info-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: #90caf9;
+    }
+    .info-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .info-card h3 .icon { color: #1565c0; }
+    .info-card ul, .info-card ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .info-card li {
+      margin-bottom: 6px;
+      color: var(--text-secondary);
+    }
+    .info-card li strong { color: var(--text); }
+
+    /* 专业标签 */
+    .major-group {
+      margin-bottom: 12px;
+    }
+    .major-group .mg-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .major-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .major-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: #e3f2fd;
+      border: 1.5px solid #90caf9;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .major-tag.star {
+      border-color: #1565c0;
+      background: #bbdefb;
+      color: #0d47a1;
+      font-weight: 700;
+    }
+    .major-tag.good {
+      border-color: #1565c0;
+      background: #e3f2fd;
+      color: #01579b;
+      font-weight: 600;
+    }
+
+    /* 统计数字 */
+    .stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .stat-item {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+      padding: 12px 10px;
+      background: #e3f2fd;
+      border-radius: 10px;
+    }
+    .stat-item .stat-num {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #1565c0;
+    }
+    .stat-item .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* 灯箱 */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 75vh;
+      border-radius: 10px;
+      object-fit: contain;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+    .lightbox .lb-close {
+      position: absolute;
+      top: 20px; right: 28px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: #fff;
+      font-size: 1.8rem;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 44px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-close:hover { background: rgba(255,255,255,0.3); }
+    .lightbox .lb-nav {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 2.2rem;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 48px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-nav:hover { background: rgba(255,255,255,0.28); }
+    .lightbox .lb-prev { left: 20px; }
+    .lightbox .lb-next { right: 20px; }
+    .lightbox .lb-counter {
+      color: rgba(255,255,255,0.65);
+      margin-top: 14px;
+      font-size: 0.85rem;
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .photo-card img { height: 140px; }
+      .info-card { padding: 14px 16px; }
+      .stat-item { min-width: 100px; padding: 10px 8px; }
+    }
+    @media (max-width: 400px) {
+      .photo-grid { grid-template-columns: 1fr 1fr; }
+      .photo-card img { height: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="back-link">← 返回高校列表</a>
+      <div class="header-content">
+        <div class="header-brand">
+          <span class="brand-icon">📖</span>
+          <h1 class="brand-title">赣南师范大学</h1>
+        </div>
+        <p class="page-subtitle">校园实拍 · 学校定位 · 王牌专业 · 宿舍情况 · 食堂情况 · 就业情况 · 转专业政策</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- 灯箱 -->
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" onclick="closeLightbox()" aria-label="关闭">×</button>
+    <button class="lb-nav lb-prev" onclick="prevPhoto()" aria-label="上一张">‹</button>
+    <img id="lightboxImg" src="" alt="照片大图">
+    <button class="lb-nav lb-next" onclick="nextPhoto()" aria-label="下一张">›</button>
+    <span class="lb-counter" id="imgCounter"></span>
+  </div>
+
+  <main class="resource-main">
+    <div class="container">
+
+      <!-- 校园实拍 -->
+      <section class="section">
+        <h2 class="section-heading">📷 校园实拍</h2>
+        <p class="section-desc">赣南师范大学校园实拍，点击图片可放大查看</p>
+        <div class="photo-grid" id="photoGrid"></div>
+      </section>
+
+      <!-- 学校定位 -->
+      <section class="section">
+        <h2 class="section-heading">🎯 学校定位</h2>
+        <div class="highlight-card">
+          <p>赣南师范大学是<strong>江西省人民政府举办的全日制普通高等学校</strong>，江西省<strong>"双一流"建设高校</strong>、江西省公费师范生培养高校，被列为<strong>教育部对口支援高校、教育部师范教育协同提质计划重点支持院校</strong>，被誉为<strong>"红土地上人民教师的摇篮"</strong>。</p>
+          <p>学校以教师教育学科为底色、文理基础学科为骨干，文理管工多学科协调发展，具备<strong>本—硕—博完整学位授予权</strong>（化学一级学科博士点）。<strong>化学</strong>进入 ESI 全球前 1%，在赣南及周边地区基础教育领域影响力极强，赣州约 <strong>80% 的中学校长</strong>毕业于此。</p>
+          <div class="highlight-tags">
+            <span class="highlight-tag">省"双一流"建设高校</span>
+            <span class="highlight-tag">教育部对口支援</span>
+            <span class="highlight-tag">公费师范生培养</span>
+            <span class="highlight-tag">本-硕-博完整体系</span>
+            <span class="highlight-tag">化学ESI全球前1%</span>
+            <span class="highlight-tag">红土地上人民教师的摇篮</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 王牌与优势专业 -->
+      <section class="section">
+        <h2 class="section-heading">⭐ 王牌与优势专业</h2>
+
+        <div class="info-card">
+          <div class="major-group">
+            <div class="mg-title">🏅 国家级特色专业（2 个，传统王牌）</div>
+            <div class="major-tags">
+              <span class="major-tag star">化学</span>
+              <span class="major-tag star">历史学</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">🏆 江西省一流建设学科（6 个）</div>
+            <div class="major-tags">
+              <span class="major-tag good">化学（ESI全球前1%）</span>
+              <span class="major-tag good">教育学</span>
+              <span class="major-tag good">马克思主义理论</span>
+              <span class="major-tag good">中国语言文学</span>
+              <span class="major-tag good">中国史</span>
+              <span class="major-tag good">园艺学</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">📚 国家一流本科专业 · 师范类（15 个）</div>
+            <div class="major-tags">
+              <span class="major-tag star">教育学</span>
+              <span class="major-tag star">汉语言文学</span>
+              <span class="major-tag star">英语</span>
+              <span class="major-tag star">数学与应用数学</span>
+              <span class="major-tag star">物理学</span>
+              <span class="major-tag star">化学</span>
+              <span class="major-tag star">生物科学</span>
+              <span class="major-tag star">思想政治教育</span>
+              <span class="major-tag star">体育教育</span>
+              <span class="major-tag star">音乐学</span>
+              <span class="major-tag star">美术学</span>
+              <span class="major-tag">教育技术学</span>
+              <span class="major-tag">应用心理学</span>
+              <span class="major-tag">学前教育</span>
+              <span class="major-tag">小学教育</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">💻 国家一流本科专业 · 其他类（7 个）</div>
+            <div class="major-tags">
+              <span class="major-tag">计算机科学与技术</span>
+              <span class="major-tag">旅游管理</span>
+              <span class="major-tag">历史学</span>
+              <span class="major-tag">材料化学</span>
+              <span class="major-tag">市场营销</span>
+              <span class="major-tag">舞蹈学</span>
+              <span class="major-tag">动画</span>
+            </div>
+          </div>
+          <p style="margin:12px 0 0;font-size:0.85rem;color:var(--text-secondary);">💡 共 <strong>22 个</strong>国家一流本科专业建设点，师范类覆盖全面，文理基础学科实力扎实。</p>
+        </div>
+      </section>
+
+      <!-- 宿舍情况 -->
+      <section class="section">
+        <h2 class="section-heading">📍 宿舍条件</h2>
+        <p class="section-desc">蓉江主校区宿舍分为<strong>北苑、南苑、西苑</strong>三大区域，整体在省内师范院校中属中上水平，全部已安装空调</p>
+
+        <div class="info-card">
+          <h3><span class="icon">🛏️</span> 房型与配置</h3>
+          <ul>
+            <li><strong>西苑、南苑：</strong>多为 <strong>4 人间</strong>（上床下桌），配书桌、衣柜、阳台</li>
+            <li><strong>北苑：</strong>多为 <strong>6 人间</strong>（2 下铺 + 4 上铺）</li>
+            <li>所有宿舍区配<strong>公共洗衣机、直饮水机、校园网</strong>，已全部安装空调（部分需租赁或电费自理）</li>
+            <li>热水刷卡供应，严禁大功率电器</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🚿</span> 卫浴差异</h3>
+          <ul>
+            <li><strong>西苑、北苑：</strong>一般为<strong>独立卫浴</strong></li>
+            <li><strong>南苑：</strong>为每层<strong>公共浴室 / 卫生间</strong>（有隔间）</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">📍</span> 区域特点</h3>
+          <ul>
+            <li><strong>西苑：</strong>环境较安静，靠近操场，适合喜欢清静的同学</li>
+            <li><strong>南苑：</strong>离图书馆、教学区最近，上课方便</li>
+            <li><strong>北苑：</strong>生活便利，靠近校门、食堂和商业街</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">⏰</span> 费用与管理</h3>
+          <ul>
+            <li>住宿费：4 人间约 <strong>1000 元/年</strong>，6 人间约 <strong>800 元/年</strong></li>
+            <li><strong>门禁：</strong>周日–周四 22:30，周五–周六 23:00</li>
+            <li><strong>断电：</strong>23:30 或 24:00 左右断电（周末不断或延后）</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 食堂情况 -->
+      <section class="section">
+        <h2 class="section-heading">🍽️ 食堂情况</h2>
+
+        <div class="info-card">
+          <h3><span class="icon">🏪</span> 食堂分布</h3>
+          <ul>
+            <li>主要有<strong>北苑食堂群（北一~北四）、南苑食堂群（南一~南四）</strong>等约 <strong>8 个食堂/餐厅</strong></li>
+            <li>含民族餐厅、自助餐厅、特色档口，选择丰富</li>
+            <li>食堂配有<strong>空调</strong>，部分设自习区，卫生管理较规范</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🍜</span> 菜品与价格</h3>
+          <ul>
+            <li>涵盖自选大众餐、南昌拌粉、瓦罐汤、牛肉粉、五谷鱼粉、辣椒炒肉、黄焖鸡、麻辣香锅、炸鸡腿、塔斯汀、汉堡、水果捞、奶茶等，<strong>南北风味齐全</strong></li>
+            <li><strong>早餐约 5~8 元</strong>，午/晚餐约 <strong>8~15 元</strong></li>
+            <li>人均月伙食费约 <strong>500~1000 元</strong>，价格亲民</li>
+            <li>支持校园一卡通、完美校园 APP 扫码支付</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 就业情况 -->
+      <section class="section">
+        <h2 class="section-heading">💼 就业情况</h2>
+
+        <div class="stat-row" style="margin-bottom:14px;">
+          <div class="stat-item">
+            <div class="stat-num">83%~84%</div>
+            <div class="stat-label">本科去向落实率</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">约23%</div>
+            <div class="stat-label">考研升学率（多入双一流）</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">5500~6000元</div>
+            <div class="stat-label">本科应届平均月薪</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">6000~8000元</div>
+            <div class="stat-label">计算机/新材料类起薪</div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🏫</span> 基础教育（核心优势）</h3>
+          <p style="margin:0;color:var(--text-secondary);">江西省各县市中小学（<strong>赣州占比高，约 80% 中学校长毕业于此</strong>）、深圳龙岗区教育局定向招聘学校、南昌二中、南昌二十八中等，及省内各类中初教育单位、高校辅导员/行政岗。师范类专业对口率较高，在基础教育领域认可度强。</p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🏛️</span> 体制内 / 事业单位</h3>
+          <p style="margin:0;color:var(--text-secondary);">各地教育局、公务员/选调生、文化馆、博物馆、融媒体中心等。</p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🏢</span> 企业单位</h3>
+          <p style="margin:0;color:var(--text-secondary);">海康威视、江铃集团、江西铜业、华星光电、各大银行支行、文旅及教育培训机构、赣州本地新能源与电子信息企业等。</p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🧭</span> 就业地域流向</h3>
+          <p style="margin:0;color:var(--text-secondary);">
+            江西省内约 <strong>54%~55%</strong>（赣州为主约占 30%，其余在南昌、吉安、抚州等）<br>
+            珠三角（广东）约 <strong>10%~25%</strong>，以深圳、广州居多，与深圳龙岗等有定向输送协议<br>
+            长三角（上海、浙江、江苏）约 <strong>15%~17%</strong><br>
+            少量分布在北京、福建、湖南等周边省份
+          </p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🎓</span> 升学深造</h3>
+          <p style="margin:0;color:var(--text-secondary);">普通本科考研升学率约 <strong>23%</strong>（含出国境），不少进入国内"双一流"高校及科研院所深造，化学、文史哲等基础学科深造比例相对较高。</p>
+        </div>
+      </section>
+
+      <!-- 转专业政策 -->
+      <section class="section">
+        <h2 class="section-heading">🔄 转专业政策</h2>
+
+        <div class="info-card">
+          <h3><span class="icon">⏰</span> 申请时间</h3>
+          <ul>
+            <li>主要面向<strong>一年级在校本科生</strong></li>
+            <li>一般在<strong>第一学期结束前</strong>（11 月–12 月报名，次年 1 月考核）</li>
+            <li>部分情况可<strong>降级转专业</strong></li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">📝</span> 考核方式</h3>
+          <ul>
+            <li>转入申请数<strong>大于</strong>计划数的：考 <strong>1 门笔试 + 面试/操作考核</strong></li>
+            <li>转入申请数<strong>小于</strong>计划数的：以面试/操作考核为主</li>
+            <li>各学院自主制定方案，择优录取</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🚫</span> 禁止 / 限制情形</h3>
+          <ul>
+            <li>艺术体育类、公费师范生、中外合作办学、单独招生等特殊录取类型<strong>不得互转或转普通类</strong></li>
+            <li>高考选考科目/科类不符合转入专业要求者</li>
+            <li>已进入第三学年、在校期间已有一次转专业记录、休学期间</li>
+            <li>低批次录取转高批次录取<strong>不予转</strong></li>
+            <li><strong>跨学科门类（文史 ↔ 理工）原则上受限</strong></li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">⚠️</span> 学业衔接</h3>
+          <ul>
+            <li>转成功后需按新专业培养方案<strong>补修课程</strong></li>
+            <li>若学分差距过大，可能需<strong>降级就读</strong></li>
+          </ul>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">数据来源：赣南师范大学官方信息及在校生反馈</p>
+      <p class="footer-warning">⚠️ 谨防诈骗！所有信息请以学校官方渠道为准</p>
+      <p class="footer-copy">
+        <a href="../index.html" style="color:var(--primary);text-decoration:none;">江西高校信息站</a> · 为准大一新生而生
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var photos = [
+        { src: '微信图片_2026-07-14_170848_745.jpg', label: '校园实拍 ①' },
+        { src: '微信图片_2026-07-14_170859_236.jpg', label: '校园实拍 ②' },
+        { src: '微信图片_2026-07-14_170904_897.jpg', label: '校园实拍 ③' },
+        { src: '微信图片_2026-07-14_170910_082.jpg', label: '校园实拍 ④' },
+        { src: '微信图片_2026-07-14_170915_020.jpg', label: '校园实拍 ⑤' }
+      ];
+
+      var photoGrid = document.getElementById('photoGrid');
+      photos.forEach(function (photo, index) {
+        var card = document.createElement('div');
+        card.className = 'photo-card';
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', photo.label + '，点击放大');
+        card.addEventListener('click', function () { openLightbox(index); });
+
+        var img = document.createElement('img');
+        img.src = encodeURI(photo.src);
+        img.alt = photo.label;
+        img.loading = 'lazy';
+
+        var label = document.createElement('div');
+        label.className = 'photo-label';
+        label.textContent = photo.label;
+
+        card.appendChild(img);
+        card.appendChild(label);
+        photoGrid.appendChild(card);
+      });
+
+      var currentPhotoIndex = 0;
+      var lightbox = document.getElementById('lightbox');
+      var lightboxImg = document.getElementById('lightboxImg');
+      var imgCounter = document.getElementById('imgCounter');
+
+      function openLightbox(index) {
+        currentPhotoIndex = index;
+        lightboxImg.src = encodeURI(photos[index].src);
+        imgCounter.textContent = (index + 1) + ' / ' + photos.length;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      window.closeLightbox = function () {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+
+      window.prevPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      window.nextPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      document.addEventListener('keydown', function (e) {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') prevPhoto();
+        if (e.key === 'ArrowRight') nextPhoto();
+      });
+
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+    })();
+  </script>
+
+</body>
+</html>

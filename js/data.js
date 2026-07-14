@@ -208,20 +208,25 @@ const universities = [
   {
     id: 10,
     name: "赣南师范大学",
-    level: "省属重点",
+    level: "省属重点 / 省\"双一流\"建设",
     city: "赣州",
     website: "https://www.gnnu.edu.cn",
     logo: "",
     militaryTraining: "9月中旬，约14天",
-    dormitory: "蓉江校区，4-6人间，有空调、独卫",
-    cafeteria: "有3个食堂，赣南客家美食",
-    campusArea: "约2200亩",
-    majors: "教育学、汉语言文学、历史学、化学",
-    tuition: "4010-4530元/年",
+    dormitory: "蓉江校区西苑/南苑4人间上床下桌，北苑6人间，西苑北苑独卫、南苑公共浴室，空调全覆盖，详见子页面",
+    cafeteria: "北苑食堂群+南苑食堂群约8个食堂/餐厅，含民族餐厅，早餐5~8元、午晚餐8~15元，详见子页面",
+    campusArea: "约2200亩（蓉江主校区）",
+    majors: "化学、历史学（国家级特色），化学（ESI全球前1%）、教育学、马克思主义理论、中国语言文学、中国史、园艺学（省一流学科），22个国家一流专业",
+    tuition: "4010-4530元/年（普通专业）",
     transportation: "赣州站/赣州西站公交可达",
     genderRatio: "男:女 ≈ 1:2",
     clubs: "60+社团",
-    description: "赣南地区最好的师范院校，红色文化研究特色鲜明"
+    description: "江西省\"双一流\"建设高校，教育部对口支援+师范教育协同提质计划重点支持，化学ESI全球前1%，本-硕-博完整体系，被誉为'红土地上人民教师的摇篮'，赣州约80%中学校长毕业于此",
+    resources: {
+      photos: true,
+      transfer: true,
+      url: "赣南师范大学/index.html"
+    }
   },
   {
     id: 11,
