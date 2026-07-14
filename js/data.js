@@ -272,20 +272,25 @@ const universities = [
   {
     id: 13,
     name: "井冈山大学",
-    level: "省属",
+    level: "省属 / 教育部共建 / 同济大学对口支援",
     city: "吉安",
     website: "https://www.jgsu.edu.cn",
     logo: "",
     militaryTraining: "9月中下旬，约14天",
-    dormitory: "青原校区，4-6人间，有空调、部分独卫",
-    cafeteria: "有3个食堂，吉安本地美食",
-    campusArea: "约2500亩",
-    majors: "医学、教育学、生物科学、汉语言文学",
-    tuition: "4010-4790元/年",
+    dormitory: "青原校区北区4人间上床下桌为主，南区4-6人间，北区少数女寝独卫、大部分公共卫浴，空调全覆盖，全天不断电，详见子页面",
+    cafeteria: "一食堂品类最全、二食堂粉面多、三食堂偏家常，明厨亮灶+外卖配送，早餐5~8元、午晚餐8~15元，详见子页面",
+    campusArea: "约2500亩（青原主校区）",
+    majors: "汉语言文学、化学、生物科学、音乐学（国家级特色），马克思主义理论、生物学（省一流学科），临床医学（稀缺医学本科），15个国家一流专业",
+    tuition: "4010-4790元/年（普通专业）",
     transportation: "吉安站公交直达",
     genderRatio: "男:女 ≈ 1:1",
     clubs: "60+社团，红色文化社团特色",
-    description: "以井冈山精神办学，红色文化教育基地"
+    description: "教育部共建+同济大学对口支援，以井冈山精神办学育人，本-硕完整体系，含临床医学本科，赣中南基础教育与基层医疗核心人才基地",
+    resources: {
+      photos: true,
+      transfer: true,
+      url: "井冈山大学/index.html"
+    }
   },
   {
     id: 14,
