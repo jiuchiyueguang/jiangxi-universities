@@ -24,20 +24,25 @@ const universities = [
   {
     id: 2,
     name: "江西财经大学",
-    level: "省重点 / 财经名校",
+    level: "省重点 / 财经名校 / 财政部教育部共建",
     city: "南昌",
     website: "https://www.jxufe.edu.cn",
     logo: "",
     militaryTraining: "9月中上旬，约10-12天",
-    dormitory: "蛟桥园校区为主，4人间为主，有空调、独卫，环境较好",
-    cafeteria: "蛟桥园有5个食堂，麦庐园有3个食堂，伙食口碑好",
-    campusArea: "约2200亩（含蛟桥园、麦庐园等校区）",
-    majors: "应用经济学（A-）、统计学（A-）、工商管理、法学",
+    dormitory: "蛟桥园/麦庐园/枫林园三校区，4人间为主上床下桌，麦庐园全独卫'豪华宿舍'，均配空调，详见子页面",
+    cafeteria: "麦庐园'美食圣地'3食堂+商业街（含麦当劳），蛟桥园鼎食轩3层品类最全，枫林园紧邻紫荆夜市，详见子页面",
+    campusArea: "约2200亩（含蛟桥园、麦庐园、枫林园等校区）",
+    majors: "会计学、金融学、财政学、法学、市场营销、信息管理与信息系统（均为国家级特色），应用经济学A-、统计学A-",
     tuition: "4660-5220元/年（普通专业）",
     transportation: "地铁1号线到蛟桥园，交通便利",
     genderRatio: "男:女 ≈ 2:3",
     clubs: "80+社团，财经类社团特色突出",
-    description: "全国财经类院校排名前7，应用经济学和统计学为A-学科"
+    description: "财政部+教育部+江西省共建，原财政部直属，财经类全国前7，应用经济学A-、统计学A-，34个国家一流专业，税务总局录用人数全国第一",
+    resources: {
+      photos: true,
+      transfer: true,
+      url: "江西财经大学/index.html"
+    }
   },
   {
     id: 3,

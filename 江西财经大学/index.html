@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="江西财经大学校园实拍、学校定位、王牌专业、校区与宿舍、食堂情况、就业情况、转专业政策">
+  <meta name="theme-color" content="#f9a825">
+  <title>江西财经大学 · 校园实拍 & 全方位信息</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    .site-header {
+      position: relative;
+      padding: 32px 0 24px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.88rem;
+      margin-bottom: 12px;
+      transition: color var(--transition);
+      font-weight: 500;
+    }
+    .back-link:hover { color: #fff; }
+    .page-subtitle {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin-top: 6px;
+      font-weight: 400;
+    }
+
+    .resource-main {
+      flex: 1;
+      padding: 28px 0 40px;
+    }
+    .resource-main .container {
+      max-width: 860px;
+    }
+
+    .section {
+      margin-bottom: 36px;
+    }
+    .section-heading {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    .section-desc strong {
+      color: var(--accent);
+    }
+
+    /* 照片卡片 */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 16px;
+    }
+    .photo-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .photo-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #f9a825, #fdd835);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+    .photo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: transparent;
+    }
+    .photo-card:hover::before { opacity: 1; }
+    .photo-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-card .photo-label {
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* 高亮定位卡片 */
+    .highlight-card {
+      background: linear-gradient(135deg, #fffde7, #fff8e1);
+      border: 1.5px solid #f9a825;
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+    }
+    .highlight-card p {
+      margin: 0 0 10px;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .highlight-card p:last-child { margin-bottom: 0; }
+    .highlight-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .highlight-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: #fff;
+      border: 1.5px solid #f9a825;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #e65100;
+      font-weight: 600;
+    }
+
+    /* 信息卡片 */
+    .info-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+      transition: all 0.25s ease;
+      line-height: 1.7;
+      font-size: 0.88rem;
+    }
+    .info-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: #ffe082;
+    }
+    .info-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .info-card h3 .icon { color: #f9a825; }
+    .info-card ul, .info-card ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .info-card li {
+      margin-bottom: 6px;
+      color: var(--text-secondary);
+    }
+    .info-card li strong { color: var(--text); }
+
+    /* 专业标签 */
+    .major-group {
+      margin-bottom: 12px;
+    }
+    .major-group .mg-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .major-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .major-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: #fffde7;
+      border: 1.5px solid #ffe082;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .major-tag.star {
+      border-color: #f9a825;
+      background: #fff8e1;
+      color: #e65100;
+      font-weight: 700;
+    }
+    .major-tag.good {
+      border-color: #f9a825;
+      background: #fff3e0;
+      color: #bf360c;
+      font-weight: 600;
+    }
+
+    /* 统计数字 */
+    .stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .stat-item {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+      padding: 12px 10px;
+      background: #fffde7;
+      border-radius: 10px;
+    }
+    .stat-item .stat-num {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #f9a825;
+    }
+    .stat-item .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* 灯箱 */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 75vh;
+      border-radius: 10px;
+      object-fit: contain;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+    .lightbox .lb-close {
+      position: absolute;
+      top: 20px; right: 28px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: #fff;
+      font-size: 1.8rem;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 44px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-close:hover { background: rgba(255,255,255,0.3); }
+    .lightbox .lb-nav {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 2.2rem;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 48px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-nav:hover { background: rgba(255,255,255,0.28); }
+    .lightbox .lb-prev { left: 20px; }
+    .lightbox .lb-next { right: 20px; }
+    .lightbox .lb-counter {
+      color: rgba(255,255,255,0.65);
+      margin-top: 14px;
+      font-size: 0.85rem;
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .photo-card img { height: 140px; }
+      .info-card { padding: 14px 16px; }
+      .stat-item { min-width: 100px; padding: 10px 8px; }
+    }
+    @media (max-width: 400px) {
+      .photo-grid { grid-template-columns: 1fr 1fr; }
+      .photo-card img { height: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="back-link">← 返回高校列表</a>
+      <div class="header-content">
+        <div class="header-brand">
+          <span class="brand-icon">📊</span>
+          <h1 class="brand-title">江西财经大学</h1>
+        </div>
+        <p class="page-subtitle">校园实拍 · 学校定位 · 王牌专业 · 校区与宿舍 · 食堂情况 · 就业情况 · 转专业政策</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- 灯箱 -->
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" onclick="closeLightbox()" aria-label="关闭">×</button>
+    <button class="lb-nav lb-prev" onclick="prevPhoto()" aria-label="上一张">‹</button>
+    <img id="lightboxImg" src="" alt="照片大图">
+    <button class="lb-nav lb-next" onclick="nextPhoto()" aria-label="下一张">›</button>
+    <span class="lb-counter" id="imgCounter"></span>
+  </div>
+
+  <main class="resource-main">
+    <div class="container">
+
+      <!-- 校园实拍 -->
+      <section class="section">
+        <h2 class="section-heading">📷 校园实拍</h2>
+        <p class="section-desc">江西财经大学校园实拍，点击图片可放大查看</p>
+        <div class="photo-grid" id="photoGrid"></div>
+      </section>
+
+      <!-- 学校定位 -->
+      <section class="section">
+        <h2 class="section-heading">🎯 学校定位</h2>
+        <div class="highlight-card">
+          <p>江西财经大学是<strong>财政部、教育部、江西省人民政府共建高校</strong>，原隶属财政部部属院校，国家"中西部高校基础能力建设工程"支持高校，江西省一流学科建设高校。在财经界素有<strong>"江财"</strong>之称，位列<strong>中国财经类高校第 7 名左右</strong>。</p>
+          <p>学校以经济、管理类学科为主，法、工、文、理、艺术等多学科协调发展，具备<strong>本—硕—博完整学位授予权及博士后流动站</strong>。拥有<strong>应用经济学（A-）、统计学（A-）</strong>两大优势学科，共 <strong>34 个</strong>国家一流本科专业建设点，在财经行业认可度极高。</p>
+          <div class="highlight-tags">
+            <span class="highlight-tag">财政部+教育部+江西省共建</span>
+            <span class="highlight-tag">原财政部直属</span>
+            <span class="highlight-tag">财经类全国前7</span>
+            <span class="highlight-tag">本-硕-博+博士后</span>
+            <span class="highlight-tag">应用经济学A-</span>
+            <span class="highlight-tag">统计学A-</span>
+            <span class="highlight-tag">34个国家一流专业</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 王牌与优势专业 -->
+      <section class="section">
+        <h2 class="section-heading">⭐ 王牌与优势专业</h2>
+
+        <div class="info-card">
+          <div class="major-group">
+            <div class="mg-title">🏅 国家级特色专业（6 个，传统王牌）</div>
+            <div class="major-tags">
+              <span class="major-tag star">会计学</span>
+              <span class="major-tag star">金融学</span>
+              <span class="major-tag star">财政学</span>
+              <span class="major-tag star">法学</span>
+              <span class="major-tag star">市场营销</span>
+              <span class="major-tag star">信息管理与信息系统</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">🏆 学科评估优势学科</div>
+            <div class="major-tags">
+              <span class="major-tag good">应用经济学（A-）</span>
+              <span class="major-tag good">统计学（A-）</span>
+              <span class="major-tag good">工商管理（B+）</span>
+              <span class="major-tag good">管理科学与工程</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">💰 国家一流本科专业 · 财经类</div>
+            <div class="major-tags">
+              <span class="major-tag star">会计学</span>
+              <span class="major-tag">财务管理</span>
+              <span class="major-tag star">金融学</span>
+              <span class="major-tag">金融工程</span>
+              <span class="major-tag">财政学</span>
+              <span class="major-tag">税收学</span>
+              <span class="major-tag">经济学</span>
+              <span class="major-tag">经济统计学</span>
+              <span class="major-tag">国际经济与贸易</span>
+              <span class="major-tag">保险学</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">📋 国家一流本科专业 · 管理/其他类</div>
+            <div class="major-tags">
+              <span class="major-tag">工商管理</span>
+              <span class="major-tag">市场营销</span>
+              <span class="major-tag">人力资源管理</span>
+              <span class="major-tag">物流管理</span>
+              <span class="major-tag">信息管理与信息系统</span>
+              <span class="major-tag">法学</span>
+              <span class="major-tag">社会工作</span>
+              <span class="major-tag">计算机科学与技术</span>
+              <span class="major-tag">软件工程</span>
+              <span class="major-tag">应用统计学</span>
+            </div>
+          </div>
+          <p style="margin:12px 0 0;font-size:0.85rem;color:var(--text-secondary);">💡 共 <strong>34 个</strong>国家一流本科专业建设点，财经类专业覆盖全面。</p>
+        </div>
+      </section>
+
+      <!-- 校区与宿舍 -->
+      <section class="section">
+        <h2 class="section-heading">📍 校区与宿舍条件</h2>
+        <p class="section-desc">学校有<strong>蛟桥园、麦庐园、枫林园</strong>三个校区，宿舍整体以 4 人间、上床下桌、空调为标配，在江西省属高校中属中上等水平</p>
+
+        <div class="info-card">
+          <h3><span class="icon">🛏️</span> 房型与硬件</h3>
+          <ul>
+            <li>绝大多数为<strong>4 人间</strong>（蛟桥园北区个别 5 人间，枫林园老楼有 6 人间），统一<strong>上床下桌</strong></li>
+            <li>床铺尺寸约 <strong>0.9m × 1.9m</strong>，配衣柜、书桌、椅子和网络端口</li>
+            <li>所有宿舍标配<strong>空调</strong>，每层楼设公共饮水机、洗衣房（扫码）</li>
+            <li>热水多需插卡或扫码使用，严禁大功率电器</li>
+            <li><strong>门禁：</strong>夏令时 23:30、冬令时 23:00；工作日 23:30/24:00 断电，周末/期末/节假日通常不断电</li>
+            <li>住宿费约 <strong>700~1200 元/学年</strong>（4 人间一般 1200 元）</li>
+            <li>通过"智慧江财"小程序线上缴电费、报修</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">✨</span> 麦庐园校区 — "豪华宿舍"</h3>
+          <ul>
+            <li>设施最新，全部 <strong>4 人间带独卫</strong>，环境整洁，号称<strong>"美食圣地"</strong></li>
+            <li>北区 1-2 栋部分宿舍自带洗衣机</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🏫</span> 蛟桥园校区 — 主校区</h3>
+          <ul>
+            <li>分南、北区：<strong>南区条件较好</strong>多为 4 人独卫</li>
+            <li>北区大部分 4 人间，但 14-18 栋等为公共卫生间，16-17 栋新装修，21 栋为 5 人间</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🏢</span> 枫林园校区</h3>
+          <ul>
+            <li>1-2 栋为老宿舍（部分 5-6 人间），3-4 栋为新宿舍（4 人独卫），新老差异明显</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 食堂情况 -->
+      <section class="section">
+        <h2 class="section-heading">🍽️ 食堂情况</h2>
+
+        <div class="info-card">
+          <h3><span class="icon">🍜</span> 蛟桥园校区</h3>
+          <ul>
+            <li><strong>鼎食轩（北区主食堂）：</strong>3 层配扶梯，品类最全</li>
+            <li><strong>南区食堂：</strong>2 层，含川菜馆包厢</li>
+            <li>另有清真食堂、东区食堂</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🌟</span> 麦庐园校区 — "美食圣地"</h3>
+          <ul>
+            <li><strong>一食堂：</strong>3 层，配空调电梯，三楼有观影区</li>
+            <li><strong>二食堂、北区三食堂</strong></li>
+            <li><strong>南区商业街：</strong>含省内高校首家麦当劳、塔斯汀等</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🏙️</span> 枫林园校区</h3>
+          <ul>
+            <li>1 个主食堂分 2 层，一楼赣菜/冒菜/面食，二楼现炒/凉卤菜/甜点</li>
+            <li>紧邻<strong>紫荆夜市</strong>，校外美食丰富</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">💰</span> 菜品与价格</h3>
+          <ul>
+            <li>一楼多为自选大众餐、南昌拌粉、瓦罐汤等，偏赣菜微辣，也有北方面食</li>
+            <li>二楼/三楼涵盖黄焖鸡、石锅饭、麻辣香锅、铁板烧、蛋包饭、重庆鸡公煲等</li>
+            <li><strong>早餐约 5~10 元</strong>（拌粉+瓦罐汤约 4~6 元），午/晚餐自选菜约 <strong>7~15 元</strong>，档口类约 <strong>10~20 元</strong></li>
+            <li>支持微信/支付宝、校园一卡通</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 就业情况 -->
+      <section class="section">
+        <h2 class="section-heading">💼 就业情况</h2>
+
+        <div class="stat-row" style="margin-bottom:14px;">
+          <div class="stat-item">
+            <div class="stat-num">88%~95%</div>
+            <div class="stat-label">本科去向落实率（王牌专业95%+）</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">35%~36%</div>
+            <div class="stat-label">升学率（45%进双一流）</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">6277元</div>
+            <div class="stat-label">本科平均起薪（王牌专业8k~1w）</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">13000元</div>
+            <div class="stat-label">工作5年月薪中位数</div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🏦</span> 金融/银行/证券</h3>
+          <p style="margin:0;color:var(--text-secondary);">中国工商银行、中国银行、建设银行、农业银行、招商银行、中信证券、中金公司、华泰联合、平安保险、中国人保等。<strong>2026 届中国银行录用人数列全国第四</strong>。</p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🏛️</span> 财税/体制内（核心优势）</h3>
+          <p style="margin:0;color:var(--text-secondary);"><strong>国家税务总局 2025 年录用 204 人居全国高校第一</strong>，2026 年第一批拟录用 237 人再居第一。财政局、统计局、各级选调生/公务员、事业单位大量招收江财毕业生。</p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">📊</span> 会计师事务所</h3>
+          <p style="margin:0;color:var(--text-secondary);">普华永道、德勤、安永、毕马威<strong>"四大"</strong>，及天健、立信、容诚等国内顶尖内资所。每年 <strong>200 余人入职四大及头部内资所</strong>。</p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">💻</span> 科技/实体企业</h3>
+          <p style="margin:0;color:var(--text-secondary);"><strong>华为（财经岗等）、腾讯、阿里、字节跳动</strong>、比亚迪、格力、中国移动、国家电网、中建集团等。</p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🧭</span> 就业地域流向</h3>
+          <p style="margin:0;color:var(--text-secondary);">
+            江西省内约 <strong>11%~45%</strong>（南昌为主，比例相对分散）<br>
+            珠三角（广东/深圳）约 <strong>20%~26%</strong>，以深圳居多，粤港澳校友网络极强<br>
+            长三角（上海、浙江、江苏）约 <strong>15%~25%</strong>，流向银行、证券、互联网及制造业总部<br>
+            北京约 <strong>7%</strong>，及福建、湖南等周边省份
+          </p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🎓</span> 升学深造</h3>
+          <p style="margin:0;color:var(--text-secondary);">普通本科升学率约 <strong>35%~36%</strong>（含境内外），境内深造中约 <strong>45% 进入"双一流"高校</strong>，境外留学中超七成进入 <strong>QS 全球百强名校</strong>。</p>
+        </div>
+      </section>
+
+      <!-- 转专业政策 -->
+      <section class="section">
+        <h2 class="section-heading">🔄 转专业政策</h2>
+
+        <div class="info-card">
+          <h3><span class="icon">⏰</span> 申请时间与次数</h3>
+          <ul>
+            <li><strong>第二学期（大一下，4 月中下旬考试）：</strong>可申请跨学科/学科大类转专业</li>
+            <li><strong>第三学期（大二上学期）：</strong>仅限申请转入本学科大类内的专业</li>
+            <li>除涉外专业实行"滚动竞争制"外，普通学生在校期间<strong>转专业原则上只限一次</strong></li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">📝</span> 准入考核与录取</h3>
+          <ul>
+            <li><strong>A 类（经济、管理、理学、工学等）：</strong>考英语 + 微积分</li>
+            <li><strong>B 类（法学、文学、教育等）：</strong>考英语 + 大学语文</li>
+            <li>由教务处统一命题，按总分 + 志愿平行录取，部分学院加设面试或单科分数线（如英语不低于 70 分）</li>
+            <li>各专业计划转入人数不低于当届总人数 <strong>10%</strong>，但热门专业实际报录比很高，需排名靠前</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🚫</span> 不得转专业情形</h3>
+          <ul>
+            <li>定向生、保送生、专升本、高水平运动员、艺术类、体育类、中外合作办学班、特色班、少数民族预科班等</li>
+            <li>低批次录取专业不能转入高批次录取专业</li>
+            <li>处于休学、保留学籍、应予退学状态的</li>
+            <li>在校期间受到警告及以上纪律处分的</li>
+            <li>未选考物理的学生一般不能转入理学学科专业等</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">⚠️</span> 特殊说明</h3>
+          <ul>
+            <li>转入部分理、工、数理经济等专业对高考选科（如物理）或单科成绩有额外要求</li>
+            <li>转成功后需按新专业培养方案补修课程，若学分差距过大可能需<strong>编入下一年级就读</strong></li>
+          </ul>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">数据来源：江西财经大学官方信息及在校生反馈</p>
+      <p class="footer-warning">⚠️ 谨防诈骗！所有信息请以学校官方渠道为准</p>
+      <p class="footer-copy">
+        <a href="../index.html" style="color:var(--primary);text-decoration:none;">江西高校信息站</a> · 为准大一新生而生
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var photos = [
+        { src: '微信图片_2026-07-14_170152_832.jpg', label: '校园实拍 ①' },
+        { src: '微信图片_2026-07-14_170203_446.jpg', label: '校园实拍 ②' },
+        { src: '微信图片_2026-07-14_170209_199.jpg', label: '校园实拍 ③' },
+        { src: '微信图片_2026-07-14_170213_876.jpg', label: '校园实拍 ④' },
+        { src: '微信图片_2026-07-14_170218_960.jpg', label: '校园实拍 ⑤' }
+      ];
+
+      var photoGrid = document.getElementById('photoGrid');
+      photos.forEach(function (photo, index) {
+        var card = document.createElement('div');
+        card.className = 'photo-card';
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', photo.label + '，点击放大');
+        card.addEventListener('click', function () { openLightbox(index); });
+
+        var img = document.createElement('img');
+        img.src = encodeURI(photo.src);
+        img.alt = photo.label;
+        img.loading = 'lazy';
+
+        var label = document.createElement('div');
+        label.className = 'photo-label';
+        label.textContent = photo.label;
+
+        card.appendChild(img);
+        card.appendChild(label);
+        photoGrid.appendChild(card);
+      });
+
+      var currentPhotoIndex = 0;
+      var lightbox = document.getElementById('lightbox');
+      var lightboxImg = document.getElementById('lightboxImg');
+      var imgCounter = document.getElementById('imgCounter');
+
+      function openLightbox(index) {
+        currentPhotoIndex = index;
+        lightboxImg.src = encodeURI(photos[index].src);
+        imgCounter.textContent = (index + 1) + ' / ' + photos.length;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      window.closeLightbox = function () {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+
+      window.prevPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      window.nextPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      document.addEventListener('keydown', function (e) {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') prevPhoto();
+        if (e.key === 'ArrowRight') nextPhoto();
+      });
+
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+    })();
+  </script>
+
+</body>
+</html>
