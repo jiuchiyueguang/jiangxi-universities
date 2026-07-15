@@ -379,9 +379,6 @@ const universities = [
       url: "上饶师范学院/index.html"
     }
   },
-    clubs: "40+社团",
-    description: "赣东北地区主要师范院校，为基础教育培养师资"
-  },
   {
     id: 18,
     name: "南昌师范学院",
