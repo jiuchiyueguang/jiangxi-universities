@@ -444,20 +444,25 @@ const universities = [
   {
     id: 22,
     name: "江西警察学院",
-    level: "省属 / 公安类",
+    level: "省属 / 全国首所部省共建公安本科",
     city: "南昌",
     website: "https://www.jxga.edu.cn",
     logo: "",
     militaryTraining: "入学即开始，约1个月（含警务化训练）",
-    dormitory: "湾里校区，4人间，有空调、独卫，警务化管理",
-    cafeteria: "有食堂，统一就餐管理",
-    campusArea: "约1000亩",
-    majors: "侦查学、治安学、刑事科学技术、交通管理工程",
+    dormitory: "4人小寝上床下桌，两小寝组成一大寝共用阳台卫浴（2洗手台+2坑位+1淋浴），空调全覆盖，严格警务化管理，详见子页面",
+    cafeteria: "统一就餐管理",
+    campusArea: "约1932亩（南昌新建区梅岭大道）",
+    majors: "经济犯罪侦查（国家一流），侦查学、治安学、刑事科学技术、网络安全与执法、法学（省级一流）",
     tuition: "4380-4940元/年",
-    transportation: "公交可达",
+    transportation: "146/170/522/699路公交，距南昌西站约6公里",
     genderRatio: "男:女 ≈ 4:1",
-    clubs: "30+社团，警务技能类社团为主",
-    description: "江西省唯一公安本科院校，实行警务化管理"
+    clubs: "30+社团，合唱/舞蹈/管乐团常登央视，警务技能类社团为主",
+    description: "全国第一所部省共建地方公安本科院校，2024年网络安全人才培养试点，公安联考入警率极高，男生寸头女生短发，警务化管理严格",
+    resources: {
+      photos: true,
+      transfer: true,
+      url: "江西警察学院/index.html"
+    }
   },
   {
     id: 23,

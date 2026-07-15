@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="江西警察学院校园实拍、学校定位、王牌专业、校区与设施、宿舍条件、就业情况、管理特色、转专业政策">
+  <meta name="theme-color" content="#1a237e">
+  <title>江西警察学院 · 校园实拍 & 全方位信息</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    .site-header {
+      position: relative;
+      padding: 32px 0 24px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.88rem;
+      margin-bottom: 12px;
+      transition: color var(--transition);
+      font-weight: 500;
+    }
+    .back-link:hover { color: #fff; }
+    .page-subtitle {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin-top: 6px;
+      font-weight: 400;
+    }
+
+    .resource-main {
+      flex: 1;
+      padding: 28px 0 40px;
+    }
+    .resource-main .container {
+      max-width: 860px;
+    }
+
+    .section {
+      margin-bottom: 36px;
+    }
+    .section-heading {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    .section-desc strong {
+      color: var(--accent);
+    }
+
+    /* 照片卡片 */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 16px;
+    }
+    .photo-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .photo-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #1a237e, #5c6bc0);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+    .photo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: transparent;
+    }
+    .photo-card:hover::before { opacity: 1; }
+    .photo-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-card .photo-label {
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* 高亮定位卡片 */
+    .highlight-card {
+      background: linear-gradient(135deg, #e8eaf6, #e3f2fd);
+      border: 1.5px solid #1a237e;
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+    }
+    .highlight-card p {
+      margin: 0 0 10px;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .highlight-card p:last-child { margin-bottom: 0; }
+    .highlight-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .highlight-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: #fff;
+      border: 1.5px solid #1a237e;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #1a237e;
+      font-weight: 600;
+    }
+
+    /* 信息卡片 */
+    .info-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+      transition: all 0.25s ease;
+      line-height: 1.7;
+      font-size: 0.88rem;
+    }
+    .info-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: #9fa8da;
+    }
+    .info-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .info-card h3 .icon { color: #1a237e; }
+    .info-card ul, .info-card ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .info-card li {
+      margin-bottom: 6px;
+      color: var(--text-secondary);
+    }
+    .info-card li strong { color: var(--text); }
+
+    /* 专业标签 */
+    .major-group {
+      margin-bottom: 12px;
+    }
+    .major-group .mg-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .major-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .major-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: #e8eaf6;
+      border: 1.5px solid #9fa8da;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .major-tag.star {
+      border-color: #1a237e;
+      background: #c5cae9;
+      color: #1a237e;
+      font-weight: 700;
+    }
+    .major-tag.good {
+      border-color: #283593;
+      background: #e8eaf6;
+      color: #283593;
+      font-weight: 600;
+    }
+
+    /* 警告卡片 */
+    .warn-card {
+      background: #fff3e0;
+      border: 1.5px solid #e65100;
+      border-radius: var(--radius-md);
+      padding: 18px 22px;
+      margin-bottom: 14px;
+      line-height: 1.7;
+      font-size: 0.88rem;
+    }
+    .warn-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #e65100;
+      margin: 0 0 8px;
+    }
+    .warn-card p, .warn-card li {
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+
+    /* 统计数字 */
+    .stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .stat-item {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+      padding: 12px 10px;
+      background: #e8eaf6;
+      border-radius: 10px;
+    }
+    .stat-item .stat-num {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #1a237e;
+    }
+    .stat-item .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* 灯箱 */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 75vh;
+      border-radius: 10px;
+      object-fit: contain;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+    .lightbox .lb-close {
+      position: absolute;
+      top: 20px; right: 28px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: #fff;
+      font-size: 1.8rem;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 44px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-close:hover { background: rgba(255,255,255,0.3); }
+    .lightbox .lb-nav {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 2.2rem;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 48px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-nav:hover { background: rgba(255,255,255,0.28); }
+    .lightbox .lb-prev { left: 20px; }
+    .lightbox .lb-next { right: 20px; }
+    .lightbox .lb-counter {
+      color: rgba(255,255,255,0.65);
+      margin-top: 14px;
+      font-size: 0.85rem;
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .photo-card img { height: 140px; }
+      .info-card { padding: 14px 16px; }
+      .stat-item { min-width: 100px; padding: 10px 8px; }
+    }
+    @media (max-width: 400px) {
+      .photo-grid { grid-template-columns: 1fr 1fr; }
+      .photo-card img { height: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="back-link">← 返回高校列表</a>
+      <div class="header-content">
+        <div class="header-brand">
+          <span class="brand-icon">🛡️</span>
+          <h1 class="brand-title">江西警察学院</h1>
+        </div>
+        <p class="page-subtitle">校园实拍 · 学校定位 · 王牌专业 · 校区与设施 · 宿舍条件 · 就业情况 · 管理特色 · 转专业政策</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- 灯箱 -->
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" onclick="closeLightbox()" aria-label="关闭">×</button>
+    <button class="lb-nav lb-prev" onclick="prevPhoto()" aria-label="上一张">‹</button>
+    <img id="lightboxImg" src="" alt="照片大图">
+    <button class="lb-nav lb-next" onclick="nextPhoto()" aria-label="下一张">›</button>
+    <span class="lb-counter" id="imgCounter"></span>
+  </div>
+
+  <main class="resource-main">
+    <div class="container">
+
+      <!-- 校园实拍 -->
+      <section class="section">
+        <h2 class="section-heading">📷 校园实拍</h2>
+        <p class="section-desc">江西警察学院校园实拍，点击图片可放大查看</p>
+        <div class="photo-grid" id="photoGrid"></div>
+      </section>
+
+      <!-- 学校定位 -->
+      <section class="section">
+        <h2 class="section-heading">🎯 学校定位</h2>
+        <div class="highlight-card">
+          <p>江西警察学院是<strong>全国第一所部省共建地方公安本科院校</strong>，定位为"高水平、有特色、应用型"本科院校。<strong>2024 年获批网络安全人才培养试点院校</strong>，网络安全现代产业学院获批省级重点现代产业学院。学校是<strong>江西省唯一公安本科院校</strong>，实行严格的警务化管理。</p>
+          <p>现有教职工 418 人，其中正高 49 人、副高 88 人，博硕士学位 274 人，拥有<strong>国家教学名师、全国优秀教师</strong>等多人。建有电子数据管控与取证省级重点实验室等科研平台。</p>
+          <div class="highlight-tags">
+            <span class="highlight-tag">全国首所部省共建公安本科</span>
+            <span class="highlight-tag">网络安全人才培养试点</span>
+            <span class="highlight-tag">省级重点现代产业学院</span>
+            <span class="highlight-tag">江西省唯一公安本科</span>
+            <span class="highlight-tag">国家教学名师</span>
+            <span class="highlight-tag">电子数据取证省重点实验室</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 王牌与优势专业 -->
+      <section class="section">
+        <h2 class="section-heading">⭐ 王牌与优势专业</h2>
+
+        <div class="info-card">
+          <div class="major-group">
+            <div class="mg-title">🏅 国家一流本科专业</div>
+            <div class="major-tags">
+              <span class="major-tag star">经济犯罪侦查</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">🏆 省级一流本科专业（5 个）</div>
+            <div class="major-tags">
+              <span class="major-tag good">侦查学</span>
+              <span class="major-tag good">治安学</span>
+              <span class="major-tag good">刑事科学技术</span>
+              <span class="major-tag good">网络安全与执法</span>
+              <span class="major-tag good">法学</span>
+            </div>
+          </div>
+          <p style="margin:12px 0 0;font-size:0.85rem;color:var(--text-secondary);">💡 公安类专业为<strong>按需培养</strong>，招生计划与公安机关用人需求直接挂钩。</p>
+        </div>
+      </section>
+
+      <!-- 校区概况与设施 -->
+      <section class="section">
+        <h2 class="section-heading">📍 校区概况与设施</h2>
+
+        <div class="info-card">
+          <h3><span class="icon">🏫</span> 基本信息</h3>
+          <ul>
+            <li>地址：<strong>南昌市新建区梅岭大道 1666 号</strong></li>
+            <li>占地面积：<strong>1932.68 亩</strong></li>
+            <li>校门口有 <strong>146 路、170 路、522 路、699 路</strong>等多条公交线</li>
+            <li>最近地铁站（礼庄山站）约 <strong>6.1 公里</strong></li>
+            <li>距<strong>南昌西站</strong>约 6~8 公里，打车 20 元左右</li>
+            <li>宿舍离校门较远，可乘坐校内接驳<strong>"小白车"</strong></li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🏛️</span> 校园环境</h3>
+          <ul>
+            <li>校园建筑以<strong>红墙教学楼</strong>为特色，校内有小湖、广场、步道</li>
+            <li>设有<strong>超大图书馆</strong>，自习座位充足，考研氛围浓厚</li>
+            <li>室内体育馆、篮球场、羽毛球场等运动设施丰富</li>
+            <li>学校设有<strong>合唱、舞蹈、管乐团</strong>，常登台央视和省级大型汇演，水准很高</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 宿舍条件 -->
+      <section class="section">
+        <h2 class="section-heading">🛏️ 宿舍条件</h2>
+
+        <div class="info-card">
+          <h3><span class="icon">🏠</span> 房型与配置</h3>
+          <ul>
+            <li><strong>四人小寝</strong>，上床下桌布局，空调电扇齐全</li>
+            <li><strong>两小寝组成一大寝</strong>，共用阳台和卫浴</li>
+            <li>每大寝配 <strong>2 个洗手台 + 2 个坑位 + 1 个淋浴间</strong></li>
+            <li>每层有饮水机，部分楼栋有洗衣房（2~4 元/桶，有烘干机等）</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🫡</span> 内务管理</h3>
+          <ul>
+            <li>实行<strong>严格警务化管理</strong>，需按时作息、整理内务</li>
+            <li>内务检查标准高，被子叠成"豆腐块"等</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 就业情况 -->
+      <section class="section">
+        <h2 class="section-heading">💼 就业情况</h2>
+
+        <div class="info-card">
+          <h3><span class="icon">👮</span> 公安类专业 — 公安联考</h3>
+          <p style="margin:0;color:var(--text-secondary);">实行<strong>按需培养</strong>，毕业时参加公安机关面向公安院校公安专业应届毕业生的<strong>招警考试（公安联考）</strong>，经考试、体能测评、体检、政治考察均合格者，原则上<strong>回生源地公安机关工作</strong>。入警率极高，是成为人民警察的最主要通道。</p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">💻</span> 普通类专业 — 自主择业</h3>
+          <p style="margin:0;color:var(--text-secondary);">普通专业（法学、信息安全等）通过学校推荐、毕业生与用人单位<strong>双向选择</strong>、自主择业及创业实现就业。学校会举办大型校园双选会，<strong>2026 届双选会吸引 63 家单位提供 2235 个岗位</strong>。</p>
+        </div>
+      </section>
+
+      <!-- 管理特色与注意事项 -->
+      <section class="section">
+        <h2 class="section-heading">🫡 管理特色与注意事项</h2>
+        <p class="section-desc">江西警察学院实行<strong>严格的警务化管理</strong>，与普通高校有本质区别，报考前务必了解</p>
+
+        <div class="warn-card">
+          <h3>⚠️ 仪容仪表要求（极为严格）</h3>
+          <ul>
+            <li><strong>男生：</strong>需理寸头（军训期间不超过 <strong>3mm</strong>）</li>
+            <li><strong>女生：</strong>需留短发（发梢<strong>不超过衣领</strong>）</li>
+            <li>严禁染烫发、纹身、染指甲、戴首饰等</li>
+          </ul>
+        </div>
+
+        <div class="warn-card">
+          <h3>⚠️ 政审要求</h3>
+          <ul>
+            <li>报考公安类专业需通过<strong>严格的政治审查</strong></li>
+            <li>要求本人及直系亲属<strong>无违法犯罪记录</strong>等</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">📋</span> 日常管理</h3>
+          <ul>
+            <li>需遵守严格纪律，<strong>按时作息、跑操、整理内务</strong></li>
+            <li>统一着装，在校期间穿着警服</li>
+            <li>请假外出审批严格</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 转专业政策 -->
+      <section class="section">
+        <h2 class="section-heading">🔄 转专业政策</h2>
+
+        <div class="warn-card">
+          <h3>🚫 最大红线</h3>
+          <p style="margin:0;"><strong>普通类专业绝对无法转入公安类专业。</strong>公安类专业只能通过高考统一招生录取。</p>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">⏰</span> 申请时间与条件</h3>
+          <ul>
+            <li>仅限<strong>一年级学生</strong>申请（二年级只能在相近专业间转）</li>
+            <li>申请时间为<strong>第一学年第二学期第二周前</strong></li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🚫</span> 禁止情形</h3>
+          <ul>
+            <li>刑事科学技术（警犬侦查方向）<strong>不能转出</strong></li>
+            <li>受留校察看处分者不予受理</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">📝</span> 选拔机制</h3>
+          <ul>
+            <li>转入名额若超限，按<strong>第一学期成绩排名</strong>或组织考试择优录取</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">⚠️</span> 温馨提示</h3>
+          <ul>
+            <li>操作前务必致电<strong>教务处</strong>确认最新政策</li>
+          </ul>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">数据来源：江西警察学院官方信息及在校生反馈</p>
+      <p class="footer-warning">⚠️ 谨防诈骗！所有信息请以学校官方渠道为准</p>
+      <p class="footer-copy">
+        <a href="../index.html" style="color:var(--primary);text-decoration:none;">江西高校信息站</a> · 为准大一新生而生
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var photos = [
+        { src: '微信图片_20260714191001_479_30.jpg', label: '校园实拍 ①' },
+        { src: '微信图片_20260714193639_488_30.jpg', label: '校园实拍 ②' },
+        { src: '微信图片_20260714193640_489_30.jpg', label: '校园实拍 ③' }
+      ];
+
+      var photoGrid = document.getElementById('photoGrid');
+      photos.forEach(function (photo, index) {
+        var card = document.createElement('div');
+        card.className = 'photo-card';
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', photo.label + '，点击放大');
+        card.addEventListener('click', function () { openLightbox(index); });
+
+        var img = document.createElement('img');
+        img.src = encodeURI(photo.src);
+        img.alt = photo.label;
+        img.loading = 'lazy';
+
+        var label = document.createElement('div');
+        label.className = 'photo-label';
+        label.textContent = photo.label;
+
+        card.appendChild(img);
+        card.appendChild(label);
+        photoGrid.appendChild(card);
+      });
+
+      var currentPhotoIndex = 0;
+      var lightbox = document.getElementById('lightbox');
+      var lightboxImg = document.getElementById('lightboxImg');
+      var imgCounter = document.getElementById('imgCounter');
+
+      function openLightbox(index) {
+        currentPhotoIndex = index;
+        lightboxImg.src = encodeURI(photos[index].src);
+        imgCounter.textContent = (index + 1) + ' / ' + photos.length;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      window.closeLightbox = function () {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+
+      window.prevPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      window.nextPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      document.addEventListener('keydown', function (e) {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') prevPhoto();
+        if (e.key === 'ArrowRight') nextPhoto();
+      });
+
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+    })();
+  </script>
+
+</body>
+</html>
