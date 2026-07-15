@@ -454,20 +454,25 @@ const universities = [
   {
     id: 21,
     name: "九江学院",
-    level: "省属",
+    level: "省属 / 硕士学位授予单位（2024）",
     city: "九江",
     website: "https://www.jju.edu.cn",
     logo: "",
     militaryTraining: "9月中下旬，约14天",
-    dormitory: "庐山区校区，4-6人间，部分有空调",
-    cafeteria: "有3个食堂，九江鱼宴有特色",
-    campusArea: "约2000亩",
-    majors: "医学、工学、管理学、文学",
+    dormitory: "紫薇园（新）4人间独卫/主校区高寝4人间/普寝6-8人间/老校区6-8人间，因校区差异大，均配空调，详见子页面",
+    cafeteria: "主校区5个食堂+紫薇园新食堂，'食在九院'，米饭0.15元/两另加免费，最低2.6元套餐，瑞幸+古茗入驻，详见子页面",
+    campusArea: "约2000亩（四个校区）",
+    majors: "会计学/微电子/医学检验技术/旅游管理（国家一流），国际经济与贸易/生物科学（国家级特色），14个省级一流",
     tuition: "4010-4790元/年",
     transportation: "九江站公交可达，近庐山景区",
     genderRatio: "男:女 ≈ 1:1",
     clubs: "50+社团",
-    description: "综合性本科院校，坐落在庐山脚下，环境优美"
+    description: "庐山之麓、长江之滨，2024年获批硕士学位授予单位（3个硕士点），4个国家一流专业，赣北地区综合性最强校，'食在九院'食堂天花板",
+    resources: {
+      photos: true,
+      transfer: true,
+      url: "九江学院/index.html"
+    }
   },
   {
     id: 22,

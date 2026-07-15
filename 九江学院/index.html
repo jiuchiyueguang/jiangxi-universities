@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="九江学院校园实拍、学校定位、王牌专业、就业情况、宿舍条件、食堂、转专业政策">
+  <meta name="theme-color" content="#0d47a1">
+  <title>九江学院 · 校园实拍 & 全方位信息</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    :root {
+      --primary: #0d47a1;
+      --accent: #ff8f00;
+    }
+
+    .site-header {
+      position: relative;
+      padding: 32px 0 24px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.88rem;
+      margin-bottom: 12px;
+      transition: color var(--transition);
+      font-weight: 500;
+    }
+    .back-link:hover { color: #fff; }
+    .page-subtitle {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin-top: 6px;
+      font-weight: 400;
+    }
+
+    .resource-main {
+      flex: 1;
+      padding: 28px 0 40px;
+    }
+    .resource-main .container {
+      max-width: 860px;
+    }
+
+    .section {
+      margin-bottom: 36px;
+    }
+    .section-heading {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    .section-desc strong {
+      color: var(--accent);
+    }
+
+    /* 照片卡片 */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 16px;
+    }
+    .photo-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .photo-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #0d47a1, #42a5f5);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+    .photo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: transparent;
+    }
+    .photo-card:hover::before { opacity: 1; }
+    .photo-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-card .photo-label {
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* 高亮定位卡片 */
+    .highlight-card {
+      background: linear-gradient(135deg, #e3f2fd, #fff8e1);
+      border: 1.5px solid #0d47a1;
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+    }
+    .highlight-card p {
+      margin: 0 0 10px;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .highlight-card p:last-child { margin-bottom: 0; }
+    .highlight-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .highlight-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: #fff;
+      border: 1.5px solid #0d47a1;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #0d47a1;
+      font-weight: 600;
+    }
+
+    /* 信息卡片 */
+    .info-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+      transition: all 0.25s ease;
+      line-height: 1.7;
+      font-size: 0.88rem;
+    }
+    .info-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: #90caf9;
+    }
+    .info-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .info-card h3 .icon { color: #0d47a1; }
+    .info-card ul, .info-card ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .info-card li {
+      margin-bottom: 6px;
+      color: var(--text-secondary);
+    }
+    .info-card li strong { color: var(--text); }
+
+    /* 警告卡片 */
+    .warn-card {
+      background: #fff3e0;
+      border: 1.5px solid #ff8f00;
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin-bottom: 14px;
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .warn-card strong { color: #e65100; }
+
+    /* 专业标签 */
+    .major-group {
+      margin-bottom: 12px;
+    }
+    .major-group .mg-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .major-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .major-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: #e3f2fd;
+      border: 1.5px solid #90caf9;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .major-tag.star {
+      border-color: #0d47a1;
+      background: #bbdefb;
+      color: #0d47a1;
+      font-weight: 700;
+    }
+    .major-tag.good {
+      border-color: #1565c0;
+      background: #e3f2fd;
+      color: #1565c0;
+      font-weight: 600;
+    }
+
+    /* 统计数字 */
+    .stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .stat-item {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+      padding: 12px 10px;
+      background: #e3f2fd;
+      border-radius: 10px;
+    }
+    .stat-item .stat-num {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #0d47a1;
+    }
+    .stat-item .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* 宿舍对比 */
+    .dorm-compare {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      margin: 10px 0;
+    }
+    .dorm-compare th {
+      background: #e3f2fd;
+      padding: 8px 10px;
+      text-align: left;
+      font-weight: 700;
+      color: #0d47a1;
+      border-bottom: 2px solid #0d47a1;
+    }
+    .dorm-compare td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+    .dorm-compare tr:hover td { background: #f5f5f5; }
+    .dorm-compare td:first-child { font-weight: 600; color: var(--text); }
+
+    /* 灯箱 */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 75vh;
+      border-radius: 10px;
+      object-fit: contain;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+    .lightbox .lb-close {
+      position: absolute;
+      top: 20px; right: 28px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: #fff;
+      font-size: 1.8rem;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 44px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-close:hover { background: rgba(255,255,255,0.3); }
+    .lightbox .lb-nav {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 2.2rem;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 48px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-nav:hover { background: rgba(255,255,255,0.28); }
+    .lightbox .lb-prev { left: 20px; }
+    .lightbox .lb-next { right: 20px; }
+    .lightbox .lb-counter {
+      color: rgba(255,255,255,0.65);
+      margin-top: 14px;
+      font-size: 0.85rem;
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .photo-card img { height: 140px; }
+      .info-card { padding: 14px 16px; }
+      .stat-item { min-width: 100px; padding: 10px 8px; }
+      .dorm-compare { font-size: 0.72rem; }
+      .dorm-compare th, .dorm-compare td { padding: 6px 7px; }
+    }
+    @media (max-width: 400px) {
+      .photo-grid { grid-template-columns: 1fr 1fr; }
+      .photo-card img { height: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="back-link">← 返回高校列表</a>
+      <div class="header-content">
+        <div class="header-brand">
+          <span class="brand-icon">🏔️</span>
+          <h1 class="brand-title">九江学院</h1>
+        </div>
+        <p class="page-subtitle">校园实拍 · 学校定位 · 王牌专业 · 就业情况 · 宿舍条件 · 食堂 · 转专业政策</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- 灯箱 -->
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" onclick="closeLightbox()" aria-label="关闭">×</button>
+    <button class="lb-nav lb-prev" onclick="prevPhoto()" aria-label="上一张">‹</button>
+    <img id="lightboxImg" src="" alt="照片大图">
+    <button class="lb-nav lb-next" onclick="nextPhoto()" aria-label="下一张">›</button>
+    <span class="lb-counter" id="imgCounter"></span>
+  </div>
+
+  <main class="resource-main">
+    <div class="container">
+
+      <!-- 校园实拍 -->
+      <section class="section">
+        <h2 class="section-heading">📷 校园实拍</h2>
+        <p class="section-desc">九江学院校园实拍，点击图片可放大查看</p>
+        <div class="photo-grid" id="photoGrid"></div>
+      </section>
+
+      <!-- 学校定位 -->
+      <section class="section">
+        <h2 class="section-heading">🎯 学校定位</h2>
+        <div class="highlight-card">
+          <p>九江学院是<strong>省市共建、以市为主</strong>的全日制公办普通本科高校，坐落于江西省九江市——<strong>庐山之麓、长江之滨、鄱阳湖之畔</strong>，地理位置得天独厚。学校 <strong>2024 年获批硕士学位授予单位</strong>（生物与医药、资源与环境、国际商务 3 个硕士点），校训为"竟知向学、厚德笃行"。</p>
+          <p>办学定位为<strong>区域性高水平应用型大学</strong>，以应用型本科教育为主，大力开展研究生教育，在赣北地区教育、医疗、财会及制造业中行业认可度较高。</p>
+          <div class="highlight-tags">
+            <span class="highlight-tag">2024 硕士学位授予单位</span>
+            <span class="highlight-tag">庐山·长江·鄱阳湖</span>
+            <span class="highlight-tag">4 个国家一流专业</span>
+            <span class="highlight-tag">食在九院</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 王牌与优势专业 -->
+      <section class="section">
+        <h2 class="section-heading">⭐ 王牌与优势专业</h2>
+
+        <div class="info-card">
+          <div class="major-group">
+            <div class="mg-title">🏅 国家级一流本科专业建设点</div>
+            <div class="major-tags">
+              <span class="major-tag star">会计学</span>
+              <span class="major-tag star">微电子科学与工程</span>
+              <span class="major-tag star">医学检验技术</span>
+              <span class="major-tag star">旅游管理</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">🏆 国家级特色专业</div>
+            <div class="major-tags">
+              <span class="major-tag good">国际经济与贸易</span>
+              <span class="major-tag good">生物科学</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">🎖️ 省级一流本科专业建设点（共 14 个，代表性）</div>
+            <div class="major-tags">
+              <span class="major-tag">临床医学</span>
+              <span class="major-tag">应用物理学</span>
+              <span class="major-tag">化学工程与工艺</span>
+              <span class="major-tag">护理学</span>
+              <span class="major-tag">计算机科学与技术</span>
+              <span class="major-tag">机械设计制造及其自动化</span>
+              <span class="major-tag">材料成型及控制工程</span>
+              <span class="major-tag">环境工程</span>
+              <span class="major-tag">汉语言文学</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 就业情况 -->
+      <section class="section">
+        <h2 class="section-heading">💼 就业情况</h2>
+
+        <div class="stat-row">
+          <div class="stat-item">
+            <div class="stat-num">81%~83%</div>
+            <div class="stat-label">去向落实率</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">6%~13%</div>
+            <div class="stat-label">考研升学率</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">5700~5800 元</div>
+            <div class="stat-label">本科应届起薪</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">6000~7500 元</div>
+            <div class="stat-label">王牌专业起薪</div>
+          </div>
+        </div>
+
+        <div class="info-card" style="margin-top:14px;">
+          <h3><span class="icon">💼</span> 主要就业方向</h3>
+          <ul>
+            <li><strong>企业与制造：</strong>九江石化、昌河飞机（昌飞）、江铜、各类电子信息与装备制造企业、知名银行（年录用约 100 人）、中石化等</li>
+            <li><strong>医疗与教育：</strong>九江市及赣北地区各级医院（附院为三甲）、中初教育单位、事业单位</li>
+            <li><strong>体制内及其他：</strong>部分进入国家电网、选调生/公务员、机关单位</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🗺️</span> 就业地域流向</h3>
+          <ul>
+            <li>长江经济带约 <strong>73.54%</strong>（中部地区约 55.83%），江西省内约 <strong>38%~47%</strong>（九江、南昌为主）</li>
+            <li>珠三角（广东）约 <strong>11%~14%</strong>（深圳、广州居多）</li>
+            <li>长三角（上海、浙江、江苏）约 <strong>14%~18%</strong></li>
+            <li>北京约 2%~6%，环渤海约 4%~5% 及闽湘等周边省份</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">📈</span> 薪资成长</h3>
+          <ul>
+            <li>用人单位平均满意度约 <strong>95%~96.5%</strong></li>
+            <li>工作 5 年后月薪均值约 <strong>7900~11000 元</strong></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 校区与宿舍 -->
+      <section class="section">
+        <h2 class="section-heading">🛏️ 校区与宿舍条件</h2>
+        <p class="section-desc">共 <strong>4 个校区</strong>：主校区（丹枫园）、紫薇园（新校区）、浔东校区、庐峰校区，<strong>宿舍条件因校区差异较大</strong></p>
+
+        <div class="info-card" style="overflow-x:auto;">
+          <h3><span class="icon">📊</span> 各校区宿舍对比</h3>
+          <table class="dorm-compare">
+            <thead>
+              <tr>
+                <th>校区</th>
+                <th>房型</th>
+                <th>配置</th>
+                <th>卫浴</th>
+                <th>条件评价</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>紫薇园（新校区）</td>
+                <td>4 人间上床下桌</td>
+                <td>空调</td>
+                <td>独立卫浴 + 阳台</td>
+                <td>⭐ 最好</td>
+              </tr>
+              <tr>
+                <td>主校区 · 高寝</td>
+                <td>4 人间（部分上床下桌）</td>
+                <td>空调</td>
+                <td>公共浴室/卫生间（隔间）</td>
+                <td>⭐⭐ 较好</td>
+              </tr>
+              <tr>
+                <td>主校区 · 普寝</td>
+                <td>6~8 人间（上下铺+书桌柜）</td>
+                <td>空调</td>
+                <td>公共浴室/卫生间（隔间）</td>
+                <td>⭐⭐⭐ 一般</td>
+              </tr>
+              <tr>
+                <td>浔东 / 庐峰（老校区）</td>
+                <td>6~8 人间</td>
+                <td>空调</td>
+                <td>公共浴室/卫生间</td>
+                <td>⭐⭐⭐⭐ 较陈旧</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🚿</span> 设施与管理</h3>
+          <ul>
+            <li>热水插校园卡使用，每层设公共洗衣房（扫码）、吹风机、直饮水机</li>
+            <li>全校宿舍<strong>标配空调</strong></li>
+            <li>住宿费：4 人间约 <strong>1000 元/年</strong>，6 人间 <strong>750~800 元/年</strong></li>
+            <li>门禁约 <strong>23:00</strong>，工作日约 22:30~23:00 <strong>熄灯</strong>（排插可能带电），周末延后</li>
+            <li>限电约 <strong>800W~1500W</strong>，严禁大功率电器</li>
+          </ul>
+        </div>
+
+        <div class="warn-card">
+          <strong>⚠️ 宿舍差异提醒：</strong>不同校区和楼栋条件差距较大。紫薇园新校区条件最好（4 人独卫），老校区（浔东、庐峰）条件相对陈旧（6~8 人间公共卫浴）。填报前建议了解具体专业所在校区。
+        </div>
+      </section>
+
+      <!-- 食堂 -->
+      <section class="section">
+        <h2 class="section-heading">🍽️ 食堂情况</h2>
+        <p class="section-desc">素有<strong>"食在九院"</strong>美誉，明厨亮灶管理规范</p>
+
+        <div class="info-card">
+          <h3><span class="icon">📍</span> 分布</h3>
+          <ul>
+            <li>主校区：<strong>一食堂、二食堂（自助）、三食堂（三层百味楼）、四食堂（小吃）、五食堂（家常+民族）</strong>等，紫薇园有新食堂</li>
+            <li>校内还有<strong>瑞幸、古茗</strong>等连锁茶饮</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🍜</span> 菜品与价格</h3>
+          <ul>
+            <li>涵盖自选大众餐、<strong>九江炒粉、瓦罐汤</strong>、红烧肉特价套餐（惠补窗口）、麻辣香锅、小碗菜、兰州拉面、肠粉、减脂餐、白切鸡、木桶饭等</li>
+            <li><strong>馒头 0.5 元、肉包 0.5~1 元、米饭 0.15 元/两且另加免费</strong>——价格低到惊人</li>
+            <li>设最低 <strong>2.6 元套餐</strong>，早餐约 4~8 元，午/晚餐约 8~15 元</li>
+            <li>人均月伙食费约 <strong>500~900 元</strong></li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">✅</span> 环境与管理</h3>
+          <ul>
+            <li>配空调、电视区，支持校园一卡通及微信/支付宝扫码</li>
+            <li>南北风味齐全，堪称赣北高校食堂天花板</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 转专业政策 -->
+      <section class="section">
+        <h2 class="section-heading">🔄 转专业政策</h2>
+
+        <div class="info-card">
+          <h3><span class="icon">⏰</span> 申请时间</h3>
+          <ul>
+            <li>在校期间有<strong>两次机会</strong>（大一第一学期、第二学期各一批次）</li>
+            <li>第二批次未成功者可再申，但成功转过后<strong>不得再转</strong></li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">✅</span> 基本门槛</h3>
+          <ul>
+            <li>全日制本科一年级学生，无开除/退学处分、未休学保留学籍</li>
+            <li>转出人数原则上不超该专业当年招生 <strong>30%</strong>，转入第一批次不超 <strong>10%</strong></li>
+            <li>绩点与表现良好，需参加转入学院<strong>笔试/面试</strong></li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🚫</span> 禁止情形</h3>
+          <ul>
+            <li>入学未满一学期、<strong>文史/理工/艺术/体育类跨大类</strong>不可互转</li>
+            <li>专升本、定向生、委培、专项、中外合作、单独招生等特殊录取类型</li>
+            <li>已有一次转专业经历、受开除学籍处分、正在休学/保留学籍等</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🔄</span> 特殊可申请</h3>
+          <ul>
+            <li>确因疾病（附二甲以上医院证明）不宜原专业</li>
+            <li>休学创业复学、退役复学、原专业停招</li>
+            <li>在转入领域有高水平论文/省级二等奖以上学科竞赛成果者，经审批可转</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">📝</span> 学业衔接</h3>
+          <ul>
+            <li>转成功后按新专业补修课程，<strong>一经批准不得转回原专业</strong></li>
+          </ul>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">数据来源：九江学院官方信息及在校生反馈</p>
+      <p class="footer-warning">⚠️ 谨防诈骗！所有信息请以学校官方渠道为准</p>
+      <p class="footer-copy">
+        <a href="../index.html" style="color:var(--primary);text-decoration:none;">江西高校信息站</a> · 为准大一新生而生
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var photos = [
+        { src: '微信图片_2026-07-15_120226_501.jpg', label: '校园实拍 ①' },
+        { src: '微信图片_2026-07-15_120242_445.jpg', label: '校园实拍 ②' },
+        { src: '微信图片_2026-07-15_120246_584.jpg', label: '校园实拍 ③' },
+        { src: '微信图片_2026-07-15_120252_362.jpg', label: '校园实拍 ④' },
+        { src: '微信图片_2026-07-15_120256_977.jpg', label: '校园实拍 ⑤' },
+        { src: '微信图片_2026-07-15_120301_477.jpg', label: '校园实拍 ⑥' },
+        { src: '微信图片_2026-07-15_120306_243.jpg', label: '校园实拍 ⑦' },
+        { src: '微信图片_2026-07-15_120311_166.jpg', label: '校园实拍 ⑧' },
+        { src: '微信图片_2026-07-15_120315_795.jpg', label: '校园实拍 ⑨' },
+        { src: '微信图片_2026-07-15_120319_804.jpg', label: '校园实拍 ⑩' }
+      ];
+
+      var photoGrid = document.getElementById('photoGrid');
+      photos.forEach(function (photo, index) {
+        var card = document.createElement('div');
+        card.className = 'photo-card';
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', photo.label + '，点击放大');
+        card.addEventListener('click', function () { openLightbox(index); });
+
+        var img = document.createElement('img');
+        img.src = encodeURI(photo.src);
+        img.alt = photo.label;
+        img.loading = 'lazy';
+
+        var label = document.createElement('div');
+        label.className = 'photo-label';
+        label.textContent = photo.label;
+
+        card.appendChild(img);
+        card.appendChild(label);
+        photoGrid.appendChild(card);
+      });
+
+      var currentPhotoIndex = 0;
+      var lightbox = document.getElementById('lightbox');
+      var lightboxImg = document.getElementById('lightboxImg');
+      var imgCounter = document.getElementById('imgCounter');
+
+      function openLightbox(index) {
+        currentPhotoIndex = index;
+        lightboxImg.src = encodeURI(photos[index].src);
+        imgCounter.textContent = (index + 1) + ' / ' + photos.length;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      window.closeLightbox = function () {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+
+      window.prevPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      window.nextPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      document.addEventListener('keydown', function (e) {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') prevPhoto();
+        if (e.key === 'ArrowRight') nextPhoto();
+      });
+
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+    })();
+  </script>
+
+</body>
+</html>
