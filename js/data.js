@@ -408,20 +408,25 @@ const universities = [
   {
     id: 19,
     name: "景德镇学院",
-    level: "省属",
+    level: "省属 / 应用型本科",
     city: "景德镇",
     website: "https://www.jdzu.edu.cn",
     logo: "",
     militaryTraining: "9月中下旬，约14天",
-    dormitory: "浮梁校区，4-6人间，有空调",
-    cafeteria: "有2个食堂",
+    dormitory: "东区/西区两大生活区，6人间为主，大部分独卫+空调，详见子页面",
+    cafeteria: "第一食堂（西区3层）+第二食堂（东区2层），景德镇冷粉，低价菜占30%，详见子页面",
     campusArea: "约1000亩",
-    majors: "陶瓷艺术、工艺美术、教育学、工学",
+    majors: "工艺美术（国家一流/A++等级），陶瓷艺术设计，汉语言文学，生物工程，计算机",
     tuition: "4010-8000元/年",
     transportation: "景德镇站公交可达",
     genderRatio: "男:女 ≈ 1:2",
     clubs: "30+社团",
-    description: "地方应用型本科院校，陶瓷和工艺美术有区域特色"
+    description: "世界瓷都的应用型本科，工艺美术A++等级全国应用型前列，一体两翼（陶瓷艺术+师范教育），2013年升格",
+    resources: {
+      photos: true,
+      transfer: true,
+      url: "景德镇学院/index.html"
+    }
   },
   {
     id: 20,

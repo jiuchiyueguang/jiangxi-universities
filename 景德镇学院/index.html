@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="景德镇学院校园实拍、学校定位、王牌专业、就业情况、宿舍条件、食堂、转专业政策">
+  <meta name="theme-color" content="#0277bd">
+  <title>景德镇学院 · 校园实拍 & 全方位信息</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    .site-header {
+      position: relative;
+      padding: 32px 0 24px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.88rem;
+      margin-bottom: 12px;
+      transition: color var(--transition);
+      font-weight: 500;
+    }
+    .back-link:hover { color: #fff; }
+    .page-subtitle {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin-top: 6px;
+      font-weight: 400;
+    }
+
+    .resource-main {
+      flex: 1;
+      padding: 28px 0 40px;
+    }
+    .resource-main .container {
+      max-width: 860px;
+    }
+
+    .section {
+      margin-bottom: 36px;
+    }
+    .section-heading {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    .section-desc strong {
+      color: var(--accent);
+    }
+
+    /* 照片卡片 */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 16px;
+    }
+    .photo-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .photo-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #0277bd, #4fc3f7);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+    .photo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: transparent;
+    }
+    .photo-card:hover::before { opacity: 1; }
+    .photo-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-card .photo-label {
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* 高亮定位卡片 */
+    .highlight-card {
+      background: linear-gradient(135deg, #e1f5fe, #e8eaf6);
+      border: 1.5px solid #0277bd;
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+    }
+    .highlight-card p {
+      margin: 0 0 10px;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .highlight-card p:last-child { margin-bottom: 0; }
+    .highlight-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .highlight-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: #fff;
+      border: 1.5px solid #0277bd;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #0277bd;
+      font-weight: 600;
+    }
+
+    /* 信息卡片 */
+    .info-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+      transition: all 0.25s ease;
+      line-height: 1.7;
+      font-size: 0.88rem;
+    }
+    .info-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: #81d4fa;
+    }
+    .info-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .info-card h3 .icon { color: #0277bd; }
+    .info-card ul, .info-card ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .info-card li {
+      margin-bottom: 6px;
+      color: var(--text-secondary);
+    }
+    .info-card li strong { color: var(--text); }
+
+    /* 专业标签 */
+    .major-group {
+      margin-bottom: 12px;
+    }
+    .major-group .mg-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .major-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .major-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: #e1f5fe;
+      border: 1.5px solid #81d4fa;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .major-tag.star {
+      border-color: #0277bd;
+      background: #b3e5fc;
+      color: #01579b;
+      font-weight: 700;
+    }
+    .major-tag.good {
+      border-color: #0288d1;
+      background: #e1f5fe;
+      color: #0277bd;
+      font-weight: 600;
+    }
+
+    /* 统计数字 */
+    .stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .stat-item {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+      padding: 12px 10px;
+      background: #e1f5fe;
+      border-radius: 10px;
+    }
+    .stat-item .stat-num {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #0277bd;
+    }
+    .stat-item .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* 灯箱 */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 75vh;
+      border-radius: 10px;
+      object-fit: contain;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+    .lightbox .lb-close {
+      position: absolute;
+      top: 20px; right: 28px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: #fff;
+      font-size: 1.8rem;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 44px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-close:hover { background: rgba(255,255,255,0.3); }
+    .lightbox .lb-nav {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 2.2rem;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 48px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-nav:hover { background: rgba(255,255,255,0.28); }
+    .lightbox .lb-prev { left: 20px; }
+    .lightbox .lb-next { right: 20px; }
+    .lightbox .lb-counter {
+      color: rgba(255,255,255,0.65);
+      margin-top: 14px;
+      font-size: 0.85rem;
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .photo-card img { height: 140px; }
+      .info-card { padding: 14px 16px; }
+      .stat-item { min-width: 100px; padding: 10px 8px; }
+    }
+    @media (max-width: 400px) {
+      .photo-grid { grid-template-columns: 1fr 1fr; }
+      .photo-card img { height: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="back-link">← 返回高校列表</a>
+      <div class="header-content">
+        <div class="header-brand">
+          <span class="brand-icon">🏺</span>
+          <h1 class="brand-title">景德镇学院</h1>
+        </div>
+        <p class="page-subtitle">校园实拍 · 学校定位 · 王牌专业 · 就业情况 · 宿舍条件 · 食堂 · 转专业政策</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- 灯箱 -->
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" onclick="closeLightbox()" aria-label="关闭">×</button>
+    <button class="lb-nav lb-prev" onclick="prevPhoto()" aria-label="上一张">‹</button>
+    <img id="lightboxImg" src="" alt="照片大图">
+    <button class="lb-nav lb-next" onclick="nextPhoto()" aria-label="下一张">›</button>
+    <span class="lb-counter" id="imgCounter"></span>
+  </div>
+
+  <main class="resource-main">
+    <div class="container">
+
+      <!-- 校园实拍 -->
+      <section class="section">
+        <h2 class="section-heading">📷 校园实拍</h2>
+        <p class="section-desc">景德镇学院校园实拍，点击图片可放大查看</p>
+        <div class="photo-grid" id="photoGrid"></div>
+      </section>
+
+      <!-- 学校定位 -->
+      <section class="section">
+        <h2 class="section-heading">🎯 学校定位</h2>
+        <div class="highlight-card">
+          <p>景德镇学院是<strong>江西省属全日制公办多科性普通本科院校</strong>，坐落于世界瓷都江西省景德镇市，<strong>2013 年由景德镇高等专科学校升格</strong>而成。学校确立"以陶瓷艺术和师范教育为主体，做强艺术、做优师范、做精理工、做特文管"的<strong>"一体两翼"</strong>学科专业布局。</p>
+          <p>发展目标为建设特色鲜明的地方性应用型本科院校，在<strong>陶瓷文化传承创新</strong>与赣东北基础教育领域具有一定行业认可度，目前具备本科学位授予权（无硕士点）。</p>
+          <div class="highlight-tags">
+            <span class="highlight-tag">世界瓷都·陶瓷特色</span>
+            <span class="highlight-tag">一体两翼学科布局</span>
+            <span class="highlight-tag">工艺美术 A++ 等级</span>
+            <span class="highlight-tag">陶瓷文化传承创新</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 王牌与优势专业 -->
+      <section class="section">
+        <h2 class="section-heading">⭐ 王牌与优势专业</h2>
+
+        <div class="info-card">
+          <div class="major-group">
+            <div class="mg-title">🏅 国家级一流本科专业建设点（核心王牌）</div>
+            <div class="major-tags">
+              <span class="major-tag star">工艺美术（A++ 等级，应用型前列）</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">🏆 省级特色 / 一流专业及综合改革试点</div>
+            <div class="major-tags">
+              <span class="major-tag good">工艺美术</span>
+              <span class="major-tag good">汉语言文学</span>
+              <span class="major-tag good">生物工程</span>
+              <span class="major-tag good">陶瓷艺术设计</span>
+              <span class="major-tag good">计算机科学与技术</span>
+              <span class="major-tag good">物流管理</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">🎨 优势学科群</div>
+          </div>
+          <ul style="margin:0 0 12px;padding-left:20px;font-size:0.85rem;color:var(--text-secondary);">
+            <li><strong>艺术学类：</strong>工艺美术、产品设计、数字媒体艺术、美术学、雕塑</li>
+            <li><strong>师范教育类：</strong>汉语言文学、小学教育、学前教育、体育教育</li>
+            <li><strong>理工应用类：</strong>生物工程、机械设计制造及其自动化、计算机科学与技术、环境科学</li>
+          </ul>
+          <p style="margin:0;font-size:0.85rem;color:var(--text-secondary);">💡 工艺美术专业位居<strong>中国大学工艺美术专业排名应用型前列（A++ 等级）</strong>，是学校最核心的差异化竞争优势。</p>
+        </div>
+      </section>
+
+      <!-- 就业情况 -->
+      <section class="section">
+        <h2 class="section-heading">💼 就业情况</h2>
+
+        <div class="stat-row">
+          <div class="stat-item">
+            <div class="stat-num">83%~85%</div>
+            <div class="stat-label">去向落实率</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">5%~8%</div>
+            <div class="stat-label">考研升学率</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">5000~5500 元</div>
+            <div class="stat-label">本科应届起薪</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">5500~7000 元</div>
+            <div class="stat-label">陶瓷设计/CS 起薪</div>
+          </div>
+        </div>
+
+        <div class="info-card" style="margin-top:14px;">
+          <h3><span class="icon">💼</span> 主要就业方向</h3>
+          <ul>
+            <li><strong>陶瓷文创与产业：</strong>景德镇本土陶瓷企业（陶溪川文创街区、三宝瓷谷工作室）、福建德化/广东佛山等产瓷区陶瓷公司、各类独立陶艺工作室</li>
+            <li><strong>基础教育系统：</strong>景德镇市及赣东北（上饶、鹰潭、抚州等）各县市中小学、幼儿园</li>
+            <li><strong>企业与体制内：</strong>本地生物制药企业（富祥药业）、电子信息制造企业、银行、选调生/公务员及基层项目（三支一扶等）</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🗺️</span> 就业地域流向</h3>
+          <ul>
+            <li>江西省内约 <strong>60%~65%</strong>（景德镇本地占比最高，其次南昌、上饶）</li>
+            <li>珠三角（广东）约 <strong>10%~15%</strong>（深圳、广州、佛山，依托陶瓷外贸与设计）</li>
+            <li>长三角（浙江、江苏、上海）约 <strong>8%~12%</strong>（电商、文创设计、民办教育）</li>
+            <li>少量分布在北京、福建等周边省份及陶瓷产区</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 宿舍条件 -->
+      <section class="section">
+        <h2 class="section-heading">🛏️ 宿舍条件</h2>
+        <p class="section-desc">宿舍分为<strong>东区、西区</strong>两大生活区，整体条件在公办二本中属中等偏上</p>
+
+        <div class="info-card">
+          <h3><span class="icon">🏠</span> 房型配置</h3>
+          <ul>
+            <li>以<strong>6 人间为主</strong>（部分为 4 人间或 4 改 6）</li>
+            <li>部分楼栋为<strong>上床下桌</strong>，部分 6 人间为上下铺 + 独立书桌柜（视楼栋新旧而定）</li>
+            <li>东区新楼多上床下桌，西区部分老楼混合</li>
+            <li>床铺尺寸约 <strong>0.9m × 1.9m/2.0m</strong></li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🚿</span> 卫浴与设施</h3>
+          <ul>
+            <li>绝大部分宿舍配<strong>独立卫浴</strong>（干湿分离），热水需插卡/扫码</li>
+            <li>全校宿舍<strong>标配空调</strong>（通常需缴纳租赁费或电费自理）、风扇、阳台</li>
+            <li>每层设公共饮水机、一楼配洗衣房（扫码含烘干）、自助贩卖机</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">💰</span> 费用与管理</h3>
+          <ul>
+            <li>住宿费：4 人间约 <strong>1000 元/年</strong>，6 人间约 <strong>800 元/年</strong>（无独卫略低）</li>
+            <li>门禁约 <strong>23:00</strong>，智能限电严禁大功率电器，一般不断电或按时断电</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 食堂 -->
+      <section class="section">
+        <h2 class="section-heading">🍽️ 食堂情况</h2>
+
+        <div class="info-card">
+          <h3><span class="icon">📍</span> 分布</h3>
+          <ul>
+            <li>主要有<strong>第一食堂（西区，约 3 层）、第二食堂（东区，约 2 层）</strong>，含民族餐厅（清真窗口）及各类风味档口</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🍜</span> 菜品与价格</h3>
+          <ul>
+            <li>涵盖自选大众餐、<strong>景德镇冷粉、瓦罐汤</strong>、辣椒炒肉、黄焖鸡、麻辣香锅、小碗菜、面食、煲仔饭、川菜、黔菜等</li>
+            <li>食堂推行<strong>低价菜（1.5 元以下占比 30%）</strong>与明厨亮灶</li>
+            <li>早餐约 4~8 元，午/晚餐一荤一素约 10 元，人均月伙食费约 <strong>500~900 元</strong></li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">✅</span> 环境与管理</h3>
+          <ul>
+            <li>配空调与餐具消毒，支持校园一卡通、微信/支付宝扫码</li>
+            <li>风味档口晚餐常延时至 21:00，节日有福利活动</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 转专业政策 -->
+      <section class="section">
+        <h2 class="section-heading">🔄 转专业政策</h2>
+
+        <div class="info-card">
+          <h3><span class="icon">⏰</span> 申请时间</h3>
+          <ul>
+            <li>集中转专业一般在<strong>大一第二学期末（5~6 月）</strong>受理</li>
+            <li>面向全日制本科一年级在籍学生</li>
+            <li>个别转专业（因病、退役、休学创业等）每学期初受理</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">✅</span> 基本门槛</h3>
+          <ul>
+            <li>对转入专业有兴趣专长，<strong>无记过及以上未解除处分</strong></li>
+            <li>第一学期课程无不及格（部分热门专业如汉语言文学、工艺美术要求绩点排名）</li>
+            <li>高考选考科目须符合转入专业要求</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🚫</span> 禁止情形</h3>
+          <ul>
+            <li><strong>艺术类、体育类</strong>、专升本、春季高考、贯通培养、定向生等<strong>不得互转或跨大类转</strong></li>
+            <li>已转过一次专业、本科三四年级、休学/保留学籍期间、低批次转高批次不予转</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">📝</span> 考核与衔接</h3>
+          <ul>
+            <li>转入学院组织<strong>笔试 + 面试</strong>：艺术类常加实操（工艺美术考手绘），理工类考高数/专业课，文史类考写作/专业基础</li>
+            <li>转成功后需补修新专业课程，个别申请通常须<strong>降一年级就读</strong>，集中转专业一般跟原年级（视学分差距定）</li>
+          </ul>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">数据来源：景德镇学院官方信息及在校生反馈</p>
+      <p class="footer-warning">⚠️ 谨防诈骗！所有信息请以学校官方渠道为准</p>
+      <p class="footer-copy">
+        <a href="../index.html" style="color:var(--primary);text-decoration:none;">江西高校信息站</a> · 为准大一新生而生
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var photos = [
+        { src: '微信图片_2026-07-15_115059_622.jpg', label: '校园实拍 ①' },
+        { src: '微信图片_2026-07-15_115119_315.jpg', label: '校园实拍 ②' },
+        { src: '微信图片_2026-07-15_115124_692.jpg', label: '校园实拍 ③' },
+        { src: '微信图片_2026-07-15_115129_960.jpg', label: '校园实拍 ④' },
+        { src: '微信图片_2026-07-15_115135_178.jpg', label: '校园实拍 ⑤' }
+      ];
+
+      var photoGrid = document.getElementById('photoGrid');
+      photos.forEach(function (photo, index) {
+        var card = document.createElement('div');
+        card.className = 'photo-card';
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', photo.label + '，点击放大');
+        card.addEventListener('click', function () { openLightbox(index); });
+
+        var img = document.createElement('img');
+        img.src = encodeURI(photo.src);
+        img.alt = photo.label;
+        img.loading = 'lazy';
+
+        var label = document.createElement('div');
+        label.className = 'photo-label';
+        label.textContent = photo.label;
+
+        card.appendChild(img);
+        card.appendChild(label);
+        photoGrid.appendChild(card);
+      });
+
+      var currentPhotoIndex = 0;
+      var lightbox = document.getElementById('lightbox');
+      var lightboxImg = document.getElementById('lightboxImg');
+      var imgCounter = document.getElementById('imgCounter');
+
+      function openLightbox(index) {
+        currentPhotoIndex = index;
+        lightboxImg.src = encodeURI(photos[index].src);
+        imgCounter.textContent = (index + 1) + ' / ' + photos.length;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      window.closeLightbox = function () {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+
+      window.prevPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      window.nextPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      document.addEventListener('keydown', function (e) {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') prevPhoto();
+        if (e.key === 'ArrowRight') nextPhoto();
+      });
+
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+    })();
+  </script>
+
+</body>
+</html>
