@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="宜春学院校园实拍、学校定位、王牌专业、就业情况、校区与宿舍、食堂、转专业政策">
+  <meta name="theme-color" content="#00897b">
+  <title>宜春学院 · 校园实拍 & 全方位信息</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    .site-header {
+      position: relative;
+      padding: 32px 0 24px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.88rem;
+      margin-bottom: 12px;
+      transition: color var(--transition);
+      font-weight: 500;
+    }
+    .back-link:hover { color: #fff; }
+    .page-subtitle {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin-top: 6px;
+      font-weight: 400;
+    }
+
+    .resource-main {
+      flex: 1;
+      padding: 28px 0 40px;
+    }
+    .resource-main .container {
+      max-width: 860px;
+    }
+
+    .section {
+      margin-bottom: 36px;
+    }
+    .section-heading {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    .section-desc strong {
+      color: var(--accent);
+    }
+
+    /* 照片卡片 */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 16px;
+    }
+    .photo-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .photo-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #00897b, #4db6ac);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+    .photo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: transparent;
+    }
+    .photo-card:hover::before { opacity: 1; }
+    .photo-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-card .photo-label {
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* 高亮定位卡片 */
+    .highlight-card {
+      background: linear-gradient(135deg, #e0f2f1, #e8f5e9);
+      border: 1.5px solid #00897b;
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+    }
+    .highlight-card p {
+      margin: 0 0 10px;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .highlight-card p:last-child { margin-bottom: 0; }
+    .highlight-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .highlight-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: #fff;
+      border: 1.5px solid #00897b;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #00897b;
+      font-weight: 600;
+    }
+
+    /* 信息卡片 */
+    .info-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+      transition: all 0.25s ease;
+      line-height: 1.7;
+      font-size: 0.88rem;
+    }
+    .info-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: #80cbc4;
+    }
+    .info-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .info-card h3 .icon { color: #00897b; }
+    .info-card ul, .info-card ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .info-card li {
+      margin-bottom: 6px;
+      color: var(--text-secondary);
+    }
+    .info-card li strong { color: var(--text); }
+
+    /* 专业标签 */
+    .major-group {
+      margin-bottom: 12px;
+    }
+    .major-group .mg-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .major-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .major-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: #e0f2f1;
+      border: 1.5px solid #80cbc4;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .major-tag.star {
+      border-color: #00897b;
+      background: #b2dfdb;
+      color: #00695c;
+      font-weight: 700;
+    }
+    .major-tag.good {
+      border-color: #00897b;
+      background: #e0f2f1;
+      color: #00897b;
+      font-weight: 600;
+    }
+
+    /* 统计数字 */
+    .stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .stat-item {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+      padding: 12px 10px;
+      background: #e0f2f1;
+      border-radius: 10px;
+    }
+    .stat-item .stat-num {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #00897b;
+    }
+    .stat-item .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* 灯箱 */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 75vh;
+      border-radius: 10px;
+      object-fit: contain;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+    .lightbox .lb-close {
+      position: absolute;
+      top: 20px; right: 28px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: #fff;
+      font-size: 1.8rem;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 44px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-close:hover { background: rgba(255,255,255,0.3); }
+    .lightbox .lb-nav {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 2.2rem;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 48px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-nav:hover { background: rgba(255,255,255,0.28); }
+    .lightbox .lb-prev { left: 20px; }
+    .lightbox .lb-next { right: 20px; }
+    .lightbox .lb-counter {
+      color: rgba(255,255,255,0.65);
+      margin-top: 14px;
+      font-size: 0.85rem;
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .photo-card img { height: 140px; }
+      .info-card { padding: 14px 16px; }
+      .stat-item { min-width: 100px; padding: 10px 8px; }
+    }
+    @media (max-width: 400px) {
+      .photo-grid { grid-template-columns: 1fr 1fr; }
+      .photo-card img { height: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="back-link">← 返回高校列表</a>
+      <div class="header-content">
+        <div class="header-brand">
+          <span class="brand-icon">🌿</span>
+          <h1 class="brand-title">宜春学院</h1>
+        </div>
+        <p class="page-subtitle">校园实拍 · 学校定位 · 王牌专业 · 就业情况 · 校区与宿舍 · 食堂 · 转专业政策</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- 灯箱 -->
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" onclick="closeLightbox()" aria-label="关闭">×</button>
+    <button class="lb-nav lb-prev" onclick="prevPhoto()" aria-label="上一张">‹</button>
+    <img id="lightboxImg" src="" alt="照片大图">
+    <button class="lb-nav lb-next" onclick="nextPhoto()" aria-label="下一张">›</button>
+    <span class="lb-counter" id="imgCounter"></span>
+  </div>
+
+  <main class="resource-main">
+    <div class="container">
+
+      <!-- 校园实拍 -->
+      <section class="section">
+        <h2 class="section-heading">📷 校园实拍</h2>
+        <p class="section-desc">宜春学院校园实拍，点击图片可放大查看</p>
+        <div class="photo-grid" id="photoGrid"></div>
+      </section>
+
+      <!-- 学校定位 -->
+      <section class="section">
+        <h2 class="section-heading">🎯 学校定位</h2>
+        <div class="highlight-card">
+          <p>宜春学院是<strong>江西省属全日制公办综合性本科高校</strong>，由原宜春师范专科学校、宜春医学专科学校、宜春农业专科学校、宜春市职工业余大学于<strong>2000 年合并升格</strong>而成。学校是<strong>江西省首批转型发展试点院校</strong>、省市共建以市为主的高校，确立"建设成为有特色、高水平的地方应用型大学"的办学定位。</p>
+          <p>学校以本科教育为主体，加快发展研究生教育，在<strong>师范、医学、农学及锂电新能源</strong>等区域产业领域具有传统优势与行业认可度，深度对接宜春"亚洲锂都"产业布局。</p>
+          <div class="highlight-tags">
+            <span class="highlight-tag">省属综合性本科</span>
+            <span class="highlight-tag">首批转型发展试点</span>
+            <span class="highlight-tag">师范·医学·农学传统优势</span>
+            <span class="highlight-tag">锂电新能源特色</span>
+            <span class="highlight-tag">省市共建</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 王牌与优势专业 -->
+      <section class="section">
+        <h2 class="section-heading">⭐ 王牌与优势专业</h2>
+
+        <div class="info-card">
+          <div class="major-group">
+            <div class="mg-title">🏅 国家级特色专业（2 个）</div>
+            <div class="major-tags">
+              <span class="major-tag star">农学</span>
+              <span class="major-tag star">生物工程</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">🎓 国家综合改革试点 / 卓越计划（3 个）</div>
+            <div class="major-tags">
+              <span class="major-tag good">园艺（综合改革试点）</span>
+              <span class="major-tag good">动物科学（卓越农林）</span>
+              <span class="major-tag good">临床医学（卓越医生）</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">🏆 省级一流建设点 / 特色专业（12 个，代表性）</div>
+            <div class="major-tags">
+              <span class="major-tag good">汉语言文学</span>
+              <span class="major-tag good">英语</span>
+              <span class="major-tag good">数学与应用数学</span>
+              <span class="major-tag good">物理学</span>
+              <span class="major-tag good">化学</span>
+              <span class="major-tag good">体育教育</span>
+              <span class="major-tag good">环境科学</span>
+              <span class="major-tag good">音乐学</span>
+              <span class="major-tag good">临床医学</span>
+              <span class="major-tag good">药学</span>
+              <span class="major-tag good">动物医学</span>
+              <span class="major-tag good">园林</span>
+            </div>
+          </div>
+          <p style="margin:12px 0 0;font-size:0.85rem;color:var(--text-secondary);">💡 学科布局以<strong>师范、医学、农学</strong>为三大传统基石，重点建设药学（省"双一流"潜力学科）、作物学、体育学、电子信息、中国语言文学等校级高峰学科，深度对接宜春<strong>锂电新能源、大健康</strong>产业布局人工智能、生物制药、护理学（美容技术方向）等新兴应用专业。</p>
+        </div>
+      </section>
+
+      <!-- 就业情况 -->
+      <section class="section">
+        <h2 class="section-heading">💼 就业情况</h2>
+
+        <div class="stat-row">
+          <div class="stat-item">
+            <div class="stat-num">83%~85%</div>
+            <div class="stat-label">去向落实率</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">14%~16%</div>
+            <div class="stat-label">考研升学率</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">5600~5700 元</div>
+            <div class="stat-label">本科应届起薪</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">6000~7500 元</div>
+            <div class="stat-label">医学/药学/CS 起薪</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">≈10800 元</div>
+            <div class="stat-label">5 年月薪均值</div>
+          </div>
+        </div>
+
+        <div class="info-card" style="margin-top:14px;">
+          <h3><span class="icon">🏫</span> 主要就业方向</h3>
+          <ul>
+            <li><strong>教育与基层：</strong>宜春市及周边各县市中小学、幼儿园；选调生、三支一扶、西部计划等基层项目</li>
+            <li><strong>医疗卫生：</strong>宜春市人民医院、中医院及各县级人民医院、乡镇卫生院、社区卫生服务中心</li>
+            <li><strong>锂电与产业：</strong>深度绑定锂电新能源产业——国轩高科、赣锋锂业、宁德时代宜春基地等，通过现代产业学院<strong>"订单式"培养</strong>输送人才</li>
+            <li><strong>生物医药：</strong>仁和药业等本土药企</li>
+            <li><strong>其他：</strong>部分进入银行、保险、公务员系统及长三角/珠三角制造业、IT 外包企业</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🗺️</span> 就业地域流向</h3>
+          <ul>
+            <li>江西省内约 <strong>47%~53%</strong>（宜春本地占比最高约 44%，其次南昌）</li>
+            <li>珠三角（广东）约 <strong>13%~14%</strong>（深圳、广州居多）</li>
+            <li>长三角（浙江、江苏、上海）约 <strong>12%~15%</strong>（电商、智能制造、民办教育）</li>
+            <li>北京约 1.5%，福建约 3%，湖南等周边省份</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 校区与宿舍 -->
+      <section class="section">
+        <h2 class="section-heading">📍 校区与宿舍</h2>
+
+        <div class="info-card">
+          <h3><span class="icon">🏫</span> 校区概况</h3>
+          <ul>
+            <li>学校有<strong>校本部、北校区、厚德校区</strong>三个校区</li>
+            <li>宿舍条件因楼栋与校区差异较大，整体在公办二本中属中等水平</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🛏️</span> 房型配置</h3>
+          <ul>
+            <li>以<strong>6 人间为主</strong>，部分楼栋为 4 人间或特殊的 10 人间（两室一厅单元楼结构）</li>
+            <li>配置混合：部分男生寝室及部分楼栋为<strong>6 人寝上床下桌</strong>，女生及部分老楼多为<strong>上下铺 + 独立书桌柜</strong></li>
+            <li>并非全校统一上床下桌，报考前可向在校生了解目标专业所在校区</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🚿</span> 卫浴与设施</h3>
+          <ul>
+            <li>大部分宿舍配有<strong>独立卫浴</strong>，少数老楼为公共浴室</li>
+            <li>全校宿舍<strong>标配空调</strong>，部分独卫含热水（女生楼多见），男生或无热水独卫需去公共澡堂/打水</li>
+            <li>每层设公共洗衣机（扫码）、直饮水机，校园网覆盖（部分时段可能断网）</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">💰</span> 费用与管理</h3>
+          <ul>
+            <li>住宿费约 <strong>500~1000 元/学年</strong>（4 人间/独卫新楼约 1000 元，6 人间/老楼约 500~800 元）</li>
+            <li>门禁约 <strong>23:00</strong>，无统一断电（或限电约 2000W），严禁明火与大功率电器</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 食堂 -->
+      <section class="section">
+        <h2 class="section-heading">🍽️ 食堂情况</h2>
+
+        <div class="info-card">
+          <h3><span class="icon">📍</span> 分布</h3>
+          <ul>
+            <li>校本部主要有<strong>第一食堂、第二食堂（一二楼）、第三食堂（教工）、民族餐厅（三楼）</strong></li>
+            <li>厚德校区及北校区各有食堂</li>
+            <li>覆盖三餐及夜宵（部分至 21:00）</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🍜</span> 菜品与价格</h3>
+          <ul>
+            <li>涵盖自选大众餐、<strong>宜春扎粉、瓦罐汤</strong>、麻辣烫、黄焖鸡、小碗菜、盖饭、面食、清真餐等</li>
+            <li>辣度偏赣派微辣，也有清淡粥面</li>
+            <li>食堂设<strong>明厨亮灶</strong>监督岗与反馈渠道</li>
+            <li>早餐约 <strong>5~8 元</strong>，午/晚餐约 <strong>8~15 元</strong>，人均月伙食费约 <strong>500~900 元</strong></li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🎉</span> 环境与福利</h3>
+          <ul>
+            <li>各食堂配空调与餐具消毒区</li>
+            <li>节日（端午等）有半价菜、送粽子等福利活动</li>
+            <li>支持校园一卡通及微信/支付宝扫码</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 转专业政策 -->
+      <section class="section">
+        <h2 class="section-heading">🔄 转专业政策</h2>
+
+        <div class="info-card">
+          <h3><span class="icon">⏰</span> 申请时间</h3>
+          <ul>
+            <li>一般在<strong>大一第一学期末（每年 11 月份前两周）</strong>集中受理，逾期不再办理</li>
+            <li>退役复学、休学创业等特殊情况按政策优先</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">✅</span> 基本门槛</h3>
+          <ul>
+            <li>面向全日制普通本科<strong>一、二年级</strong>，三年级及以上不予考虑</li>
+            <li>政治思想良好，<strong>无违纪处分记录</strong></li>
+            <li>对转入专业有浓厚兴趣与一定基础，符合转入学院接收条件（如绩点、单科成绩等）</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🚫</span> 禁止情形</h3>
+          <ul>
+            <li><strong>艺术、体育类不得转入普通类，普通类不得转入艺体类</strong></li>
+            <li>专升本、定向生、三校生、运动训练单独招生等特殊录取类型不得转</li>
+            <li>入学未满一学期、正在休学/保留学籍、已达退学条件、高考降分录取专业者不予转</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">📝</span> 考核与衔接</h3>
+          <ul>
+            <li>转出学院初审 → 转入学院组织笔试/面试/综合考核择优录取 → 教务处公示 → 学籍异动</li>
+            <li>转专业后按新专业培养方案<strong>补修课程</strong>，已修及格必修课可认定学分，差距大者跟原年级或降级就读</li>
+            <li>转成功后<strong>不得转回原专业</strong></li>
+          </ul>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">数据来源：宜春学院官方信息及在校生反馈</p>
+      <p class="footer-warning">⚠️ 谨防诈骗！所有信息请以学校官方渠道为准</p>
+      <p class="footer-copy">
+        <a href="../index.html" style="color:var(--primary);text-decoration:none;">江西高校信息站</a> · 为准大一新生而生
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var photos = [
+        { src: '微信图片_2026-07-15_113357_630.jpg', label: '校园实拍 ①' },
+        { src: '微信图片_2026-07-15_113409_932.jpg', label: '校园实拍 ②' },
+        { src: '微信图片_2026-07-15_113414_889.jpg', label: '校园实拍 ③' },
+        { src: '微信图片_2026-07-15_113426_930.jpg', label: '校园实拍 ④' }
+      ];
+
+      var photoGrid = document.getElementById('photoGrid');
+      photos.forEach(function (photo, index) {
+        var card = document.createElement('div');
+        card.className = 'photo-card';
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', photo.label + '，点击放大');
+        card.addEventListener('click', function () { openLightbox(index); });
+
+        var img = document.createElement('img');
+        img.src = encodeURI(photo.src);
+        img.alt = photo.label;
+        img.loading = 'lazy';
+
+        var label = document.createElement('div');
+        label.className = 'photo-label';
+        label.textContent = photo.label;
+
+        card.appendChild(img);
+        card.appendChild(label);
+        photoGrid.appendChild(card);
+      });
+
+      var currentPhotoIndex = 0;
+      var lightbox = document.getElementById('lightbox');
+      var lightboxImg = document.getElementById('lightboxImg');
+      var imgCounter = document.getElementById('imgCounter');
+
+      function openLightbox(index) {
+        currentPhotoIndex = index;
+        lightboxImg.src = encodeURI(photos[index].src);
+        imgCounter.textContent = (index + 1) + ' / ' + photos.length;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      window.closeLightbox = function () {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+
+      window.prevPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      window.nextPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      document.addEventListener('keydown', function (e) {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') prevPhoto();
+        if (e.key === 'ArrowRight') nextPhoto();
+      });
+
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+    })();
+  </script>
+
+</body>
+</html>

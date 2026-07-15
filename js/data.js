@@ -313,20 +313,25 @@ const universities = [
   {
     id: 15,
     name: "宜春学院",
-    level: "省属",
+    level: "省属 / 首批转型发展试点",
     city: "宜春",
     website: "https://www.ycu.edu.cn",
     logo: "",
     militaryTraining: "9月中下旬，约14天",
-    dormitory: "学府校区，4-6人间，逐步安装空调",
-    cafeteria: "有2个食堂，价格实惠",
-    campusArea: "约2000亩",
-    majors: "医学、农学、师范类、工学",
+    dormitory: "校本部/北校区/厚德校区，6人间为主，部分上床下桌，大部分独卫，空调全覆盖，详见子页面",
+    cafeteria: "第一/二/三食堂+民族餐厅，宜春扎粉/瓦罐汤等，月均500-900元，详见子页面",
+    campusArea: "约2000亩（三个校区）",
+    majors: "农学/生物工程（国家级特色），园艺/动物科学/临床医学（卓越计划），12个省级一流专业",
     tuition: "4010-4790元/年",
     transportation: "宜春站公交可达",
     genderRatio: "男:女 ≈ 1:1",
     clubs: "50+社团",
-    description: "综合性本科院校，医学和农学有区域优势"
+    description: "省属综合性本科，师范·医学·农学三大传统基石，深度对接锂电新能源产业，2000年由四校合并升格",
+    resources: {
+      photos: true,
+      transfer: true,
+      url: "宜春学院/index.html"
+    }
   },
   {
     id: 16,
