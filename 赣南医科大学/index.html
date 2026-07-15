@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="赣南医科大学学校定位、王牌专业、校区与搬校区安排、宿舍条件、食堂、就业情况、转专业政策">
+  <meta name="theme-color" content="#b71c1c">
+  <title>赣南医科大学 · 全方位信息</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    .site-header {
+      position: relative;
+      padding: 32px 0 24px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.88rem;
+      margin-bottom: 12px;
+      transition: color var(--transition);
+      font-weight: 500;
+    }
+    .back-link:hover { color: #fff; }
+    .page-subtitle {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin-top: 6px;
+      font-weight: 400;
+    }
+
+    .resource-main {
+      flex: 1;
+      padding: 28px 0 40px;
+    }
+    .resource-main .container {
+      max-width: 860px;
+    }
+
+    .section {
+      margin-bottom: 36px;
+    }
+    .section-heading {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    .section-desc strong {
+      color: var(--accent);
+    }
+
+    /* 高亮定位卡片 */
+    .highlight-card {
+      background: linear-gradient(135deg, #fce4ec, #f3e5f5);
+      border: 1.5px solid #b71c1c;
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+    }
+    .highlight-card p {
+      margin: 0 0 10px;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .highlight-card p:last-child { margin-bottom: 0; }
+    .highlight-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .highlight-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: #fff;
+      border: 1.5px solid #b71c1c;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #b71c1c;
+      font-weight: 600;
+    }
+
+    /* 信息卡片 */
+    .info-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+      transition: all 0.25s ease;
+      line-height: 1.7;
+      font-size: 0.88rem;
+    }
+    .info-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: #ef9a9a;
+    }
+    .info-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .info-card h3 .icon { color: #b71c1c; }
+    .info-card ul, .info-card ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .info-card li {
+      margin-bottom: 6px;
+      color: var(--text-secondary);
+    }
+    .info-card li strong { color: var(--text); }
+
+    /* 专业标签 */
+    .major-group {
+      margin-bottom: 12px;
+    }
+    .major-group .mg-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .major-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .major-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: #fce4ec;
+      border: 1.5px solid #ef9a9a;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .major-tag.star {
+      border-color: #b71c1c;
+      background: #f8bbd0;
+      color: #880e4f;
+      font-weight: 700;
+    }
+    .major-tag.good {
+      border-color: #c62828;
+      background: #fce4ec;
+      color: #b71c1c;
+      font-weight: 600;
+    }
+
+    /* 统计数字 */
+    .stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .stat-item {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+      padding: 12px 10px;
+      background: #fce4ec;
+      border-radius: 10px;
+    }
+    .stat-item .stat-num {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #b71c1c;
+    }
+    .stat-item .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* 提醒卡片 */
+    .warn-card {
+      background: #fff3e0;
+      border: 1.5px solid #e65100;
+      border-radius: var(--radius-md);
+      padding: 18px 22px;
+      margin-bottom: 14px;
+      line-height: 1.7;
+      font-size: 0.88rem;
+    }
+    .warn-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #e65100;
+      margin: 0 0 8px;
+    }
+    .warn-card p, .warn-card li {
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+
+    /* 校区路线图 */
+    .campus-flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      background: #fce4ec;
+      border-radius: 10px;
+      margin-bottom: 14px;
+      font-size: 0.88rem;
+    }
+    .campus-flow .cf-step {
+      background: #fff;
+      border: 2px solid #b71c1c;
+      border-radius: 8px;
+      padding: 10px 16px;
+      text-align: center;
+      font-weight: 700;
+      color: #b71c1c;
+    }
+    .campus-flow .cf-arrow {
+      font-size: 1.2rem;
+      color: #b71c1c;
+      font-weight: 700;
+    }
+    .campus-flow .cf-note {
+      width: 100%;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .info-card { padding: 14px 16px; }
+      .stat-item { min-width: 100px; padding: 10px 8px; }
+      .campus-flow { gap: 8px; }
+      .campus-flow .cf-step { padding: 8px 12px; font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="back-link">← 返回高校列表</a>
+      <div class="header-content">
+        <div class="header-brand">
+          <span class="brand-icon">🩺</span>
+          <h1 class="brand-title">赣南医科大学</h1>
+        </div>
+        <p class="page-subtitle">学校定位 · 王牌专业 · 校区与搬校区安排 · 宿舍条件 · 食堂 · 就业情况 · 转专业政策</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="resource-main">
+    <div class="container">
+
+      <!-- 学校定位 -->
+      <section class="section">
+        <h2 class="section-heading">🎯 学校定位</h2>
+        <div class="highlight-card">
+          <p>赣南医科大学是<strong>江西省人民政府举办的全日制普通高等医学本科院校</strong>，中国科学院院士韩济生教授担任名誉校长，<strong>江西省"双一流"建设高校</strong>。学校肇基于<strong>1941 年</strong>，2023 年由赣南医学院更名为赣南医科大学。</p>
+          <p>学校以医学为主，理学、工学、管理学、教育学、法学等多学科交叉融合，在赣南及江西基层医疗卫生系统<strong>行业认可度极高</strong>，拥有附属三甲医院等丰富临床教学资源。设<strong>蓉江、章贡、龙南 3 个校区</strong>。</p>
+          <div class="highlight-tags">
+            <span class="highlight-tag">省"双一流"建设高校</span>
+            <span class="highlight-tag">临床医学 ESI 全球前 1%</span>
+            <span class="highlight-tag">院士名誉校长</span>
+            <span class="highlight-tag">药理学与毒理学 ESI 前 1%</span>
+            <span class="highlight-tag">化学 ESI 前 1%</span>
+            <span class="highlight-tag">附属三甲医院</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 王牌与优势专业 -->
+      <section class="section">
+        <h2 class="section-heading">⭐ 王牌与优势专业</h2>
+
+        <div class="info-card">
+          <div class="major-group">
+            <div class="mg-title">🏅 国家级特色专业（2 个）</div>
+            <div class="major-tags">
+              <span class="major-tag star">临床医学</span>
+              <span class="major-tag star">麻醉学</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">🎓 国家级一流本科专业建设点（2 个）</div>
+            <div class="major-tags">
+              <span class="major-tag good">临床医学</span>
+              <span class="major-tag good">护理学</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">🔬 ESI 全球前 1% 学科（3 个）</div>
+            <div class="major-tags">
+              <span class="major-tag good">临床医学</span>
+              <span class="major-tag good">公共卫生与预防医学</span>
+              <span class="major-tag good">药理学与毒理学</span>
+            </div>
+            <p style="margin:6px 0 0;font-size:0.8rem;color:var(--text-secondary);">化学亦进入 ESI 全球前 1%</p>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">🏆 省级一流本科专业建设点（11 个，代表性）</div>
+            <div class="major-tags">
+              <span class="major-tag">临床医学</span>
+              <span class="major-tag">护理学</span>
+              <span class="major-tag">麻醉学</span>
+              <span class="major-tag">医学影像学</span>
+              <span class="major-tag">药学</span>
+              <span class="major-tag">应用心理学</span>
+              <span class="major-tag">医学影像技术</span>
+              <span class="major-tag">预防医学</span>
+              <span class="major-tag">医学检验技术</span>
+              <span class="major-tag">康复治疗学</span>
+              <span class="major-tag">公共事业管理</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 校区与搬校区安排 -->
+      <section class="section">
+        <h2 class="section-heading">📍 校区与搬校区安排</h2>
+        <p class="section-desc">学校设<strong>三个校区</strong>，不同年级和专业会有校区变动，报考前务必了解</p>
+
+        <div class="info-card">
+          <h3><span class="icon">🏫</span> 三个校区定位</h3>
+          <ul>
+            <li><strong>龙南校区：</strong>大一新生就读，位置偏僻，周围多山</li>
+            <li><strong>蓉江（黄金）校区：</strong>主校区，大二搬入，本科大部分年级在此</li>
+            <li><strong>章贡校区：</strong>老校区，医学专业大四再换至此，条件相对较差</li>
+          </ul>
+        </div>
+
+        <div class="campus-flow">
+          <div class="cf-step">大一：龙南校区</div>
+          <span class="cf-arrow">→</span>
+          <div class="cf-step">大二：蓉江校区</div>
+          <span class="cf-arrow">→</span>
+          <div class="cf-step">大四：章贡校区（医学专业）</div>
+          <div class="cf-note">⚠️ 龙南与蓉江距离远，需乘学校大巴约 2 小时；搬校区频繁，学生需多次整理搬运行李</div>
+        </div>
+
+        <div class="warn-card">
+          <h3>⚠️ 搬校区提醒</h3>
+          <ul>
+            <li>大一在龙南，大二统一搬至蓉江，两校区距离很远，大巴约两小时</li>
+            <li>医学专业大四还需再迁至章贡校区</li>
+            <li><strong>频繁搬校区</strong>对学生生活影响较大，报考前请做好心理准备</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 宿舍条件 -->
+      <section class="section">
+        <h2 class="section-heading">🛏️ 宿舍条件</h2>
+        <p class="section-desc">各校区宿舍条件差异大，且存在<strong>频繁换寝</strong>问题，以下为各校区实际情况</p>
+
+        <div class="info-card">
+          <h3><span class="icon">🏠</span> 各校区房型</h3>
+          <ul>
+            <li><strong>龙南校区（大一）：</strong>4 人间，上床下桌</li>
+            <li><strong>蓉江校区（大二起）：</strong>6 人间，上下铺 + 六连桌布局，空间狭窄、中间无空隙、隐私性差；衣柜较小，衣物存放空间不足；封闭式阳台晾晒空间有限，六人衣物易挂满</li>
+            <li><strong>章贡校区（大四）：</strong>老校区条件更差，部分 6~8 人间</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🚿</span> 卫浴与设施</h3>
+          <ul>
+            <li>绝大部分宿舍配<strong>独立卫浴</strong>（独立卫生间 + 淋浴）</li>
+            <li>蓉江校区标配空调、风扇、直饮水机，一楼设公共洗衣房（含洗鞋机、脱水机）、自动售卖机</li>
+            <li>热水需<strong>插卡/扫码</strong>（微信小程序"卡博士"），电费通过"电精灵"自充（约 0.62 元/度）</li>
+          </ul>
+        </div>
+
+        <div class="warn-card">
+          <h3>⚠️ 频繁换寝问题</h3>
+          <ul>
+            <li>蓉江校区期间，学校为给新生腾出空余寝室，会<strong>多次要求学生更换寝室</strong></li>
+            <li>名义为"让所有专业搬到一起"，但对学生生活影响较大</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">💰</span> 费用与管理</h3>
+          <ul>
+            <li>住宿费：4 人间约 <strong>1000 元/学年</strong>，6 人间约 <strong>800 元/学年</strong></li>
+            <li>门禁：周日–周四约 <strong>22:30</strong>，周五–周六 <strong>23:00</strong></li>
+            <li>除空调外限电约 1500W，严禁大功率电器</li>
+            <li>学校<strong>不让骑电动车</strong>，目前无法办理车贴</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 校园环境 -->
+      <section class="section">
+        <h2 class="section-heading">🌳 校园环境与设施</h2>
+
+        <div class="info-card">
+          <ul>
+            <li>绿化方面草坪、树木较多，但<strong>基础设施维护欠佳</strong></li>
+            <li>下水道故障问题突出，五六栋常年溢出不知名臭水，长期未得到根本解决</li>
+            <li>部分专业要求<strong>暑假留校</strong>，时间不短</li>
+            <li>整体人文关怀方面学生评价不高</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 食堂 -->
+      <section class="section">
+        <h2 class="section-heading">🍽️ 食堂情况</h2>
+
+        <div class="info-card">
+          <h3><span class="icon">📍</span> 分布</h3>
+          <ul>
+            <li>蓉江校区主要有<strong>一食堂、二食堂</strong>，部分食堂分 2~3 层，含民族餐厅（清真）</li>
+            <li>章贡、龙南校区各设食堂</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🍜</span> 菜品与价格</h3>
+          <ul>
+            <li>涵盖自选大众餐、南昌拌粉、瓦罐汤、黄焖鸡、麻辣香锅、小碗菜、面食、烧烤、花甲粉、烤鱼等，口味偏赣派微辣</li>
+            <li>学校推行<strong>"良心食堂"</strong>：设一元菜、限价早餐（五毛白粥、一块猪肉包等）</li>
+            <li>早餐均价约 <strong>4.22 元</strong>，午/晚餐大伙窗口约 <strong>7.3 元</strong>，人均月伙食费约 <strong>500~900 元</strong></li>
+            <li>节日会派发月饼、粽子等福利</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">✅</span> 管理与环境</h3>
+          <ul>
+            <li>实行<strong>明厨亮灶</strong>与"赣溯源"食材闭环管理</li>
+            <li>配空调，支持校园一卡通、微信/支付宝扫码</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 就业情况 -->
+      <section class="section">
+        <h2 class="section-heading">💼 就业情况</h2>
+
+        <div class="stat-row">
+          <div class="stat-item">
+            <div class="stat-num">85%~90%</div>
+            <div class="stat-label">去向落实率</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">18%~20%</div>
+            <div class="stat-label">考研升学率</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">5500~6000 元</div>
+            <div class="stat-label">本科应届起薪</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">6000~8000 元</div>
+            <div class="stat-label">临床/口腔/影像起薪</div>
+          </div>
+        </div>
+
+        <div class="info-card" style="margin-top:14px;">
+          <h3><span class="icon">🏥</span> 主要就业方向</h3>
+          <ul>
+            <li><strong>医疗机构：</strong>赣南医科大学各附属医院、江西省各市县级人民医院/中医院、深圳龙岗区等珠三角对口帮扶地区医院、疾控中心</li>
+            <li><strong>体制内/基层：</strong>农村订单定向医学生进入乡镇卫生院编制（落实率接近 100%）、选调生/公务员（卫健委、药监局等）</li>
+            <li><strong>医药企业：</strong>青峰药业、济民可信、仁和药业等江西本土及全国知名药企、医疗器械公司、CRO 研发机构</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🗺️</span> 就业地域流向</h3>
+          <ul>
+            <li>江西省内约 <strong>65%~70%</strong>（赣州占比最高，其次南昌、吉安）</li>
+            <li>珠三角（广东）约 <strong>15%~20%</strong>（深圳、广州、东莞居多）</li>
+            <li>长三角及其他：少量流向上海、浙江、福建等地</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 转专业政策 -->
+      <section class="section">
+        <h2 class="section-heading">🔄 转专业政策</h2>
+
+        <div class="info-card">
+          <h3><span class="icon">⏰</span> 申请时间与限制</h3>
+          <ul>
+            <li>一般在<strong>大一第一学年第二学期（约 4~5 月）</strong>集中受理</li>
+            <li>在校期间<strong>仅限转一次</strong>，每人只能申请一个专业</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">✅</span> 硬性门槛</h3>
+          <ul>
+            <li>全日制普通本科<strong>一年级</strong>学生，无违纪处分</li>
+            <li>第一学期必修课程<strong>全部及格</strong></li>
+            <li>平均学分绩点排名位于同年级同专业<strong>前 20%（含）</strong></li>
+            <li>高考选考科目符合转入专业要求，身体健康符合医学生标准</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">📝</span> 考核方式</h3>
+          <ul>
+            <li><strong>笔试（占 70%）</strong>：考英语 + 理化综合等</li>
+            <li><strong>面试（占 30%）</strong>：考专业认知、综合素质</li>
+            <li>按总分择优录取，<strong>热门专业（临床、口腔、麻醉等）竞争激烈</strong></li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🚫</span> 禁止 / 特殊情形</h3>
+          <ul>
+            <li><strong>不予转：</strong>专升本、定向生、保送生、单独招生、艺术体育类、正在休学/退学、不符合转入专业健康要求者</li>
+            <li><strong>可申请免排名：</strong>退役复学军人、休学创业复学、因疾病确不能在原专业学习者（需指定医院证明）、原专业停招者</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🔄</span> 学业衔接</h3>
+          <ul>
+            <li>转成功后需<strong>补修新专业课程</strong>，医学类互转若学分差大<strong>可能降级就读</strong></li>
+          </ul>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">数据来源：赣南医科大学官方信息及在校生反馈</p>
+      <p class="footer-warning">⚠️ 谨防诈骗！所有信息请以学校官方渠道为准</p>
+      <p class="footer-copy">
+        <a href="../index.html" style="color:var(--primary);text-decoration:none;">江西高校信息站</a> · 为准大一新生而生
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

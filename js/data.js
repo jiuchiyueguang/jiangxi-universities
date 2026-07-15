@@ -336,20 +336,25 @@ const universities = [
   {
     id: 16,
     name: "赣南医科大学",
-    level: "省属",
+    level: "省属 / 省"双一流"建设高校",
     city: "赣州",
     website: "https://www.gmu.edu.cn",
     logo: "",
     militaryTraining: "9月中旬，约14天",
-    dormitory: "黄金校区，4-6人间，有空调、独卫",
-    cafeteria: "有2个食堂",
-    campusArea: "约2000亩",
-    majors: "临床医学、护理学、药学、预防医学",
+    dormitory: "龙南/蓉江/章贡三校区，大一4人间上床下桌→大二6人间上下铺，独卫+空调，频繁换寝是痛点，详见子页面",
+    cafeteria: "一/二食堂+民族餐厅，良心食堂（一元菜/限价早餐），月均500-900元，详见子页面",
+    campusArea: "三个校区（蓉江/章贡/龙南）",
+    majors: "临床医学/麻醉学（国家级特色），临床医学/护理学（国家一流），3个ESI全球前1%学科",
     tuition: "4790-5220元/年",
     transportation: "赣州站公交可达",
     genderRatio: "男:女 ≈ 2:3",
     clubs: "40+社团",
-    description: "赣南地区唯一的医科大学，为基层培养医疗人才"
+    description: "2023年更名医科大学，省双一流建设高校，临床医学ESI全球前1%，基层医疗认可度极高，三校区频繁搬迁是主要槽点",
+    resources: {
+      photos: false,
+      transfer: true,
+      url: "赣南医科大学/index.html"
+    }
   },
   {
     id: 17,
