@@ -336,7 +336,7 @@ const universities = [
   {
     id: 16,
     name: "赣南医科大学",
-    level: "省属 / 省"双一流"建设高校",
+    level: "省属 / 省'双一流'建设高校",
     city: "赣州",
     website: "https://www.gmu.edu.cn",
     logo: "",
