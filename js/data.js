@@ -431,20 +431,25 @@ const universities = [
   {
     id: 20,
     name: "新余学院",
-    level: "省属",
+    level: "省属 / 首批转型发展试点",
     city: "新余",
     website: "https://www.xyc.edu.cn",
     logo: "",
     militaryTraining: "9月中下旬，约14天",
-    dormitory: "渝水校区，4-6人间，有空调",
-    cafeteria: "有2个食堂",
+    dormitory: "6人间为主，全校统一上床下桌，独卫+阳台+空调，热水进寝，每月3度/人基础用电，详见子页面",
+    cafeteria: "一食堂+二食堂（均双层/A级食堂），一食堂有钢琴演奏区，二食堂有电梯，新余水北腌粉，半份菜窗口，详见子页面",
     campusArea: "约1200亩",
-    majors: "新能源科学、机械工程、计算机科学",
+    majors: "新能源科学与工程（省内首个/全省第一）、电气工程及其自动化、计算机科学与技术、电子信息工程",
     tuition: "4010-4790元/年",
     transportation: "新余站/新余北站公交可达",
     genderRatio: "男:女 ≈ 3:2",
     clubs: "40+社团",
-    description: "新能源领域特色，与新余光伏产业紧密对接"
+    description: "新余市唯一公办本科，新能源为特色，教育部产教融合创新基地，电气专业国网录取率52%居全省前列，全校统一上床下桌",
+    resources: {
+      photos: true,
+      transfer: true,
+      url: "新余学院/index.html"
+    }
   },
   {
     id: 21,

@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="新余学院校园实拍、学校定位、王牌专业、就业情况、宿舍条件、食堂、转专业政策">
+  <meta name="theme-color" content="#2e7d32">
+  <title>新余学院 · 校园实拍 & 全方位信息</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    :root {
+      --primary: #2e7d32;
+      --accent: #f9a825;
+    }
+
+    .site-header {
+      position: relative;
+      padding: 32px 0 24px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.88rem;
+      margin-bottom: 12px;
+      transition: color var(--transition);
+      font-weight: 500;
+    }
+    .back-link:hover { color: #fff; }
+    .page-subtitle {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin-top: 6px;
+      font-weight: 400;
+    }
+
+    .resource-main {
+      flex: 1;
+      padding: 28px 0 40px;
+    }
+    .resource-main .container {
+      max-width: 860px;
+    }
+
+    .section {
+      margin-bottom: 36px;
+    }
+    .section-heading {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    .section-desc strong {
+      color: var(--accent);
+    }
+
+    /* 照片卡片 */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 16px;
+    }
+    .photo-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .photo-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #2e7d32, #66bb6a);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+    .photo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: transparent;
+    }
+    .photo-card:hover::before { opacity: 1; }
+    .photo-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-card .photo-label {
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* 高亮定位卡片 */
+    .highlight-card {
+      background: linear-gradient(135deg, #e8f5e9, #fff8e1);
+      border: 1.5px solid #2e7d32;
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+    }
+    .highlight-card p {
+      margin: 0 0 10px;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .highlight-card p:last-child { margin-bottom: 0; }
+    .highlight-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .highlight-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: #fff;
+      border: 1.5px solid #2e7d32;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #2e7d32;
+      font-weight: 600;
+    }
+
+    /* 信息卡片 */
+    .info-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+      transition: all 0.25s ease;
+      line-height: 1.7;
+      font-size: 0.88rem;
+    }
+    .info-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: #a5d6a7;
+    }
+    .info-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .info-card h3 .icon { color: #2e7d32; }
+    .info-card ul, .info-card ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .info-card li {
+      margin-bottom: 6px;
+      color: var(--text-secondary);
+    }
+    .info-card li strong { color: var(--text); }
+
+    /* 警告卡片 */
+    .warn-card {
+      background: #fff3e0;
+      border: 1.5px solid #f9a825;
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin-bottom: 14px;
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .warn-card strong { color: #e65100; }
+
+    /* 专业标签 */
+    .major-group {
+      margin-bottom: 12px;
+    }
+    .major-group .mg-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .major-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .major-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: #e8f5e9;
+      border: 1.5px solid #a5d6a7;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .major-tag.star {
+      border-color: #2e7d32;
+      background: #c8e6c9;
+      color: #1b5e20;
+      font-weight: 700;
+    }
+    .major-tag.good {
+      border-color: #388e3c;
+      background: #e8f5e9;
+      color: #2e7d32;
+      font-weight: 600;
+    }
+
+    /* 统计数字 */
+    .stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .stat-item {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+      padding: 12px 10px;
+      background: #e8f5e9;
+      border-radius: 10px;
+    }
+    .stat-item .stat-num {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #2e7d32;
+    }
+    .stat-item .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* campus-flow */
+    .campus-flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin: 14px 0;
+      font-size: 0.88rem;
+    }
+    .flow-node {
+      background: #e8f5e9;
+      border: 1.5px solid #2e7d32;
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-weight: 600;
+      color: #2e7d32;
+      white-space: nowrap;
+    }
+    .flow-arrow {
+      color: #f9a825;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    /* 灯箱 */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 75vh;
+      border-radius: 10px;
+      object-fit: contain;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+    .lightbox .lb-close {
+      position: absolute;
+      top: 20px; right: 28px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: #fff;
+      font-size: 1.8rem;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 44px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-close:hover { background: rgba(255,255,255,0.3); }
+    .lightbox .lb-nav {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 2.2rem;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 48px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-nav:hover { background: rgba(255,255,255,0.28); }
+    .lightbox .lb-prev { left: 20px; }
+    .lightbox .lb-next { right: 20px; }
+    .lightbox .lb-counter {
+      color: rgba(255,255,255,0.65);
+      margin-top: 14px;
+      font-size: 0.85rem;
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .photo-card img { height: 140px; }
+      .info-card { padding: 14px 16px; }
+      .stat-item { min-width: 100px; padding: 10px 8px; }
+    }
+    @media (max-width: 400px) {
+      .photo-grid { grid-template-columns: 1fr 1fr; }
+      .photo-card img { height: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="back-link">← 返回高校列表</a>
+      <div class="header-content">
+        <div class="header-brand">
+          <span class="brand-icon">⚡</span>
+          <h1 class="brand-title">新余学院</h1>
+        </div>
+        <p class="page-subtitle">校园实拍 · 学校定位 · 王牌专业 · 就业情况 · 宿舍条件 · 食堂 · 转专业政策</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- 灯箱 -->
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" onclick="closeLightbox()" aria-label="关闭">×</button>
+    <button class="lb-nav lb-prev" onclick="prevPhoto()" aria-label="上一张">‹</button>
+    <img id="lightboxImg" src="" alt="照片大图">
+    <button class="lb-nav lb-next" onclick="nextPhoto()" aria-label="下一张">›</button>
+    <span class="lb-counter" id="imgCounter"></span>
+  </div>
+
+  <main class="resource-main">
+    <div class="container">
+
+      <!-- 校园实拍 -->
+      <section class="section">
+        <h2 class="section-heading">📷 校园实拍</h2>
+        <p class="section-desc">新余学院校园实拍，点击图片可放大查看</p>
+        <div class="photo-grid" id="photoGrid"></div>
+      </section>
+
+      <!-- 学校定位 -->
+      <section class="section">
+        <h2 class="section-heading">🎯 学校定位</h2>
+        <div class="highlight-card">
+          <p>新余学院是<strong>新余市唯一一所公办全日制普通本科院校</strong>，江西省首批转型发展试点高校，<strong>教育部产教融合创新基地首批高校</strong>。学校确立"以工学为主导、文理为基础、<strong>新能源为特色</strong>"的办学定位，深度对接江西省"1269"行动计划与新余市"6313"行动计划（锂电新能源、装备制造等）。</p>
+          <p>在光伏、锂电、电气等工科领域<strong>产教融合特色鲜明</strong>，目前无硕士学位授予点。</p>
+          <div class="highlight-tags">
+            <span class="highlight-tag">新余市唯一公办本科</span>
+            <span class="highlight-tag">新能源为特色</span>
+            <span class="highlight-tag">产教融合创新基地</span>
+            <span class="highlight-tag">工学主导</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 王牌与优势专业 -->
+      <section class="section">
+        <h2 class="section-heading">⭐ 王牌与优势专业</h2>
+
+        <div class="info-card">
+          <div class="major-group">
+            <div class="mg-title">🏅 省级一流本科专业建设点（核心王牌）</div>
+            <div class="major-tags">
+              <span class="major-tag star">新能源科学与工程（省内首个，综合第一）</span>
+              <span class="major-tag star">电气工程及其自动化</span>
+              <span class="major-tag good">计算机科学与技术</span>
+              <span class="major-tag good">电子信息工程</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">🔋 校级优势学科方向</div>
+            <div class="major-tags">
+              <span class="major-tag">能源动力类</span>
+              <span class="major-tag">机械设计制造及其自动化</span>
+              <span class="major-tag">土木工程</span>
+              <span class="major-tag">材料科学与工程</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">🚀 新兴优势专业</div>
+            <div class="major-tags">
+              <span class="major-tag">机器人工程</span>
+              <span class="major-tag">智能电网信息工程</span>
+              <span class="major-tag">储能科学与工程</span>
+              <span class="major-tag">软件工程</span>
+            </div>
+          </div>
+          <p style="margin:0;font-size:0.85rem;color:var(--text-secondary);">💡 <strong>新能源科学与工程</strong>是省内首个开设该领域的省级一流专业，综合评价全省第一；<strong>电气工程及其自动化</strong>对口国家电网，2025 年录用 43 人，录取率约 52% 居全省前列。</p>
+        </div>
+      </section>
+
+      <!-- 就业情况 -->
+      <section class="section">
+        <h2 class="section-heading">💼 就业情况</h2>
+
+        <div class="stat-row">
+          <div class="stat-item">
+            <div class="stat-num">80%~85%</div>
+            <div class="stat-label">去向落实率</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">8%~9%</div>
+            <div class="stat-label">考研升学率</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">5000~5500 元</div>
+            <div class="stat-label">本科应届起薪</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">6000~7500 元</div>
+            <div class="stat-label">电气/新能源/CS 起薪</div>
+          </div>
+        </div>
+
+        <div class="info-card" style="margin-top:14px;">
+          <h3><span class="icon">💼</span> 主要就业方向</h3>
+          <ul>
+            <li><strong>能源/电力/电网：</strong>国家电网（2025 年录用 43 人，电气专业录取率约 52%，居全省前列）、南方电网、国家电投、各地供电局及新能源电站</li>
+            <li><strong>锂电/新能源/制造：</strong>赣锋锂业、宁德时代、比亚迪、新余钢铁、协鑫集成等锂电光伏及装备制造企业</li>
+            <li><strong>IT/通信/电子：</strong>中兴通讯（校企合作）、海康威视、江西联通及本地电子信息产业园</li>
+            <li><strong>其他：</strong>中石化、各大银行、中小学（师范类）、公务员/选调生及医疗机构</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🗺️</span> 就业地域流向</h3>
+          <ul>
+            <li>江西省内约 <strong>49%~50%</strong>（新余本地占比高，其次南昌、赣州）</li>
+            <li>珠三角（广东）约 <strong>14%~15%</strong>（深圳、广州、东莞居多）</li>
+            <li>长三角（浙江、江苏、上海）约 <strong>15%~18%</strong>（智能制造、电商及民企）</li>
+            <li>少量分布在北京（约1%）、福建（约2%~3%）及湖南等周边省份</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">⚡</span> 国家电网就业亮点</h3>
+          <ul>
+            <li>2025 年国网录用 <strong>43 人</strong>，电气专业国网录取率约 <strong>52%</strong>，居<strong>全省前列</strong></li>
+            <li>制造业与信息技术行业占比约 <strong>33.4%</strong>，深度对接新能源产业链</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 宿舍条件 -->
+      <section class="section">
+        <h2 class="section-heading">🛏️ 宿舍条件</h2>
+        <p class="section-desc">整体条件在公办二本中属<strong>中等偏上</strong>，统一公寓化管理，<strong>全校统一上床下桌</strong></p>
+
+        <div class="info-card">
+          <h3><span class="icon">🏠</span> 房型配置</h3>
+          <ul>
+            <li>绝大多数为<strong>6 人间</strong>（少量 4 人间）</li>
+            <li>全校<strong>统一上床下桌</strong>（含书桌、衣柜、储物柜），配置非常整齐</li>
+            <li>床铺尺寸约 <strong>0.9m × 1.9m/2.0m</strong></li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🚿</span> 卫浴与设施</h3>
+          <ul>
+            <li>全部配备<strong>独立卫生间 + 阳台</strong>，热水系统进寝（刷卡/扫码）</li>
+            <li>标配<strong>空调、风扇、宽带接口</strong></li>
+            <li>每层楼设公共洗衣房（扫码支付，2~4 元/次）、直饮水机、桶装水点</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">💰</span> 费用与管理</h3>
+          <ul>
+            <li>住宿费约 <strong>800~1000 元/学年</strong>（6 人间通常 800~1000 元）</li>
+            <li>门禁约 <strong>23:00</strong></li>
+            <li>用电每月有基础额度（<strong>3 度/人</strong>），超额自购（约 0.6 元/度）</li>
+            <li>严禁大功率电器</li>
+          </ul>
+        </div>
+
+        <div class="warn-card">
+          <strong>⚠️ 校园网提醒：</strong>周一至周四 <strong>23:00 断网</strong>（周末不断），熬夜上网需提前准备流量。
+        </div>
+      </section>
+
+      <!-- 食堂 -->
+      <section class="section">
+        <h2 class="section-heading">🍽️ 食堂情况</h2>
+
+        <div class="info-card">
+          <h3><span class="icon">📍</span> 分布</h3>
+          <ul>
+            <li>主要有<strong>一食堂、二食堂</strong>（均为双层），部分含三食堂/风味餐厅</li>
+            <li>校内还有<strong>天猫超市美食街</strong></li>
+            <li>被评为江西省<strong>"A 级食堂"</strong>及"洁厨亮灶"示范单位</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🍜</span> 菜品与价格</h3>
+          <ul>
+            <li>涵盖自选大众餐、<strong>新余水北腌粉、瓦罐汤</strong>、辣椒炒肉、黄焖鸡、麻辣香锅、兰州拉面、砂锅面、煲仔饭、凉皮等</li>
+            <li>口味偏赣西辣味，也有清淡面食适配南北</li>
+            <li>设<strong>半份菜窗口</strong>，价格亲民，早餐约 4~8 元，午/晚餐约 8~15 元</li>
+            <li>人均月伙食费约 <strong>500~900 元</strong></li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">✨</span> 特色亮点</h3>
+          <ul>
+            <li>🎹 <strong>一食堂有钢琴演奏区</strong>——边吃饭边听钢琴，氛围感拉满</li>
+            <li>🛗 二食堂有<strong>电梯</strong>及清真窗口</li>
+            <li>配中央空调/分体空调、电视播放区，明厨亮灶</li>
+            <li>支持校园一卡通、微信/支付宝扫码</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 转专业政策 -->
+      <section class="section">
+        <h2 class="section-heading">🔄 转专业政策</h2>
+
+        <div class="info-card">
+          <h3><span class="icon">⏰</span> 申请时间</h3>
+          <ul>
+            <li>一般在大一<strong>第一学期末（11 月）</strong>报名，第二学期初（第 2 周双休日）组织考核</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">✅</span> 基本门槛</h3>
+          <ul>
+            <li>全日制普通本科一年级学生，<strong>无违纪处分</strong></li>
+            <li>第一学期所有课程及格，且<strong>平均成绩 ≥ 70 分</strong></li>
+            <li>专业排名<strong>前 20%</strong>（部分学院要求前 30%）</li>
+            <li><strong>高考科类不能跨大类</strong>（文史不能转理工，普通类与艺体类不能互转）</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">📝</span> 考核方式</h3>
+          <ul>
+            <li>转入申请数 ≤ 接纳限额：<strong>备案后直接转入</strong></li>
+            <li>转入申请数 ＞ 接纳限额：组织考试（理工类常考高数/专业课，文史类考写作/专业课，部分加面试），按成绩择优录取</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🚫</span> 禁止/特殊情形</h3>
+          <ul>
+            <li>专升本、定向生、休学期间、<strong>二年级及以上不予转</strong></li>
+            <li>因疾病（附医院证明）或特长可酌情考虑</li>
+            <li>转成功后跟原年级或降级视学分差距而定，<strong>一经转入不得转回</strong></li>
+          </ul>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">数据来源：新余学院官方信息及在校生反馈</p>
+      <p class="footer-warning">⚠️ 谨防诈骗！所有信息请以学校官方渠道为准</p>
+      <p class="footer-copy">
+        <a href="../index.html" style="color:var(--primary);text-decoration:none;">江西高校信息站</a> · 为准大一新生而生
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var photos = [
+        { src: '微信图片_2026-07-15_115451_238.jpg', label: '校园实拍 ①' },
+        { src: '微信图片_2026-07-15_115501_638.jpg', label: '校园实拍 ②' },
+        { src: '微信图片_2026-07-15_115505_703.jpg', label: '校园实拍 ③' },
+        { src: '微信图片_2026-07-15_115516_780.jpg', label: '校园实拍 ④' }
+      ];
+
+      var photoGrid = document.getElementById('photoGrid');
+      photos.forEach(function (photo, index) {
+        var card = document.createElement('div');
+        card.className = 'photo-card';
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', photo.label + '，点击放大');
+        card.addEventListener('click', function () { openLightbox(index); });
+
+        var img = document.createElement('img');
+        img.src = encodeURI(photo.src);
+        img.alt = photo.label;
+        img.loading = 'lazy';
+
+        var label = document.createElement('div');
+        label.className = 'photo-label';
+        label.textContent = photo.label;
+
+        card.appendChild(img);
+        card.appendChild(label);
+        photoGrid.appendChild(card);
+      });
+
+      var currentPhotoIndex = 0;
+      var lightbox = document.getElementById('lightbox');
+      var lightboxImg = document.getElementById('lightboxImg');
+      var imgCounter = document.getElementById('imgCounter');
+
+      function openLightbox(index) {
+        currentPhotoIndex = index;
+        lightboxImg.src = encodeURI(photos[index].src);
+        imgCounter.textContent = (index + 1) + ' / ' + photos.length;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      window.closeLightbox = function () {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+
+      window.prevPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      window.nextPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      document.addEventListener('keydown', function (e) {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') prevPhoto();
+        if (e.key === 'ArrowRight') nextPhoto();
+      });
+
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+    })();
+  </script>
+
+</body>
+</html>
