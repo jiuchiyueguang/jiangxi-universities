@@ -359,18 +359,26 @@ const universities = [
   {
     id: 17,
     name: "上饶师范学院",
-    level: "省属",
+    level: "省属 / 硕士学位授予单位（2024）",
     city: "上饶",
     website: "https://www.sru.edu.cn",
     logo: "",
     militaryTraining: "9月中下旬，约14天",
-    dormitory: "信州校区，4-6人间，部分有空调",
-    cafeteria: "有2个食堂",
+    dormitory: "19栋宿舍围明湖分布，6人间为主，大部分独卫+阳台，空调全覆盖，热水定时供应，详见子页面",
+    cafeteria: "新食堂/老食堂/北方美食城，老食堂性价比高一餐5-6元，惠民餐1.5元稀饭+免费小菜，详见子页面",
     campusArea: "约1200亩",
-    majors: "教育学、汉语言文学、数学、化学",
+    majors: "数学/化学（国家级特色），9个国家一流专业，新增人工智能/数据计算等新兴专业",
     tuition: "4010-4530元/年",
     transportation: "上饶站公交可达",
     genderRatio: "男:女 ≈ 1:2",
+    clubs: "50+社团",
+    description: "赣东北教师摇篮，2024年获批硕士学位授予单位，9个国家一流专业，就业深度融入长三角（泛长三角占77%），师范类就业率91%+",
+    resources: {
+      photos: true,
+      transfer: true,
+      url: "上饶师范学院/index.html"
+    }
+  },
     clubs: "40+社团",
     description: "赣东北地区主要师范院校，为基础教育培养师资"
   },

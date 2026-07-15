@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="上饶师范学院校园实拍、学校定位、王牌专业、就业情况、宿舍条件、食堂、转专业政策">
+  <meta name="theme-color" content="#e65100">
+  <title>上饶师范学院 · 校园实拍 & 全方位信息</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    .site-header {
+      position: relative;
+      padding: 32px 0 24px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.88rem;
+      margin-bottom: 12px;
+      transition: color var(--transition);
+      font-weight: 500;
+    }
+    .back-link:hover { color: #fff; }
+    .page-subtitle {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin-top: 6px;
+      font-weight: 400;
+    }
+
+    .resource-main {
+      flex: 1;
+      padding: 28px 0 40px;
+    }
+    .resource-main .container {
+      max-width: 860px;
+    }
+
+    .section {
+      margin-bottom: 36px;
+    }
+    .section-heading {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    .section-desc strong {
+      color: var(--accent);
+    }
+
+    /* 照片卡片 */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 16px;
+    }
+    .photo-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .photo-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #e65100, #ff9800);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+    .photo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: transparent;
+    }
+    .photo-card:hover::before { opacity: 1; }
+    .photo-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-card .photo-label {
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* 高亮定位卡片 */
+    .highlight-card {
+      background: linear-gradient(135deg, #fff3e0, #fbe9e7);
+      border: 1.5px solid #e65100;
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+    }
+    .highlight-card p {
+      margin: 0 0 10px;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .highlight-card p:last-child { margin-bottom: 0; }
+    .highlight-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .highlight-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: #fff;
+      border: 1.5px solid #e65100;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #e65100;
+      font-weight: 600;
+    }
+
+    /* 信息卡片 */
+    .info-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+      transition: all 0.25s ease;
+      line-height: 1.7;
+      font-size: 0.88rem;
+    }
+    .info-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: #ffcc80;
+    }
+    .info-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .info-card h3 .icon { color: #e65100; }
+    .info-card ul, .info-card ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .info-card li {
+      margin-bottom: 6px;
+      color: var(--text-secondary);
+    }
+    .info-card li strong { color: var(--text); }
+
+    /* 专业标签 */
+    .major-group {
+      margin-bottom: 12px;
+    }
+    .major-group .mg-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .major-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .major-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: #fff3e0;
+      border: 1.5px solid #ffcc80;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .major-tag.star {
+      border-color: #e65100;
+      background: #ffe0b2;
+      color: #bf360c;
+      font-weight: 700;
+    }
+    .major-tag.good {
+      border-color: #ef6c00;
+      background: #fff3e0;
+      color: #e65100;
+      font-weight: 600;
+    }
+
+    /* 统计数字 */
+    .stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .stat-item {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+      padding: 12px 10px;
+      background: #fff3e0;
+      border-radius: 10px;
+    }
+    .stat-item .stat-num {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #e65100;
+    }
+    .stat-item .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* 灯箱 */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 75vh;
+      border-radius: 10px;
+      object-fit: contain;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+    .lightbox .lb-close {
+      position: absolute;
+      top: 20px; right: 28px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: #fff;
+      font-size: 1.8rem;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 44px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-close:hover { background: rgba(255,255,255,0.3); }
+    .lightbox .lb-nav {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 2.2rem;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      line-height: 48px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .lightbox .lb-nav:hover { background: rgba(255,255,255,0.28); }
+    .lightbox .lb-prev { left: 20px; }
+    .lightbox .lb-next { right: 20px; }
+    .lightbox .lb-counter {
+      color: rgba(255,255,255,0.65);
+      margin-top: 14px;
+      font-size: 0.85rem;
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .photo-card img { height: 140px; }
+      .info-card { padding: 14px 16px; }
+      .stat-item { min-width: 100px; padding: 10px 8px; }
+    }
+    @media (max-width: 400px) {
+      .photo-grid { grid-template-columns: 1fr 1fr; }
+      .photo-card img { height: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="back-link">← 返回高校列表</a>
+      <div class="header-content">
+        <div class="header-brand">
+          <span class="brand-icon">📚</span>
+          <h1 class="brand-title">上饶师范学院</h1>
+        </div>
+        <p class="page-subtitle">校园实拍 · 学校定位 · 王牌专业 · 就业情况 · 宿舍条件 · 食堂 · 转专业政策</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- 灯箱 -->
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" onclick="closeLightbox()" aria-label="关闭">×</button>
+    <button class="lb-nav lb-prev" onclick="prevPhoto()" aria-label="上一张">‹</button>
+    <img id="lightboxImg" src="" alt="照片大图">
+    <button class="lb-nav lb-next" onclick="nextPhoto()" aria-label="下一张">›</button>
+    <span class="lb-counter" id="imgCounter"></span>
+  </div>
+
+  <main class="resource-main">
+    <div class="container">
+
+      <!-- 校园实拍 -->
+      <section class="section">
+        <h2 class="section-heading">📷 校园实拍</h2>
+        <p class="section-desc">上饶师范学院校园实拍，点击图片可放大查看</p>
+        <div class="photo-grid" id="photoGrid"></div>
+      </section>
+
+      <!-- 学校定位 -->
+      <section class="section">
+        <h2 class="section-heading">🎯 学校定位</h2>
+        <div class="highlight-card">
+          <p>上饶师范学院是<strong>江西省属全日制公办普通本科师范院校</strong>，教育部师范教育协同提质计划重点支持院校，<strong>2024 年成功获批硕士学位授予单位</strong>（教育、体育、电子信息 3 个硕士点），坐落于"豫章第一门户"江西省上饶市。</p>
+          <p>学校突出"师范性、地方性、应用性"办学定位，以"学高为师、身正为范"为校训，被誉为<strong>"赣东北基础教育教学与管理骨干的摇篮"</strong>，大量校友成长为县域高中"头雁教师"。</p>
+          <div class="highlight-tags">
+            <span class="highlight-tag">硕士学位授予单位（2024）</span>
+            <span class="highlight-tag">教育部协同提质计划</span>
+            <span class="highlight-tag">赣东北教师摇篮</span>
+            <span class="highlight-tag">教育/体育/电子信息硕士点</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 王牌与优势专业 -->
+      <section class="section">
+        <h2 class="section-heading">⭐ 王牌与优势专业</h2>
+
+        <div class="info-card">
+          <div class="major-group">
+            <div class="mg-title">🏅 国家级特色专业（2 个）</div>
+            <div class="major-tags">
+              <span class="major-tag star">数学与应用数学</span>
+              <span class="major-tag star">化学</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">🎓 教育部专业综合改革试点</div>
+            <div class="major-tags">
+              <span class="major-tag good">学前教育</span>
+            </div>
+          </div>
+          <div class="major-group">
+            <div class="mg-title">🏆 国家一流本科专业建设点（9 个，代表性）</div>
+            <div class="major-tags">
+              <span class="major-tag good">数学与应用数学</span>
+              <span class="major-tag good">化学</span>
+              <span class="major-tag good">体育教育</span>
+              <span class="major-tag good">物理学</span>
+              <span class="major-tag good">思想政治教育</span>
+              <span class="major-tag good">教育技术学</span>
+              <span class="major-tag good">书法学</span>
+              <span class="major-tag good">学前教育</span>
+              <span class="major-tag good">汉语言文学</span>
+            </div>
+          </div>
+          <p style="margin:12px 0 0;font-size:0.85rem;color:var(--text-secondary);">💡 在保持师范底色基础上，新增<strong>数据计算及应用、人工智能、光电信息材料与器件</strong>等对接江西"1269"行动计划的应用型专业。</p>
+        </div>
+      </section>
+
+      <!-- 就业情况 -->
+      <section class="section">
+        <h2 class="section-heading">💼 就业情况</h2>
+
+        <div class="stat-row">
+          <div class="stat-item">
+            <div class="stat-num">84.12%</div>
+            <div class="stat-label">2024 届去向落实率</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">91%+</div>
+            <div class="stat-label">师范类专业就业率</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">92%+</div>
+            <div class="stat-label">计算机/大数据（连续三年）</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">11%~13%</div>
+            <div class="stat-label">考研升学率</div>
+          </div>
+        </div>
+
+        <div class="info-card" style="margin-top:14px;">
+          <h3><span class="icon">💼</span> 起薪参考</h3>
+          <ul>
+            <li>本科应届平均月薪约 <strong>5100~6000 元</strong></li>
+            <li>计算机/数字经济类在上饶本地产业起薪约 <strong>6000~7000 元</strong></li>
+            <li>毕业 5 年月薪均值约 <strong>8700~9900 元</strong></li>
+            <li>师范类入编后待遇稳定</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🏫</span> 主要就业方向</h3>
+          <ul>
+            <li><strong>中初教育单位：</strong>上饶及赣浙闽皖周边县市中小学、幼儿园，大量校友成长为县域高中"头雁教师"</li>
+            <li><strong>数字经济/IT：</strong>江西巨网科技、江西六角星科技、杭州吉客云、华为合作企业等</li>
+            <li><strong>新能源/制造：</strong>上饶本地光伏新能源企业、万年晶半导体</li>
+            <li><strong>体制内/其他：</strong>选调生、公务员、事业单位、文旅及行政管理岗</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🗺️</span> 就业地域流向</h3>
+          <ul>
+            <li><strong>泛长三角约 77.44%</strong>（上海约 15%~17%、杭州约 9%~10%、上饶本地约 10%）——深度融入长三角南翼</li>
+            <li>泛珠三角约 <strong>12.37%</strong>（深圳约 16%~17%、广州约 6%~7%）</li>
+            <li>泛渤海湾约 2.83%，西南/西北/东北等约 6%~7%</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 宿舍条件 -->
+      <section class="section">
+        <h2 class="section-heading">🛏️ 宿舍条件</h2>
+        <p class="section-desc">宿舍区围绕<strong>明湖</strong>分布（共 19 栋），整体在同类师范院校中属中等偏上</p>
+
+        <div class="info-card">
+          <h3><span class="icon">🏠</span> 房型配置</h3>
+          <ul>
+            <li>以<strong>6 人间为主</strong>（2 下铺 4 上铺，部分桌柜组合），部分楼栋为 4 人间（上床下桌），极少数为 8 人间</li>
+            <li>床铺尺寸约 <strong>0.9m × 2.0m</strong>，配衣柜、书桌、储物柜</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🚿</span> 卫浴与设施</h3>
+          <ul>
+            <li>绝大部分宿舍配<strong>独立卫生间 + 阳台</strong>（仅 1、2 栋等极个别老楼无独卫），阳台设洗衣池</li>
+            <li>全校宿舍<strong>空调全覆盖</strong></li>
+            <li>热水分时段供应（早 5:30-8:00、中 11:00-13:30、晚 17:30-24:00）</li>
+            <li>每层楼设公共饮水机、洗衣房（扫码，含烘干），一楼有吹风机位</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">💰</span> 费用与管理</h3>
+          <ul>
+            <li>住宿费：4 人间约 <strong>1000~1200 元/年</strong>，6 人间约 <strong>800~900 元/年</strong></li>
+            <li>门禁约 <strong>22:30~23:00</strong>，智能限电（严禁大功率），有电费情况下一般不断电</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 食堂 -->
+      <section class="section">
+        <h2 class="section-heading">🍽️ 食堂情况</h2>
+
+        <div class="info-card">
+          <h3><span class="icon">📍</span> 分布</h3>
+          <ul>
+            <li>主要有<strong>新食堂、老食堂、北方美食城</strong>三大就餐区（含三楼特汇食堂包间），分布于校园生活区</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🍜</span> 菜品与价格</h3>
+          <ul>
+            <li>涵盖自选大众餐、<strong>上饶烫粉、瓦罐汤</strong>、鲍汁鸡丁炒饭、小炒肉盖浇、黄焖鸡、麻辣烫、土耳其烤肉饭、牛肉面、烧烤、石锅拌饭、糕点等</li>
+            <li>老食堂<strong>性价比高</strong>（一餐约 5~6 元），新食堂及美食城稍贵但品类多</li>
+            <li>食堂推 <strong>1.5 元稀饭配十几种免费小菜</strong>、特价红烧肉等惠民餐</li>
+            <li>早餐约 4~8 元，午/晚餐约 8~15 元，人均月伙食费约 <strong>500~900 元</strong></li>
+            <li>后街另有流动摊点补充</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">✅</span> 环境与管理</h3>
+          <ul>
+            <li>明厨亮灶，配空调与餐具消毒，支持一卡通及微信/支付宝扫码</li>
+            <li>节日有福利活动</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 转专业政策 -->
+      <section class="section">
+        <h2 class="section-heading">🔄 转专业政策</h2>
+
+        <div class="info-card">
+          <h3><span class="icon">⏰</span> 申请时间</h3>
+          <ul>
+            <li>一般在<strong>第一学期末（11~12 月）</strong>提交申请，第二学期开学第一周组织考核</li>
+            <li>本科二年级申请须<strong>降级学习</strong></li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">✅</span> 基本门槛</h3>
+          <ul>
+            <li>全日制本科<strong>一年级</strong>在校生，政治表现好、未受警告及以上处分</li>
+            <li>符合高考招生大类原则，转入外语专业需满足单科成绩要求</li>
+            <li>拟转出人数控制在该专业当年招生 <strong>20% 以内</strong>，拟接收 <strong>15% 以内</strong></li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">📝</span> 考核方式</h3>
+          <ul>
+            <li>转入学院组织考核，一般考<strong>拟转入专业相关的一门课程</strong></li>
+            <li>成绩需达<strong> 75 分（良好）以上</strong>方可接收，择优录取</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🚫</span> 禁止情形</h3>
+          <ul>
+            <li>专升本、定向生、委托培养、保送、单独招生（艺体类等有特殊约定）不得转</li>
+            <li>新生未满一学期、本科三年级及以上、退学/开除学籍、低批次转高批次等不予转</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3><span class="icon">🔄</span> 学业衔接</h3>
+          <ul>
+            <li>转成功后按新专业培养方案补修课程，学费按转入专业标准执行</li>
+            <li><strong>一经批准不得转回原专业</strong></li>
+          </ul>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">数据来源：上饶师范学院官方信息及在校生反馈</p>
+      <p class="footer-warning">⚠️ 谨防诈骗！所有信息请以学校官方渠道为准</p>
+      <p class="footer-copy">
+        <a href="../index.html" style="color:var(--primary);text-decoration:none;">江西高校信息站</a> · 为准大一新生而生
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var photos = [
+        { src: '微信图片_2026-07-15_114430_859.jpg', label: '校园实拍 ①' },
+        { src: '微信图片_2026-07-15_114445_071.jpg', label: '校园实拍 ②' },
+        { src: '微信图片_2026-07-15_114450_719.jpg', label: '校园实拍 ③' }
+      ];
+
+      var photoGrid = document.getElementById('photoGrid');
+      photos.forEach(function (photo, index) {
+        var card = document.createElement('div');
+        card.className = 'photo-card';
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', photo.label + '，点击放大');
+        card.addEventListener('click', function () { openLightbox(index); });
+
+        var img = document.createElement('img');
+        img.src = encodeURI(photo.src);
+        img.alt = photo.label;
+        img.loading = 'lazy';
+
+        var label = document.createElement('div');
+        label.className = 'photo-label';
+        label.textContent = photo.label;
+
+        card.appendChild(img);
+        card.appendChild(label);
+        photoGrid.appendChild(card);
+      });
+
+      var currentPhotoIndex = 0;
+      var lightbox = document.getElementById('lightbox');
+      var lightboxImg = document.getElementById('lightboxImg');
+      var imgCounter = document.getElementById('imgCounter');
+
+      function openLightbox(index) {
+        currentPhotoIndex = index;
+        lightboxImg.src = encodeURI(photos[index].src);
+        imgCounter.textContent = (index + 1) + ' / ' + photos.length;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      window.closeLightbox = function () {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+
+      window.prevPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      window.nextPhoto = function () {
+        currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+        lightboxImg.src = encodeURI(photos[currentPhotoIndex].src);
+        imgCounter.textContent = (currentPhotoIndex + 1) + ' / ' + photos.length;
+      };
+
+      document.addEventListener('keydown', function (e) {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') prevPhoto();
+        if (e.key === 'ArrowRight') nextPhoto();
+      });
+
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+    })();
+  </script>
+
+</body>
+</html>
